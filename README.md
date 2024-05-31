@@ -20,7 +20,7 @@ Darüber hinaus gibt es nichtsdestotrotz noch ein paar Deadlines, die sich unabh
 | Deliverable | Deadline |
 | ------ | ------ |
 | Abgabe Pflichtenheft       |        17.Mai 2024|
-| Abgabe Testspezifikation    |    6.Juni 2024|
+| Abgabe Abnahmetestspezifikation    |    6.Juni 2024|
 | Abgabe Fachentwurf | 4. Juli 2024|
 | Zwischenpräsentation | 12.Juli 2024 |
 |||
