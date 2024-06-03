@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Das digitale Logbuch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+    
+<body>
+    <div class="fixed-header-drawer">
+        <header class="layout-header">
+            <div class="header-row">
+                <div class="button-icon-menu" id="menuButton">
+                    <i class="material-icons">menu</i>
+                    
+                </div>
+                <span class="layout-title">Startseite</span>
+
+                <div class="layout-spacer"></div>
+                <div class="textfield-expandable-floating-label">
+                    <label class="button-icon-search" for="fixed-header-drawer-exp">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="textfield-expandable-holder">
+                        <input class="textfield-input" type="text" name="sample" id="fixed-header-drawer-exp">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="layout-drawer" id="drawer">
+            <nav class="navigation">
+                <a class="navigation-link" href="index.html">Startseite</a>
+                <a class="navigation-link" href="">Suche</a>
+                <a class="navigation-link" href="">Ziele</a>
+                <a class="navigation-link" href="">Aufgaben</a>
+                <a class="navigation-link" href="">Einstellungen</a>
+                <a class="navigation-link" href="">Hilfe</a>
+            </nav>
+        </div>
+        <main class="layout-content">
+            <div class="Page-content">
+               
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.getElementById('menuButton').addEventListener('click', function() {
+            document.body.classList.toggle('drawer-open');
+        });
+    </script>
+    
+    </body>
+    </html>
