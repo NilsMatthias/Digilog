@@ -105,11 +105,10 @@ div {
     .login-container {
         max-width: 600px;
         border-radius: .5rem;
+        padding-left: 30px;
         
     }
-    .row {
-        padding-left: 30px;
-    }
+    
    
 }
 
