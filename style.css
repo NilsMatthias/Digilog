@@ -7,7 +7,7 @@ body, html {
 
 
 .layout-header {
-    background-color: #3F51B5; 
+    background-color: rgb(103, 182, 231); 
     color: white;
     position: fixed;
     top: 0%;
@@ -57,7 +57,7 @@ body, html {
     color: white;
     cursor: pointer;
     position: relative;
-    left: -50%;
+    left: -40px;
 }
 
 
