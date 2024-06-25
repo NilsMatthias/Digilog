@@ -113,9 +113,48 @@ body, html {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.Page-content .tätigkeiten{
+    padding: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: rgb(58, 123, 170);
+}
+
+.Page-content .bewertungen{
+    padding: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: rgb(58, 123, 170);
+}
+
+.tätigkeiten-link {
+    text-decoration: none;
+    color: rgb(58, 123, 170);
+    font-weight: bold;
+}
+
+.dokumentation {
+    padding: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: rgb(58, 123, 170);
+}
+
+input[type="submit"] {
+    margin-top: 10px; 
+    background-color: rgb(58, 123, 170); 
+    color: white; 
+    padding: 15px 20px; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; /* Изменяем курсор на указатель */
+    font-size: 16px; /* Размер текста */
+  }
+  
+  input[type="submit"]:hover {
+    background-color: rgb(58, 123, 170); /* Более темный зеленый при наведении */
+  }
 
 .drawer-open .layout-drawer {
     transform: translateX(0);
 }
-
-
