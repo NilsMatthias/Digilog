@@ -24,7 +24,7 @@ Darüber hinaus gibt es nichtsdestotrotz noch ein paar Deadlines, die sich unabh
 | Abgabe Fachentwurf | 4. Juli 2024|
 | Zwischenpräsentation | 12.Juli 2024 |
 |||
-|Abgabe Technischer Entwurf (Erweiterung Technischer Entwurf):| 31.Oktober 2024|
+|Abgabe Technischer Entwurf (Erweiterung Fachentwurf):| 31.Oktober 2024|
 | Abgabe Testspezifikation | 10.Dezember 2024 |
 | Abgabe Testprotokolle | 20. Januar 2025 |
 | Finale Präsentation| vrstl. 27.01.2025|
