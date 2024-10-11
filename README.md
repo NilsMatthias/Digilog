@@ -2,6 +2,7 @@
 
 Repository für das Projekt "Digitales Logbuch" im Rahmen des Moduls "Projekt Anwendungsentwicklung" im SoSe 2024 & WiSe 2024/25
 ***
+URL der Webseite: http://webengineering.ins.hs-anhalt.de:11011/
 
 # Organisatorisches
 
