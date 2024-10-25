@@ -33,4 +33,18 @@ Darüber hinaus gibt es nichtsdestotrotz noch ein paar Deadlines, die sich unabh
 
 ## Bewertungskriterien
 
-Still to come...
+### Entwickelte Software: 60%
+* Alle essentiellen und notwendigen Features enthalten?
+* Software getestet?
+* Software funktioniert
+
+### Dokumente: 25%
+* Wurden alle Dokumente erstellt
+* Sind die Dokumente inhaltlich vollständig
+* Dokumente sind verständlich und selbsterklärend
+
+### Vorgehensweise/Prozess: 15%
+* Kommunkiation (z.B. mit Dozent, aber auch im Team)
+* Einhalten von Fristen
+* Erstellen von User Stories
+* Pflege des Issue Boards
