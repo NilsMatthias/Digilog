@@ -1,7 +1,6 @@
 
 body, html {
     margin: 0;
-    padding: 0;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -10,7 +9,7 @@ body, html {
     background-color: rgb(103, 182, 231); 
     color: white;
     position: fixed;
-    top: 0%;
+    top: 0;
     width: 100%;
     height: 80px;
     display: flex;
@@ -18,16 +17,38 @@ body, html {
     padding: 0 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 2;
+  
 }
 
 .header-row {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 95%;
+    
 }
 
-.layout-spacer {
-    flex: 1;
+
+.layout-title {
+    font-size: 24px;
+    padding: 15px;
+    color: white;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+
+.username-text {
+    font-size: 24px;
+   
+}
+
+.icon-user {
+    height: 35px;
+
 }
 
 .textfield-expandable-floating-label {
@@ -53,14 +74,6 @@ body, html {
     cursor: pointer;
 }
 
-.button-icon-search {
-    color: white;
-    cursor: pointer;
-    position: relative;
-    left: -40px;
-}
-
-
 
 .layout-drawer {
     position: fixed;
@@ -75,12 +88,7 @@ body, html {
     z-index: 1;
 }
 
-.layout-title {
-    font-size: 24px;
-    padding: 15px;
-    color: white;
-    
-}
+
 
 .navigation {
     display: flex;
@@ -100,11 +108,20 @@ body, html {
     color: #000;
 }
 
+hr.navigation-divider {
+    border: 0;
+    border-top: 1px solid #b4b2b2; 
+    margin: 10px 0; 
+}
+
+
+
 
 .layout-content {
     margin-top: 64px; /* Below the header */
     padding: 16px;
 }
+
 
 .Page-content {
     padding: 16px;
@@ -113,31 +130,42 @@ body, html {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+
+.drawer-open .layout-drawer {
+    transform: translateX(0);
+}
+
+
+
+
+
+
+
+
 .Page-content .tätigkeiten{
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(58, 123, 170);
+    color: rgb(0, 0, 0);
 }
 
 .Page-content .bewertungen{
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(58, 123, 170);
+    color: rgb(0, 0, 0);
 }
 
 .tätigkeiten-link {
-    text-decoration: none;
-    color: rgb(58, 123, 170);
-    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-decoration: none;;
 }
 
 .dokumentation {
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(58, 123, 170);
+    color: rgb(0, 0, 0);
 }
 
 input[type="submit"] {
@@ -158,3 +186,6 @@ input[type="submit"] {
 .drawer-open .layout-drawer {
     transform: translateX(0);
 }
+
+
+

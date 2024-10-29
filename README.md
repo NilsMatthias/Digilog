@@ -2,7 +2,6 @@
 
 Repository für das Projekt "Digitales Logbuch" im Rahmen des Moduls "Projekt Anwendungsentwicklung" im SoSe 2024 & WiSe 2024/25
 ***
-URL der Webseite: http://webengineering.ins.hs-anhalt.de:11011/
 
 # Organisatorisches
 
@@ -25,7 +24,7 @@ Darüber hinaus gibt es nichtsdestotrotz noch ein paar Deadlines, die sich unabh
 | Abgabe Fachentwurf | 4. Juli 2024|
 | Zwischenpräsentation | 12.Juli 2024 |
 |||
-|Abgabe Technischer Entwurf (Erweiterung Fachentwurf):| 31.Oktober 2024|
+|Abgabe Technischer Entwurf (Erweiterung Technischer Entwurf):| 31.Oktober 2024|
 | Abgabe Testspezifikation | 10.Dezember 2024 |
 | Abgabe Testprotokolle | 20. Januar 2025 |
 | Finale Präsentation| vrstl. 27.01.2025|
@@ -33,18 +32,4 @@ Darüber hinaus gibt es nichtsdestotrotz noch ein paar Deadlines, die sich unabh
 
 ## Bewertungskriterien
 
-### Entwickelte Software: 60%
-* Alle essentiellen und notwendigen Features enthalten?
-* Software getestet?
-* Software funktioniert
-
-### Dokumente: 25%
-* Wurden alle Dokumente erstellt
-* Sind die Dokumente inhaltlich vollständig
-* Dokumente sind verständlich und selbsterklärend
-
-### Vorgehensweise/Prozess: 15%
-* Kommunkiation (z.B. mit Dozent, aber auch im Team)
-* Einhalten von Fristen
-* Erstellen von User Stories
-* Pflege des Issue Boards
+Still to come...

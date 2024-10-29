@@ -94,6 +94,46 @@ div {
     color: #3a0c71;
     text-decoration: none;
     font-size: 16px;
+    
+}
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    
+    
+}
+
+.home-title {
+    font-size: 24px;
+    width: 100%;
+}
+
+.home-page{
+    margin: 0;
+    padding: 0;
+    gap: 0.5em;
+    list-style: none;
+    font: 1.2rem sans-serif;
+    
+
+    display: block;
+    height: 100%;
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    
+    text-align: center;
+    align-content: center;
+}
+
+
+.home-page.flex {
+    display: flex;
+    flex: 1 0 1em;
 }
 
 
