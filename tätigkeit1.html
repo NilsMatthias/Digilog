@@ -54,11 +54,27 @@
         <div class="Page-content">
           <div class="tätigkeiten">
             <h2>Tätigkeit 1</h2>
+            <p class="deadline">Deadline: 10.12.2024, 23:59</p> 
+            <p class="lehrer">Prof. Dr. Lorem</p> 
+          </div></br>
+          <div class="beschreibung">
+            <h3>Aufgabenbeschreibung</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <br><br>
+
+              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. <br><br>
+
+              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. 
+            </p>
           </div></br>
           <div class="dokumentation">
             <h3>Dokumentation der Tätigkeit</h3>
             <form action=index.php" method="POST">
-                <textarea id="dokumentation" rows="5" cols="44" placeholder="Schreiben Sie den Text der Dokumentation"></textarea></br>
+                <textarea id="dokumentation-textarea" rows="5" cols="195" placeholder="Schreiben Sie den Text der Dokumentation"></textarea></br><br>
+                <label for="due-date">Abgabedatum:</label>
+                <input type="date" id="due-date" name="due-date"><br><br>
+                <label for="file-upload">Datei hochladen:</label>
+                <input type="file" id="file-upload" name="file-upload"><br><br>
                 <input type="submit" value="Abschicken" script="alert("not yet")">
             </form>
           </div>
