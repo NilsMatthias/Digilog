@@ -69,8 +69,19 @@
           </div></br>
           <div class="dokumentation">
             <h3>Dokumentation der Tätigkeit</h3>
-            <form action=index.php" method="POST">
+            <form action="index.php" method="POST">
                 <textarea id="dokumentation-textarea" rows="5" cols="195" placeholder="Schreiben Sie den Text der Dokumentation"></textarea></br><br>
+                <label for="due-date">Abgabedatum:</label>
+                <input type="date" id="due-date" name="due-date"><br><br>
+                <label for="file-upload">Datei hochladen:</label>
+                <input type="file" id="file-upload" name="file-upload"><br><br>
+                <input type="submit" value="Abschicken" script="alert("not yet")">
+            </form>
+          </div>
+          <div class="dokumentation">
+            <h3>Selbsteinschätzung</h3>
+            <form action="index.php" method="POST">
+                <textarea id="dokumentation-textarea" rows="5" cols="195" placeholder="Hier können Sie Ihre Selbsteinschätzung tätigen."></textarea></br><br>
                 <label for="due-date">Abgabedatum:</label>
                 <input type="date" id="due-date" name="due-date"><br><br>
                 <label for="file-upload">Datei hochladen:</label>
