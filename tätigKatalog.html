@@ -50,10 +50,14 @@
             <div class="tätigkeiten">
                 <h2>Tätigkeiten</h2>
                 <hr /></br>
-                <div class="search-bar">
-                    <label for="searchInput">Tätigkeitssuche:</label>
-                    <input type="text" id="searchInput" class="styled-input" placeholder="Tätigkeiten suchen...">
-                </div>
+                <form action="" method="get">
+                    <div class="search-bar">
+                        <label for="searchInput">Tätigkeitssuche:</label>
+                        <input type="hidden" name="aktion" value="suchen">
+                        <input type="text" id="searchInput" class="styled-input" placeholder="Tätigkeiten suchen...">
+                        <input type="submit" value="suchen" class="">
+                    </div>
+                </form>
                 <div class="sort-bar">
                     <label for="sortSelect">Sortieren nach:</label>
                     <select id="sortSelect" class="styled-select" name="sort">
