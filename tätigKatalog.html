@@ -48,10 +48,19 @@
         <main class="layout-content">
             <div class="Page-content">
             <div class="tätigkeiten">
-            <h2>Tätigkeiten</h2>
-            <p class = "tätigkeiten" >
-                Sortieren nach
-            </p>
+                <h2>Tätigkeiten</h2>
+                <hr /></br>
+                <div class="search-bar">
+                    <label for="searchInput">Tätigkeitssuche:</label>
+                    <input type="text" id="searchInput" class="styled-input" placeholder="Tätigkeiten suchen...">
+                </div>
+                <div class="sort-bar">
+                    <label for="sortSelect">Sortieren nach:</label>
+                    <select id="sortSelect" class="styled-select" name="sort">
+                        <option value="alphabet">Alphabetisch</option>
+                        <option value="category">Kategorie</option>
+                    </select>
+                </div>
 
                         <h4><a class="tätigkeiten-link" href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a></h4>
                         <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>

@@ -195,12 +195,12 @@ input[type="submit"] {
     padding: 15px 20px; 
     border: none; 
     border-radius: 5px;
-    cursor: pointer; /* Изменяем курсор на указатель */
-    font-size: 16px; /* Размер текста */
+    cursor: pointer; 
+    font-size: 16px;
   }
   
   input[type="submit"]:hover {
-    background-color: rgb(58, 123, 170); /* Более темный зеленый при наведении */
+    background-color: rgb(58, 123, 170); 
   }
 
 .drawer-open .layout-drawer {
@@ -212,3 +212,80 @@ input[type="submit"] {
     resize: vertical;
 }
 
+
+.styled-select {
+    background-color: #ffffff; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    font-size: 14px; 
+    color: rgb(37, 87, 117); 
+    outline: none; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    box-shadow: none;
+}
+
+.styled-select:hover {
+    background-color: #e6e6e6; 
+    border-color: #888; 
+    color: rgb(37, 87, 117);
+}
+
+.styled-select:focus {
+    border-color: rgb(37, 87, 117); 
+    box-shadow: 0 0 5px  rgb(37, 87, 117) 
+}
+
+.styled-select option {
+    background-color: #fff; 
+    color: rgb(37, 87, 117); 
+    padding: 10px; 
+}
+
+.styled-select option:hover {
+    background-color:  rgb(37, 87, 117); 
+    color: #fff;
+}
+
+.search-bar, .sort-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.search-bar label, .sort-bar label {
+    font-size: 16px;
+    margin-right: 10px;
+    color: rgb(37, 87, 117);
+}
+
+.styled-input {
+    background-color: #ffffff; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 7px 10px; 
+    font-size: 14px; 
+    color: rgb(37, 87, 117); 
+    outline: none; 
+    cursor: text; 
+    transition: all 0.3s ease; 
+    box-shadow: none;
+    width: 100%; 
+}
+
+.styled-input:hover {
+    background-color: #e6e6e6; 
+    border-color: #888; 
+    color: rgb(37, 87, 117); 
+}
+
+.styled-input:focus {
+    border-color: rgb(37, 87, 117); 
+    box-shadow: 0 0 5px rgb(37, 87, 117); 
+}
+
+.styled-input::placeholder {
+    color: rgb(37, 87, 117); 
+    font-style: italic; 
+}
