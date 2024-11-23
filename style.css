@@ -189,10 +189,10 @@ hr.navigation-divider {
 }
 
 input[type="submit"] {
-    margin-top: 10px; 
+    margin-top: 2px; 
     background-color: rgb(58, 123, 170); 
     color: white; 
-    padding: 15px 20px; 
+    padding: 10px 20px; 
     border: none; 
     border-radius: 5px;
     cursor: pointer; 
@@ -271,7 +271,8 @@ input[type="submit"] {
     cursor: text; 
     transition: all 0.3s ease; 
     box-shadow: none;
-    width: 100%; 
+    width: 87%; 
+    margin-right: 10px;
 }
 
 .styled-input:hover {
