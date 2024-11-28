@@ -13,7 +13,7 @@
 
     $user = $result->fetch_assoc();
 
-    $taetigkeiten = "SELECT * FROM Taetigkeiten";
+    $taetigkeiten = "SELECT * FROM Taetigkeiten $suchklausel ORDER BY  Kategorie ASC, Name ASC";
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
     
 
@@ -26,30 +26,31 @@
 
 if (isset($_GET['sortieren'])) {
     switch ($_GET['sortieren']) {
-        case "Kategorie_ASC":
-            $sortierung = "Kategorie ASC";
-            break;
-        case "Kategorie_DESC":
+       
+        /*case "Kategorie_DESC":
             $sortierung = "Kategorie DESC";
             break;
+        */
         case "Name_ASC":
             $sortierung = "Name ASC";
             break;
         case "Name_DESC":
             $sortierung = "Name DESC";
             break;
-        default:
+        case "Kategorie_ASC":
             $sortierung = "Kategorie ASC";
+            break;
+        default:
+            $sortierung = "Name ASC";
     }
+
 }
 
 
-
-
-    if (isset($_GET['aktion']) && $_GET['aktion'] === 'suchen' && !empty($_GET['searchInput'])) {
-        $suchbegriff = $mysqli->real_escape_string($_GET['searchInput']);
-        $suchklausel = "WHERE Name LIKE '%$suchbegriff%' OR Kategorie LIKE '%$suchbegriff%'";
-    }
+if (isset($_GET['aktion']) && $_GET['aktion'] === 'suchen' && !empty($_GET['searchInput'])) {
+    $suchbegriff = "%{$_GET['searchInput']}%";
+    $suchklausel = "WHERE Name LIKE ? OR Kategorie LIKE ?";
+}
 
     // Tätigkeiten abfragen mit Sortierung und optionaler Suche
     $taetigkeiten = "SELECT * FROM Taetigkeiten $suchklausel ORDER BY $sortierung";
@@ -126,13 +127,35 @@ if (isset($_GET['sortieren'])) {
             <form method="get" action="">
             <label for="sortSelect">Sortieren nach:</label>
             <select name="sortieren" id="sortieren" class="styled-select" onchange="this.form.submit()">
-                    <option value="Kategorie_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Kategorie_ASC' ? 'selected' : '' ?>>Kategorie (aufsteigend)</option>
-                    <option value="Kategorie_DESC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Kategorie_DESC' ? 'selected' : '' ?>>Kategorie (absteigend)</option>
+                    <!--option value="Kategorie_DESC" <!-?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Kategorie_DESC' ? 'selected' : '' ?>>Kategorie (absteigend)</option-->
                     <option value="Name_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Name_ASC' ? 'selected' : '' ?>>Name (aufsteigend)</option>
                     <option value="Name_DESC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Name_DESC' ? 'selected' : '' ?>>Name (absteigend)</option>
+                    <option value="Kategorie_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Kategorie_ASC' ? 'selected' : '' ?>>Kategorie</option>
                 </select>
             </form>
             </div>
+            <br>
+            <div class="tätigkeiten-link-bold">
+                <?php 
+                if($_GET['sortieren']=="Name_ASC" ||$_GET['sortieren']=="Name_DESC"){
+                    echo "<p>Bezeichnung der Tätigkeiten</p>";
+                }
+                ?>
+            </div>
+                <?php
+                    $currentCategory = null; 
+
+                    while ($taetigkeit = $taetigkeitenResult->fetch_assoc()):
+                        if ($_GET['sortieren'] === 'Kategorie_ASC' && $currentCategory !== $taetigkeit['Kategorie']) {
+                            $currentCategory = $taetigkeit['Kategorie'];
+                            echo "<h3>" . htmlspecialchars($currentCategory) . "</h3>";
+                        }
+
+                        echo "<p><a class='tätigkeiten-link tätigkeitenHoover' href='tätigSubpage.php?id=" . $taetigkeit['ID'] . "'>" . htmlspecialchars($taetigkeit['Name']) . "</a></p>";
+                    endwhile;
+                ?>
+
+
 
             <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): 
                 //echo $taetigkeit['ID'];?>
