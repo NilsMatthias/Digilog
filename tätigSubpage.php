@@ -14,11 +14,11 @@ $mysqli = require __DIR__ . "/connection.php";
 
 $user_id = $_SESSION['user_id'];
 $feedback = "";
-$dokumentation_text = "Schreiben Sie hier ihre Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Abgeschickt` getätigt haben.";
+$dokumentation_text = "Schreiben Sie hier ihre Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
 $documentationChance = ""; 
-$self_reflection_text = "Schreiben Sie hier Ihre Selbsteinschätzung zur Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Abgeschickt` getätigt haben.";
-$buttonText = "Abschicken";
-$buttonSelfRefText = "Abschicken";
+$self_reflection_text = "Schreiben Sie hier Ihre Selbsteinschätzung zur Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
+$buttonText = "Speichern";
+$buttonSelfRefText = "Speichern";
 // Get ID from URL (GET verarbeitung)
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -30,7 +30,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
   
   if ($result && $result->num_rows > 0) {
-    // Hole das Ergebnis als assoziatives Array
+    // Hole das Ergebnis als Array
     $taetigkeit = $result->fetch_assoc();
 } else {
     // Keine Tätigkeit gefunden
