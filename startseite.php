@@ -13,12 +13,18 @@
 
     $user = $result->fetch_assoc();
 
-    $taetigkeiten = "SELECT * FROM Taetigkeiten LIMIT 1";
+    $taetigkeiten = "SELECT * FROM Taetigkeiten LIMIT 3";
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
-    
+
+    $uhrzeitBearbeitungTätigkeit = "SELECT Datum FROM `Durchführung`";
+    $uhrzeitResult = $mysqli->query($uhrzeitBearbeitungTätigkeit);
+    $uhrzeit = $uhrzeitResult->fetch_assoc();
 
     if (!$taetigkeitenResult) {
         die("Fehler beim Abrufen der Tätigkeiten: " . $mysqli->error);
+    }
+    if (!$uhrzeitResult) {
+        die("Fehler beim Abrufen der Uhrzeit: " . $mysqli->error);
     }
   }
   
@@ -78,23 +84,19 @@
         <main class="layout-content">
         <div class="Page-content">
           <div class="tätigkeiten">
-            <h2>Offene Tätigkeiten</h2>
+            <h2>Tätigkeiten</h2>
             <hr /></br>
-            <h4>Tätigkeit 1</h4>
 
-            <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): 
-                //echo $taetigkeit['ID'];?>
-                        <p><a class="tätigkeiten-link" href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a></p>
-                        <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
-                    <?php endwhile; ?>
+            <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): ?>
+                <h4>Tätigkeit <?=htmlspecialchars($taetigkeit['ID'])?></h4>
+                <p><a class="tätigkeiten-link tätigkeiten-link-bold" href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a></p>
+                <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
+                        
+        
+            <?php endwhile; ?>
            
-            <h4>Tätigkeit 2</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-              minus illum aliquam tenetur quo quasi architecto vel dolor
-              facilis! Iste illum voluptatem maiores voluptas at blanditiis rem
-              sunt voluptatum provident?
-            </p>
+            
+           
           </div></br>
           <div class="tätigkeiten">
             <h2>Bewertungen</h2>
