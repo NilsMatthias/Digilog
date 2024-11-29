@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <div class="login-form-forgotpassword login-form-signup form-group">
                                     <a class ="navigation-link" href="">Kennwort vergessen?</a><!--php-->
                                     
-                                    <a class ="navigation-link signup" href="signup.html">Registrierung</a><!--php-->
+                                    <a class ="navigation-link signup" href="signup.php">Registrierung</a><!--php-->
 
                                     <style> 
                                         .signup {
