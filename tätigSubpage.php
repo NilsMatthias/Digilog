@@ -14,7 +14,8 @@ $mysqli = require __DIR__ . "/connection.php";
 
 $user_id = $_SESSION['user_id'];
 $feedback = "";
-$dokumentation_text = "Schreiben Sie hier ihre Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
+$placeHolderText = "Schreiben Sie hier ihre Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
+$dokumentation_text = "";
 $documentationChance = ""; 
 $self_reflection_text = "Schreiben Sie hier Ihre Selbsteinschätzung zur Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
 $buttonText = "Speichern";
@@ -242,7 +243,7 @@ $stmtFetch->close();
                 <br>
 
               <form id = "textarea" action="" method="POST">
-                  <textarea id="dokumentation-textarea" name="dokumentation" rows="5" cols="44" placeholder=" <?=htmlspecialchars(string: $dokumentation_text) ?>"></textarea><br>
+                  <textarea id="dokumentation-textarea" name="dokumentation" rows="5" cols="44" placeholder= "<?=htmlspecialchars(string: $placeHolderText) ?>"><?=htmlspecialchars(string: $dokumentation_text) ?> </textarea><br>
                   <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
                   <label for="due-date">Abgabedatum:</label>
                   <input type="date" id="due-date" name="due-date"><br><br>
