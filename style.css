@@ -40,6 +40,28 @@ body, html {
     margin-left: auto;
 }
 
+.dropdown-menu {
+    display: none; /* Standardmäßig verstecken */
+    position: absolute;
+    right: 0;
+    background-color: red;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
 
 .username-text {
     font-size: 24px;
@@ -137,11 +159,6 @@ hr.navigation-divider {
 
 
 
-
-
-
-
-
 .Page-content .tätigkeiten{
     padding: 16px;
     background: #FFF;
@@ -153,39 +170,62 @@ hr.navigation-divider {
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(37, 87, 117);
+    color: rgb(0, 0, 0);
 }
 
 .tätigkeiten-link {
+    padding-top: 20px;
     color: rgb(37, 87, 117);
     text-decoration: none;
+
+}
+.tätigkeiten-link-bold {
     font-weight: bold;
 }
 
-.deadline {
-    color: rgb(117, 37, 37);
-    font-weight: bold;
+.tätigkeitenHoover:hover {
+    text-decoration: underline;
 }
-
 .lehrer {
     color: rgb(37, 87, 117);
     font-weight: bold;
 }
-
+.deadline {
+    color: rgb(117, 37, 37);
+    font-weight: bold;
+}
+.textarea {
+    font-weight:bold;
+    padding: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: rgb(37, 87, 117);
+} 
 .dokumentation {
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: rgb(37, 87, 117);
-    font-weight: bold;
 }
-
 .beschreibung {
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: rgb(37, 87, 117);
     text-align: justify;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+h3 {
+    margin: 0;
+}
+.check-mark img {
+    width: 24px; 
+    height: 24px;
 }
 
 input[type="submit"] {
@@ -200,9 +240,10 @@ input[type="submit"] {
   }
   
   input[type="submit"]:hover {
-    background-color: rgb(58, 123, 170); 
+    background-color: rgb(58, 123, 170); /* Более темный зеленый при наведении */
   }
-
+  
+  
 .drawer-open .layout-drawer {
     transform: translateX(0);
 }
@@ -211,7 +252,6 @@ input[type="submit"] {
     width: 100%;
     resize: vertical;
 }
-
 
 .styled-select {
     background-color: #ffffff; 
@@ -289,4 +329,5 @@ input[type="submit"] {
 .styled-input::placeholder {
     color: rgb(37, 87, 117); 
     font-style: italic; 
+
 }
