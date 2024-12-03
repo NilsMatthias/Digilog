@@ -188,6 +188,9 @@ if (isset($_GET['aktion']) && $_GET['aktion'] === 'suchen' && !empty($_GET['sear
             }
         });
     </script>
+    <?php
+    
+    ?>
     
     </body>
     </html>
