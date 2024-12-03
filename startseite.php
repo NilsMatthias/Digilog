@@ -54,7 +54,7 @@
 
                 <div class="header-right">
                     <span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span>
-                    <img src="icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
+                    <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
                 
                 </div>
             </div>

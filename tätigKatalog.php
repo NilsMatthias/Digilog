@@ -87,7 +87,7 @@ if (isset($_GET['aktion']) && $_GET['aktion'] === 'suchen' && !empty($_GET['sear
 
                 <div class="header-right">
                     <!--span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span-->
-                    <img src="icon_user_white.png" alt="Logo" class="icon-user">
+                    <img src="images/icon_user_white.png" alt="Logo" class="icon-user">
                         
                     
                 </div>

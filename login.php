@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <span id="maincontent"></span>
                         <div class="loginform">
                             <div id="loginlogo" class="login-logo">
-                                <img id="logoimage" src="PlatzhalterLogin.png">
+                                <img id="images/logoimage" src="PlatzhalterLogin.png">
                                 <h1 class="login-heading sr-only">Login beim Digitalen Logbuch</h1>
                             </div>
 

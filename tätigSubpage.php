@@ -178,7 +178,7 @@ $stmtFetch->close();
 
                 <div class="header-right">
                     <!--span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span-->
-                    <img src="icon_user_white.png" alt="Logo" class="icon-user">
+                    <img src="images/icon_user_white.png" alt="Logo" class="icon-user">
                         
                     
                 </div>
@@ -228,7 +228,7 @@ $stmtFetch->close();
             <?php
               if ($buttonText == "Aktualisieren") {
                   echo '<div class="check-mark">
-                            <img src="correct.png" alt="Logo" class="icon-user">
+                            <img src="images/correct.png" alt="Logo" class="icon-user">
                         </div>';
               }
               ?>
@@ -258,7 +258,7 @@ $stmtFetch->close();
               <?php
               if ($buttonSelfRefText == "Aktualisieren") {
                   echo '<div class="check-mark">
-                            <img src="correct.png" alt="Logo" class="icon-user">
+                            <img src="images/correct.png" alt="Logo" class="icon-user">
                         </div>';
               }
               ?>
