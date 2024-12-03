@@ -243,7 +243,7 @@ $stmtFetch->close();
                 <br>
 
               <form id = "textarea" action="" method="POST">
-                  <textarea id="dokumentation-textarea" name="dokumentation" rows="5" cols="44" placeholder= "<?=htmlspecialchars(string: $placeHolderText) ?>"><?=htmlspecialchars(string: $dokumentation_text) ?> </textarea><br>
+                  <textarea id="dokumentation-textarea" name="dokumentation" rows="5" cols="44" placeholder= "<?=htmlspecialchars(string: $placeHolderText) ?>"><?=htmlspecialchars(string: $dokumentation_text) ?></textarea><br>
                   <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
                   <label for="due-date">Abgabedatum:</label>
                   <input type="date" id="due-date" name="due-date"><br><br>
