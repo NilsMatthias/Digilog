@@ -2,36 +2,37 @@
 $is_invalid = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    
+
 
     $mysqli = require __DIR__ . "/connection.php";
 
     $sql = sprintf("SELECT * FROM Userdaten_Hash
                     WHERE email = '%s'",
-                    $mysqli->real_escape_string($_POST["email"]));
+        $mysqli->real_escape_string($_POST["email"])
+    );
 
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
 
-    if($user) {
+    if ($user) {
 
-       if( password_verify($_POST["password"], $user["password_hash"])) {
+        if (password_verify($_POST["password"], $user["password_hash"])) {
 
-        session_start();
+            session_start();
 
-        session_regenerate_id();
+            session_regenerate_id();
 
-        $_SESSION["user_id"] = $user["id"];
+            $_SESSION["user_id"] = $user["id"];
 
-        header("Location: startseite.php");
-        exit;
-       }
+            header("Location: startseite.php");
+            exit;
+        }
 
     }
     $is_invalid = true;
 }
- 
+
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body class="pagelayout-login">
-    <div id="page" class="container-fluid" >
+    <div id="page" class="container-fluid">
         <div id="page-content" class="row">
             <div class="login-wrapper">
                 <div class="login-container">
@@ -65,41 +66,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <?php endif; ?>
                             </br>
 
-                            <form method="post" class="login-form"  id="login"><!--php-->
+                            <form method="post" class="login-form" id="login"><!--php-->
                                 <input id="anchor" type="hidden" name="anchor" value="">
-                                
+
                                 <script>document.getElementById('anchor').value = location.hash;</script>
-                               
+
                                 <input type="hidden" name="logintoken" value="CT9glFhyguE73zVG8iGFH63cpCzhBYUF">
                                 <div class="login-form-username form-group">
                                     <!--label for="username" class="sr-only"> 
                                             Anmeldename oder E-Mail
                                     </label-->
-                                 
-                                    <input type="email" name="email" id="email" 
-                                    class="form-control form-control-lg" value="<?= htmlspecialchars($_POST["email"] ?? "") ?>" placeholder="Email" autocomplete="email">
+
+                                    <input type="email" name="email" id="email" class="form-control form-control-lg"
+                                        value="<?= htmlspecialchars($_POST["email"] ?? "") ?>" placeholder="Email"
+                                        autocomplete="email">
                                 </div>
                                 <br>
 
                                 <div class="login-form-password form-group">
-                                    <!--label for="password" class="sr-only">Kennwort </label--> 
-                                    
-                                    <input type="password" name="password" id="password" value="" 
-                                    class="form-control form-control-lg" placeholder="Kennwort" autocomplete="current-password">
-                                   
+                                    <!--label for="password" class="sr-only">Kennwort </label-->
+
+                                    <input type="password" name="password" id="password" value=""
+                                        class="form-control form-control-lg" placeholder="Kennwort"
+                                        autocomplete="current-password">
+
                                 </div>
                                 <br>
 
                                 <div class="login-form-submit form-group">
-                                    <button class="button-login"  id="loginbtn" >Login</button>
+                                    <button class="button-login" id="loginbtn">Login</button>
                                 </div>
 
                                 <div class="login-form-forgotpassword login-form-signup form-group">
-                                    <a class ="navigation-link" href="">Kennwort vergessen?</a><!--php-->
-                                    
-                                    <a class ="navigation-link signup" href="signup.php">Registrierung</a><!--php-->
+                                    <a class="navigation-link" href="">Kennwort vergessen?</a><!--php-->
 
-                                    <style> 
+                                    <a class="navigation-link signup" href="signup.php">Registrierung</a><!--php-->
+
+                                    <style>
                                         .signup {
                                             padding-left: 30%;
                                         }

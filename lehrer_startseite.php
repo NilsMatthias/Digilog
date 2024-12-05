@@ -53,7 +53,7 @@ if (isset($_SESSION["user_id"])) {
                 <span class="layout-title">Startseite</span>
 
                 <div class="header-right">
-                    <span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span>
+                    <span class="username-text">Hallo, Prof. <?= htmlspecialchars($user["username"]) ?> </span>
                     <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
 
                 </div>
@@ -85,7 +85,7 @@ if (isset($_SESSION["user_id"])) {
             <div class="Page-content">
                 <div class="tätigkeiten">
                     <h2>Tätigkeiten</h2>
-                    <hr /></br>
+                    <hr />
 
                     <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): ?>
                         <h4>Tätigkeit <?= htmlspecialchars($taetigkeit['ID']) ?></h4>
@@ -100,6 +100,12 @@ if (isset($_SESSION["user_id"])) {
 
 
                 </div></br>
+                <div class="tätigkeiten">
+                    <h2>Bewertungen</h2>
+                    <hr />
+                    <p><a class="bewertungen-link bewertungen-link-bold" href="bewertung.php">Vergabe einer Note an den
+                            Studenten</a></p>
+                </div>
             </div>
         </main>
     </div>
