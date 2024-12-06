@@ -66,12 +66,12 @@ if ($user_id) {
             </div>
             <div class="layout-drawer" id="drawer">
                 <nav class="navigation">
-                    <a class="navigation-link" href="startseite.php">Startseite</a>
-                    <a class="navigation-link" href="">Suche</a>
-                    <a class="navigation-link" href="">Ziele</a>
-                    <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
-                    <a class="navigation-link" href="">Einstellungen</a>
-                    <a class="navigation-link" href="">Hilfe</a>
+                <a class="navigation-link" href="startseite.php">Startseite</a>
+                <a class="navigation-link" href="">Suche</a>
+                <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
+                <a class="navigation-link" href="">Profil</a>
+                <a class="navigation-link" href="">Einstellungen</a>
+                <a class="navigation-link" href="">Hilfe</a>
                     <hr class="navigation-divider">
                     <a class="navigation-link" href="logout.php">Log out</a>
 
@@ -90,7 +90,7 @@ if ($user_id) {
                     <form method="POST" action="bewertung_speichern.php">
                         <!-- Выбор Benutzer -->
                         <select name="user_id" id="user_id" class="styled-select" required>
-                            <option value="" disabled selected>Benutzer wählen</option>
+                            <option value="" disabled selected>Student:in wählen</option>
                             <?php while ($user = $users_result->fetch_assoc()): ?>
                                 <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id) ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($user['username']) ?>
@@ -123,10 +123,19 @@ if ($user_id) {
     </div>
 
     <script>
-        document.getElementById('menuButton').addEventListener('click', function () {
+       document.getElementById('menuButton').addEventListener('click', function() {
             document.body.classList.toggle('drawer-open');
         });
-        document.getElementById('icon_user').addEventListener('click', function () {
+        document.addEventListener('click', function(event) {
+            var drawer = document.getElementById('drawer');
+            var menuButton = document.getElementById('menuButton');
+
+            if(!drawer.contains(event.target) && !menuButton.contains(event.target)) {
+                document.body.classList.remove('drawer-open');
+            }
+        });
+        document.getElementById('icon_user').addEventListener('click', function() {
+             // Debugging output funktioniert
             const dropdown = document.getElementById('userDropdown');
             if (dropdown.style.display === 'none' || dropdown.style.display === '') {
                 dropdown.style.display = 'block';
@@ -134,9 +143,13 @@ if ($user_id) {
                 dropdown.style.display = 'none';
             }
         });
-        document.addEventListener('click', function (event) {
+
+        // Close dropdown if click outside of it
+        document.addEventListener('click', function(event) {
             const dropdown = document.getElementById('userDropdown');
             const iconUser = document.getElementById('icon_user');
+            
+            // Close dropdown if click is outside the dropdown or icon
             if (!iconUser.contains(event.target) && !dropdown.contains(event.target)) {
                 dropdown.style.display = 'none';
             }

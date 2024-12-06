@@ -66,10 +66,10 @@ if (isset($_SESSION["user_id"])) {
 
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
-                <a class="navigation-link" href="startseite.php">Startseite</a>
+            <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="">Suche</a>
-                <a class="navigation-link" href="">Ziele</a>
                 <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
+                <a class="navigation-link" href="">Profil</a>
                 <a class="navigation-link" href="">Einstellungen</a>
                 <a class="navigation-link" href="">Hilfe</a>
                 <hr class="navigation-divider">
