@@ -5,16 +5,26 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $errors = [];
-$name = $email = "";
+$vorname = $nachname = $name = $email = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = htmlspecialchars($_POST["name"]);
+    $vorname = htmlspecialchars(string: $_POST["vorname"]);
+    $nachname = htmlspecialchars(string: $_POST["nachname"]);
     $email = htmlspecialchars($_POST["email"]);
     $password = $_POST["password"];
     $password_confirmation = $_POST["password_confirmation"];
+    $rolle = 3;
+
 
     // Validierung
     if (empty($name)) {
+        $errors['name'] = "First name is required";
+    }
+    if (empty($vorname)) {
+        $errors['name'] = "Last name is required";
+    }
+    if (empty($nachname)) {
         $errors['name'] = "Name is required";
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -38,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $mysqli = require __DIR__ . "/connection.php";
 
-        $sql = "INSERT INTO Userdaten_Hash (username, email, password_hash) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Userdaten_Hash (rolle, username, nachname, vorname, email, password_hash) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->stmt_init();
 
 
@@ -46,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("SQL error: " . $mysqli->error);
         }
 
-        $stmt->bind_param("sss", $name, $email, $password_hash);
+        $stmt->bind_param("isssss", $rolle, $name, $nachname, $vorname, $email, $password_hash);
 
         if ($stmt->execute()) {
             header("Location: signup-success.html");
@@ -86,6 +96,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <h1 class="login-heading sr-only">Registrierung</h1>
                             
                             <form action="" method="post" novalidate>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input class="form-control" type="text" id="vorname" name="vorname" placeholder="Vorname" value="<?= htmlspecialchars($vorname) ?>" required>
+                                    <?php if (!empty($errors['vorname'])): ?>
+                                        <p class="error-message"><?= $errors['vorname'] ?></p>
+                                    <?php endif; ?>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input class="form-control" type="text" id="nachname" name="nachname" placeholder="Nachname" value="<?= htmlspecialchars($nachname) ?>" required>
+                                    <?php if (!empty($errors['nachname'])): ?>
+                                        <p class="error-message"><?= $errors['nachname'] ?></p>
+                                    <?php endif; ?>
+                                </div>
+                                <br>
                                 <div class="form-group">
                                     <i class="fa-solid fa-user"></i>
                                     <input class="form-control" type="text" id="name" name="name" placeholder="Benutzername" value="<?= htmlspecialchars($name) ?>" required>
