@@ -36,6 +36,50 @@ if ($user_id) {
     $durchfuehrung_result = $stmt->get_result();
     $stmt->close();
 }
+
+//Bewertungen Abschicken
+$user_id = isset($_GET['user_id']);
+$taetigkeit_id  = isset($_GET('taetigkeit_select'));
+$bewertung = isset($_GET('bewertung'));
+
+$sqlCheck = "SELECT * FROM Durchführung WHERE `lehrer-id` = ? AND `Tätigkeit-ID` = ?";
+$stmtCheck = $mysqli->prepare($sqlCheck);
+$stmtCheck->bind_param("ii", $user_id, $taetigkeit_id);
+$stmtCheck->execute();
+$result = $stmtCheck->get_result();
+
+if ($result->num_rows > 0) {
+
+    // Update vorhandener Eintrag
+    $sqlUpdate = "UPDATE Durchführung SET 
+        Bewertung = ?
+        WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
+    $stmtUpdate = $mysqli->prepare($sqlUpdate);
+    $stmtUpdate->bind_param(
+        "sii",
+        $bewertung, $user_id, $taetigkeit_id
+    );
+    $stmtUpdate->execute();
+    $stmtUpdate->close();
+
+    $feedback = "Eintrag erfolgreich aktualisiert.";
+} else {
+    // Neuer Eintrag
+    $sqlInsert = "INSERT INTO Durchführung (`User-ID`, `Tätigkeit-ID`, Beschreibung, Selbstreflexion, Datum) 
+                  VALUES (?, ?, ?, ?, ?)";
+    $stmtInsert = $mysqli->prepare($sqlInsert);
+    $stmtInsert->bind_param(
+        "iisss",
+        $user_id, $taetigkeit_id,
+        $beschreibung, $selbstreflexion, $date
+    );
+    $stmtInsert->execute();
+    $stmtInsert->close();
+
+    $feedback = "Eintrag erfolgreich gespeichert.";
+}
+$stmtCheck->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +131,7 @@ if ($user_id) {
                 </div></br>
                 <div class="dokumentation">
                     <h3>Bewertung der Tätigkeit</h3></br>
-                    <form method="POST" action="bewertung_speichern.php">
+                    <form method="POST" action="">
                         <!-- Выбор Benutzer -->
                         <select name="user_id" id="user_id" class="styled-select" required>
                             <option value="" disabled selected>Student:in wählen</option>
@@ -99,9 +143,10 @@ if ($user_id) {
                         </select>
 
                         <!-- Выбор Tätigkeit -->
-                        <select name="taetigkeit" id="taetigkeit" class="styled-select" required>
+                        <select name="taetigkeit" id="taetigkeit_select" class="styled-select" required>
                             <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
                             <?php
+                            echo $bewertung;
                             $sql_taetigkeiten = "SELECT ID, Name FROM Taetigkeiten";
                             $taetigkeiten_result = $mysqli->query($sql_taetigkeiten);
                             while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
@@ -111,7 +156,7 @@ if ($user_id) {
                             <?php endwhile; ?>
                         </select></br></br>
 
-                        <textarea id="dokumentation" name="dokumentation" style="width: 100%; height: 200px;"
+                        <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
                             placeholder="Schreiben Sie hier den Text der Bewertung"></textarea><br>
 
                         <input type="submit" value="Abschicken">
