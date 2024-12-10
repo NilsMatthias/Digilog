@@ -7,6 +7,8 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 $mysqli = require __DIR__ . "/connection.php";
+$buttonBewertung = "Speichern";
+$bewertung_text = "Schreiben Sie hier den Text der Bewertung.";
 
 // Получаем имя текущего пользователя для приветствия
 $sql_user = "SELECT username FROM Userdaten_Hash WHERE id = ?";
@@ -18,7 +20,7 @@ $current_user = $result->fetch_assoc();
 $stmt->close();
 
 // Получаем список всех пользователей
-$sql_users = "SELECT id, username FROM Userdaten_Hash";
+$sql_users = "SELECT id, vorname, nachname FROM Userdaten_Hash";
 $users_result = $mysqli->query($sql_users);
 
 // Обработка выбора пользователя
@@ -110,7 +112,7 @@ $stmtCheck->close();
             </div>
             <div class="layout-drawer" id="drawer">
                 <nav class="navigation">
-                <a class="navigation-link" href="startseite.php">Startseite</a>
+                <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
                 <a class="navigation-link" href="">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="">Profil</a>
@@ -137,7 +139,7 @@ $stmtCheck->close();
                             <option value="" disabled selected>Student:in wählen</option>
                             <?php while ($user = $users_result->fetch_assoc()): ?>
                                 <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($user['username']) ?>
+                                    <?= htmlspecialchars($user['nachname'] )," ",($user['vorname']) ?>
                                 </option>
                             <?php endwhile; ?>
                         </select>
