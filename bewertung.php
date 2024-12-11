@@ -40,20 +40,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_select'], 
     $stmtCheck->execute();
     $result = $stmtCheck->get_result();
 
-
+    if ($result->num_rows > 0) {
         $sqlUpdate = "UPDATE Durchführung SET Bewertung = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
         $stmtUpdate = $mysqli->prepare($sqlUpdate);
         $stmtUpdate->bind_param("sii", $bewertung, $user_id, $taetigkeit_id);
         $stmtUpdate->execute();
         $stmtUpdate->close();
-
         $feedback = "Eintrag erfolgreich aktualisiert.";
+    }
     $stmtCheck->close();
 }
 
-// Tätigkeiten für Dropdown abrufen
-$sql_taetigkeiten = "SELECT ID, Name FROM Taetigkeiten";
-$taetigkeiten_result = $mysqli->query($sql_taetigkeiten);
+// Tätigkeiten für Dropdown abrufen, wenn eine Benutzer-ID ausgewählt wurde
+if ($user_id !== null) {
+    $sql_taetigkeiten = "SELECT `Tätigkeit-id`, Name FROM `Durchführung` JOIN Taetigkeiten ON Durchführung.`Tätigkeit-id` = Taetigkeiten.ID WHERE `User-ID` = ?";
+    $stmt = $mysqli->prepare($sql_taetigkeiten);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $taetigkeiten_result = $stmt->get_result();
+    $stmt->close();
+}
 ?>
 
 
@@ -85,50 +91,46 @@ $taetigkeiten_result = $mysqli->query($sql_taetigkeiten);
             </div>
             <div class="layout-drawer" id="drawer">
                 <nav class="navigation">
-                <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
-                <a class="navigation-link" href="">Suche</a>
-                <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
-                <a class="navigation-link" href="">Profil</a>
-                <a class="navigation-link" href="">Einstellungen</a>
-                <a class="navigation-link" href="">Hilfe</a>
+                    <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
+                    <a class="navigation-link" href="">Suche</a>
+                    <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
+                    <a class="navigation-link" href="">Profil</a>
+                    <a class="navigation-link" href="">Einstellungen</a>
+                    <a class="navigation-link" href="">Hilfe</a>
                     <hr class="navigation-divider">
                     <a class="navigation-link" href="logout.php">Log out</a>
-
                 </nav>
-
+            </div>
         </header>
 
         <main class="layout-content">
             <div class="Page-content">
                 <div class="bewertungen">
                     <h2>Tätigkeitsbewertung</h2>
-
                 </div></br>
                 <div class="dokumentation">
                     <h3>Bewertung der Tätigkeit</h3></br>
                     <form method="POST" action="">
-                        <!-- Выбор Benutzer -->
-                        <select name="user_id" id="user_id" class="styled-select" required>
+                        <!-- Auswahl Benutzer -->
+                        <select name="user_id" id="user_id" class="styled-select" required onchange="this.form.submit()">
                             <option value="" disabled selected>Student:in wählen</option>
                             <?php while ($user = $users_result->fetch_assoc()): ?>
                                 <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($user['nachname'] )," ",($user['vorname']) ?>
+                                    <?= htmlspecialchars($user['nachname'] . " " . $user['vorname']) ?>
                                 </option>
                             <?php endwhile; ?>
                         </select>
 
-                        <!-- Выбор Tätigkeit -->
+                        <!-- Auswahl Tätigkeit -->
                         <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select" required>
                             <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
-                            <?php
-                            echo $bewertung;
-                            $sql_taetigkeiten = "SELECT ID, Name FROM Taetigkeiten";
-                            $taetigkeiten_result = $mysqli->query($sql_taetigkeiten);
-                            while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
-                                <option value="<?= $taetigkeit['ID'] ?>">
-                                    <?= htmlspecialchars($taetigkeit['Name']) ?>
-                                </option>
-                            <?php endwhile; ?>
+                            <?php if (isset($taetigkeiten_result)): ?>
+                                <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
+                                    <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>">
+                                        <?= htmlspecialchars($taetigkeit['Name']) ?>
+                                    </option>
+                                <?php endwhile; ?>
+                            <?php endif; ?>
                         </select></br></br>
 
                         <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
