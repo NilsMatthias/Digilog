@@ -1,16 +1,18 @@
 <?php
 session_start();
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// Redirect, wenn der Benutzer nicht angemeldet ist
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit;
 }
 
 $mysqli = require __DIR__ . "/connection.php";
-$buttonBewertung = "Speichern";
-$bewertung_text = "Schreiben Sie hier den Text der Bewertung.";
+$feedback = ""; // Feedback-Variable initialisieren
 
-// Получаем имя текущего пользователя для приветствия
+// Begrüßung: Aktuellen Benutzernamen abrufen
 $sql_user = "SELECT username FROM Userdaten_Hash WHERE id = ?";
 $stmt = $mysqli->prepare($sql_user);
 $stmt->bind_param("i", $_SESSION["user_id"]);
@@ -19,70 +21,41 @@ $result = $stmt->get_result();
 $current_user = $result->fetch_assoc();
 $stmt->close();
 
-// Получаем список всех пользователей
+// Liste aller Benutzer abrufen
 $sql_users = "SELECT id, vorname, nachname FROM Userdaten_Hash";
 $users_result = $mysqli->query($sql_users);
 
-// Обработка выбора пользователя
-$user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : null;
-$durchfuehrung_result = null;
-if ($user_id) {
-    // Получение записей из таблицы Durchführung для выбранного пользователя
-    $sql_durchfuehrung = "SELECT t.Name AS taetigkeit_name, d.dokumentation_text, d.created_at 
-                          FROM Durchführung d
-                          JOIN Taetigkeiten t ON d.taetigkeit_id = t.ID
-                          WHERE d.user_id = ?";
-    $stmt = $mysqli->prepare($sql_durchfuehrung);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $durchfuehrung_result = $stmt->get_result();
-    $stmt->close();
+// Benutzer-ID aus POST abrufen (Sicherheitsprüfung)
+$user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : null;
+
+// Tätigkeitsbewertung absenden
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_select'], $_POST['bewertung'])) {
+    $taetigkeit_id = intval($_POST['taetigkeit_select']);
+    $bewertung = trim($_POST['bewertung']);
+
+    // Überprüfen, ob der Eintrag existiert
+    $sqlCheck = "SELECT * FROM Durchführung WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $stmtCheck = $mysqli->prepare($sqlCheck);
+    $stmtCheck->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmtCheck->execute();
+    $result = $stmtCheck->get_result();
+
+
+        $sqlUpdate = "UPDATE Durchführung SET Bewertung = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+        $stmtUpdate = $mysqli->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("sii", $bewertung, $user_id, $taetigkeit_id);
+        $stmtUpdate->execute();
+        $stmtUpdate->close();
+
+        $feedback = "Eintrag erfolgreich aktualisiert.";
+    $stmtCheck->close();
 }
 
-//Bewertungen Abschicken
-$user_id = isset($_GET['user_id']);
-$taetigkeit_id  = isset($_GET('taetigkeit_select'));
-$bewertung = isset($_GET('bewertung'));
-
-$sqlCheck = "SELECT * FROM Durchführung WHERE `lehrer-id` = ? AND `Tätigkeit-ID` = ?";
-$stmtCheck = $mysqli->prepare($sqlCheck);
-$stmtCheck->bind_param("ii", $user_id, $taetigkeit_id);
-$stmtCheck->execute();
-$result = $stmtCheck->get_result();
-
-if ($result->num_rows > 0) {
-
-    // Update vorhandener Eintrag
-    $sqlUpdate = "UPDATE Durchführung SET 
-        Bewertung = ?
-        WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
-    $stmtUpdate = $mysqli->prepare($sqlUpdate);
-    $stmtUpdate->bind_param(
-        "sii",
-        $bewertung, $user_id, $taetigkeit_id
-    );
-    $stmtUpdate->execute();
-    $stmtUpdate->close();
-
-    $feedback = "Eintrag erfolgreich aktualisiert.";
-} else {
-    // Neuer Eintrag
-    $sqlInsert = "INSERT INTO Durchführung (`User-ID`, `Tätigkeit-ID`, Beschreibung, Selbstreflexion, Datum) 
-                  VALUES (?, ?, ?, ?, ?)";
-    $stmtInsert = $mysqli->prepare($sqlInsert);
-    $stmtInsert->bind_param(
-        "iisss",
-        $user_id, $taetigkeit_id,
-        $beschreibung, $selbstreflexion, $date
-    );
-    $stmtInsert->execute();
-    $stmtInsert->close();
-
-    $feedback = "Eintrag erfolgreich gespeichert.";
-}
-$stmtCheck->close();
-
+// Tätigkeiten für Dropdown abrufen
+$sql_taetigkeiten = "SELECT ID, Name FROM Taetigkeiten";
+$taetigkeiten_result = $mysqli->query($sql_taetigkeiten);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="de">
@@ -145,7 +118,7 @@ $stmtCheck->close();
                         </select>
 
                         <!-- Выбор Tätigkeit -->
-                        <select name="taetigkeit" id="taetigkeit_select" class="styled-select" required>
+                        <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select" required>
                             <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
                             <?php
                             echo $bewertung;
