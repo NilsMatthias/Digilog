@@ -3,6 +3,7 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 // Redirect, wenn der Benutzer nicht angemeldet ist
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
@@ -12,44 +13,40 @@ if (!isset($_SESSION["user_id"])) {
 $mysqli = require __DIR__ . "/connection.php";
 $feedback = ""; // Feedback-Variable initialisieren
 
-// Begrüßung: Aktuellen Benutzernamen abrufen
-$sql_user = "SELECT username FROM Userdaten_Hash WHERE id = ?";
-$stmt = $mysqli->prepare($sql_user);
-$stmt->bind_param("i", $_SESSION["user_id"]);
-$stmt->execute();
-$result = $stmt->get_result();
-$current_user = $result->fetch_assoc();
-$stmt->close();
+// Benutzer-ID und Tätigkeit-ID aus GET abrufen
+$user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : null;
+$taetigkeit_id = isset($_GET['taetigkeit_id']) ? intval($_GET['taetigkeit_id']) : null;
+$bewertung = "";
+
+// Bewertung laden, wenn Benutzer und Tätigkeit ausgewählt sind
+if ($user_id && $taetigkeit_id) {
+    $sql_bewertung = "SELECT Bewertung FROM Durchführung WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $stmt = $mysqli->prepare($sql_bewertung);
+    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $bewertung_row = $result->fetch_assoc();
+    $bewertung = $bewertung_row['Bewertung'] ?? '';
+    $stmt->close();
+}
+
+// Bewertung speichern (POST)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['taetigkeit_select'], $_POST['user_id'])) {
+    $user_id = intval($_POST['user_id']);
+    $taetigkeit_id = intval($_POST['taetigkeit_select']);
+    $bewertung = trim($_POST['bewertung']);
+
+    $sqlUpdate = "UPDATE Durchführung SET Bewertung = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $stmtUpdate = $mysqli->prepare($sqlUpdate);
+    $stmtUpdate->bind_param("sii", $bewertung, $user_id, $taetigkeit_id);
+    $stmtUpdate->execute();
+    $stmtUpdate->close();
+    $feedback = "Bewertung erfolgreich gespeichert.";
+}
 
 // Liste aller Benutzer abrufen
 $sql_users = "SELECT id, vorname, nachname FROM Userdaten_Hash";
 $users_result = $mysqli->query($sql_users);
-
-// Benutzer-ID aus POST abrufen (Sicherheitsprüfung)
-$user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : null;
-
-// Tätigkeitsbewertung absenden
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_select'], $_POST['bewertung'])) {
-    $taetigkeit_id = intval($_POST['taetigkeit_select']);
-    $bewertung = trim($_POST['bewertung']);
-
-    // Überprüfen, ob der Eintrag existiert
-    $sqlCheck = "SELECT * FROM Durchführung WHERE `user-id` = ? AND `tätigkeit-id` = ?";
-    $stmtCheck = $mysqli->prepare($sqlCheck);
-    $stmtCheck->bind_param("ii", $user_id, $taetigkeit_id);
-    $stmtCheck->execute();
-    $result = $stmtCheck->get_result();
-
-    if ($result->num_rows > 0) {
-        $sqlUpdate = "UPDATE Durchführung SET Bewertung = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
-        $stmtUpdate = $mysqli->prepare($sqlUpdate);
-        $stmtUpdate->bind_param("sii", $bewertung, $user_id, $taetigkeit_id);
-        $stmtUpdate->execute();
-        $stmtUpdate->close();
-        $feedback = "Eintrag erfolgreich aktualisiert.";
-    }
-    $stmtCheck->close();
-}
 
 // Tätigkeiten für Dropdown abrufen, wenn eine Benutzer-ID ausgewählt wurde
 if ($user_id !== null) {
@@ -60,8 +57,16 @@ if ($user_id !== null) {
     $taetigkeiten_result = $stmt->get_result();
     $stmt->close();
 }
-?>
 
+// Begrüßung: Aktuellen Benutzernamen abrufen
+$sql_user = "SELECT username FROM Userdaten_Hash WHERE id = ?";
+$stmt = $mysqli->prepare($sql_user);
+$stmt->bind_param("i", $_SESSION["user_id"]);
+$stmt->execute();
+$result = $stmt->get_result();
+$current_user = $result->fetch_assoc();
+$stmt->close();
+?>
 
 <!DOCTYPE html>
 <html lang="de">
@@ -112,7 +117,7 @@ if ($user_id !== null) {
                     <h3>Bewertung der Tätigkeit</h3></br>
                     <form method="POST" action="">
                         <!-- Auswahl Benutzer -->
-                        <select name="user_id" id="user_id" class="styled-select" required onchange="this.form.submit()">
+                        <select name="user_id" id="user_id" class="styled-select" required onchange="window.location.href='?user_id=' + this.value">
                             <option value="" disabled selected>Student:in wählen</option>
                             <?php while ($user = $users_result->fetch_assoc()): ?>
                                 <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id) ? 'selected' : '' ?>>
@@ -122,11 +127,11 @@ if ($user_id !== null) {
                         </select>
 
                         <!-- Auswahl Tätigkeit -->
-                        <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select" required>
+                        <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select" required onchange="window.location.href='?user_id=<?= $user_id ?>&taetigkeit_id=' + this.value">
                             <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
                             <?php if (isset($taetigkeiten_result)): ?>
                                 <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
-                                    <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>">
+                                    <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>" <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
                                         <?= htmlspecialchars($taetigkeit['Name']) ?>
                                     </option>
                                 <?php endwhile; ?>
@@ -134,49 +139,17 @@ if ($user_id !== null) {
                         </select></br></br>
 
                         <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
-                            placeholder="Schreiben Sie hier den Text der Bewertung"></textarea><br>
-
+                            placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung ?? '') ?></textarea>
+                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
                         <input type="submit" value="Abschicken">
                     </form>
                 </div>
-
+                <?php if (!empty($feedback)): ?>
+                    <p><?= htmlspecialchars($feedback) ?></p>
+                <?php endif; ?>
             </div>
         </main>
     </div>
-
-    <script>
-       document.getElementById('menuButton').addEventListener('click', function() {
-            document.body.classList.toggle('drawer-open');
-        });
-        document.addEventListener('click', function(event) {
-            var drawer = document.getElementById('drawer');
-            var menuButton = document.getElementById('menuButton');
-
-            if(!drawer.contains(event.target) && !menuButton.contains(event.target)) {
-                document.body.classList.remove('drawer-open');
-            }
-        });
-        document.getElementById('icon_user').addEventListener('click', function() {
-             // Debugging output funktioniert
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
-                dropdown.style.display = 'block';
-            } else {
-                dropdown.style.display = 'none';
-            }
-        });
-
-        // Close dropdown if click outside of it
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('userDropdown');
-            const iconUser = document.getElementById('icon_user');
-            
-            // Close dropdown if click is outside the dropdown or icon
-            if (!iconUser.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 
 </html>
