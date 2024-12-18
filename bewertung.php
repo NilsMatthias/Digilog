@@ -57,6 +57,14 @@ if ($user_id !== null) {
     $taetigkeiten_result = $stmt->get_result();
     $stmt->close();
 }
+if($taetigkeit_id !== null) {
+    $sql_taetigkeiten_getDokumentation = "SELECT Beschreibung FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
+    $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
+    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmt->execute();
+    $taetigkeiten_result_getDokumentation = $stmt->get_result();
+    $stmt->close();
+}
 
 // Begrüßung: Aktuellen Benutzernamen abrufen
 $sql_user = "SELECT username FROM Userdaten_Hash WHERE id = ?";
@@ -127,16 +135,35 @@ $stmt->close();
                         </select>
 
                         <!-- Auswahl Tätigkeit -->
-                        <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select" required onchange="window.location.href='?user_id=<?= $user_id ?>&taetigkeit_id=' + this.value">
-                            <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
-                            <?php if (isset($taetigkeiten_result)): ?>
-                                <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
-                                    <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>" <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($taetigkeit['Name']) ?>
-                                    </option>
-                                <?php endwhile; ?>
+                        <?php if($user_id!== null): ?>
+                            <?php if (isset($taetigkeiten_result) && $taetigkeiten_result->num_rows > 0): ?>
+                                <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select styled-select-taetigkeit" required onchange="window.location.href='?user_id=<?= $user_id ?>&taetigkeit_id=' + this.value">
+                                    <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
+                                    <!--?php if (isset($taetigkeiten_result)): ?-->
+                                        <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
+                                            <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>" <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($taetigkeit['Name']) ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                       
+                                    <!--?php endif; ?-->
+                                </select>
+                                <br>
+                                <br>
+                            <?php else: ?>
+                                <p>Der ausgewählte Student hat noch keine Tätigkeiten.</p>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <p>Bitte wählen Sie einen Studenten aus, um die Tätigkeiten anzuzeigen.</p>
+                                <?php endif; ?>
+                        
+                            <?php if($user_id !== null && $taetigkeit_id !== null):?>
+                                <p>Dokumentation des Studenten: </p>
+                                <?php if(isset($taetigkeiten_result_getDokumentation)):
+                                    $tätigDokumentation = $taetigkeiten_result_getDokumentation->fetch_assoc(); ?>
+                                    <?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>
+                                <?php endif; ?>
                             <?php endif; ?>
-                        </select></br></br>
 
                         <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
                             placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung ?? '') ?></textarea>
