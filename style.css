@@ -42,13 +42,14 @@ body, html {
 
 .dropdown-menu {
     display: none; /* Standardmäßig verstecken */
-    position: absolute;
+    position: fixed;
     right: 0;
-    background-color: red;
+    background-color: rgb(255, 253, 255, 0.8);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
     border-radius: 4px;
     z-index: 1000;
+    margin-right: 15px;
 }
 
 .dropdown-menu a {
@@ -59,7 +60,7 @@ body, html {
 }
 
 .dropdown-menu a:hover {
-    background-color: #f1f1f1;
+    text-decoration: underline;
 }
 
 
