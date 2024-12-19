@@ -15,9 +15,10 @@ $mysqli = require __DIR__ . "/connection.php";
 $user_id = $_SESSION['user_id'];
 $feedback = "";
 $placeHolderText = "Schreiben Sie hier ihre Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
+$placeHolderTextRef = "Schreiben Sie hier Ihre Selbsteinschätzung zur Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
 $dokumentation_text = "";
 $documentationChance = ""; 
-$self_reflection_text = "Schreiben Sie hier Ihre Selbsteinschätzung zur Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
+$self_reflection_text = "";
 $buttonText = "Speichern";
 $buttonSelfRefText = "Speichern";
 $lehrer_id = 0;
@@ -269,7 +270,7 @@ $stmtFetch->close();
             <br>
 
               <form action="" method="POST">
-              <textarea id="dokumentation-textarea" name="selbstreflexion" rows="5" cols="44" placeholder="<?= htmlspecialchars($self_reflection_text ?? '') ?>"></textarea>
+              <textarea id="dokumentation-textarea" name="selbstreflexion" rows="5" cols="44" placeholder="<?= htmlspecialchars($placeHolderTextRef) ?>"><?=htmlspecialchars(string: $self_reflection_text) ?></textarea>
               <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
                   <label for="due-date">Abgabedatum:</label>
                   <input type="date" id="due-date" name="due-date"><br><br>
