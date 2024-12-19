@@ -20,6 +20,7 @@ $documentationChance = "";
 $self_reflection_text = "Schreiben Sie hier Ihre Selbsteinschätzung zur Dokumentation. Diese wird hier angezeigt, sobald Sie den Button `Speichern` getätigt haben.";
 $buttonText = "Speichern";
 $buttonSelfRefText = "Speichern";
+$lehrer_id = 0;
 // Get ID from URL (GET verarbeitung)
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -106,12 +107,12 @@ if ($result->num_rows > 0) {
     $feedback = "Eintrag erfolgreich aktualisiert.";
 } else {
     // Neuer Eintrag
-    $sqlInsert = "INSERT INTO Durchführung (`User-ID`, `Tätigkeit-ID`, Beschreibung, Selbstreflexion, Datum) 
-                  VALUES (?, ?, ?, ?, ?)";
+    $sqlInsert = "INSERT INTO Durchführung (`Lehrer-ID`, `User-ID`, `Tätigkeit-ID`, Beschreibung, Selbstreflexion, Datum) 
+                  VALUES (?, ?, ?, ?, ?, ?)";
     $stmtInsert = $mysqli->prepare($sqlInsert);
     $stmtInsert->bind_param(
-        "iisss",
-        $user_id, $taetigkeit_id,
+        "iiisss",
+        $lehrer_id, $user_id, $taetigkeit_id,
         $beschreibung, $selbstreflexion, $date
     );
     $stmtInsert->execute();
