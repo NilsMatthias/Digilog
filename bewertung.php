@@ -35,17 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['
     $user_id = intval($_POST['user_id']);
     $taetigkeit_id = intval($_POST['taetigkeit_select']);
     $bewertung = trim($_POST['bewertung']);
+    $lehrer_id = $_SESSION["user_id"];
 
-    $sqlUpdate = "UPDATE Durchführung SET Bewertung = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $sqlUpdate = "UPDATE Durchführung SET Bewertung = ?, `Lehrer-ID` = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
     $stmtUpdate = $mysqli->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("sii", $bewertung, $user_id, $taetigkeit_id);
+    $stmtUpdate->bind_param("siii", $bewertung,$lehrer_id, $user_id, $taetigkeit_id);
     $stmtUpdate->execute();
     $stmtUpdate->close();
     $feedback = "Bewertung erfolgreich gespeichert.";
 }
 
 // Liste aller Benutzer abrufen
-$sql_users = "SELECT id, vorname, nachname FROM Userdaten_Hash";
+$sql_users = "SELECT id, vorname, nachname FROM Userdaten_Hash WHERE rolle=3";
 $users_result = $mysqli->query($sql_users);
 
 // Tätigkeiten für Dropdown abrufen, wenn eine Benutzer-ID ausgewählt wurde
@@ -158,17 +159,22 @@ $stmt->close();
                                 <?php endif; ?>
                         
                             <?php if($user_id !== null && $taetigkeit_id !== null):?>
-                                <p>Dokumentation des Studenten: </p>
+                                <div class="dokumentation-bewertungPhp">
+                                <h4>Dokumentation des Studenten</h4>
                                 <?php if(isset($taetigkeiten_result_getDokumentation)):
                                     $tätigDokumentation = $taetigkeiten_result_getDokumentation->fetch_assoc(); ?>
-                                    <?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>
+                                    <p>"<?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>"</p>
+
                                 <?php endif; ?>
+                                </div>
+                                <br>
+                               
                             <?php endif; ?>
 
                         <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
                             placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung ?? '') ?></textarea>
                         <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
-                        <input type="submit" value="Abschicken">
+                        <input type="submit" value="Speichern">
                     </form>
                 </div>
                 <?php if (!empty($feedback)): ?>
