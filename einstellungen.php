@@ -13,8 +13,28 @@ if (isset($_SESSION["user_id"])) {
 
     $user = $result->fetch_assoc();
 
- 
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $email = $mysqli->real_escape_string($_POST["email"]);
+        $vorname = $mysqli->real_escape_string($_POST["vorname"]);
+        $nachname = $mysqli->real_escape_string($_POST["nachname"]);
+        $birthdate = $mysqli->real_escape_string($_POST["birthdate"]);
+
+        $sql = "UPDATE Userdaten_Hash 
+                SET email = '$email', 
+                    vorname = '$vorname', 
+                    nachname = '$nachname', 
+                    geburtsdatum = '$birthdate' 
+                WHERE id = {$_SESSION["user_id"]}";
+
+        if ($mysqli->query($sql)) {
+            header("Location: einstellungen.php?status=success");
+        } else {
+            die("Fehler beim Speichern: " . $mysqli->error);
+        }
+    }
 }
+
 
 ?>
 
@@ -67,15 +87,52 @@ if (isset($_SESSION["user_id"])) {
             </nav>
 
         </div>
-
-
-
         <main class="layout-content">
             <div class="Page-content">
-                
+                <div class="details">
+                    <h2><span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span></h2>
+                    <hr /><br />
+                    <h3>Details zum Profil</h3><br />
+                    <img src="images/icon_user.png" alt="Logo" class="icon-user" id="icon_user">
+                    <?php if (!isset($_GET["edit"])): ?>
+                        <p><strong>Email:</strong> <?= htmlspecialchars($user["email"]) ?></p>
+                        <p><strong>Vorname:</strong> <?= htmlspecialchars($user["vorname"]) ?></p>
+                        <p><strong>Nachname:</strong> <?= htmlspecialchars($user["nachname"]) ?></p>
+                        <p><strong>Geburtsdatum:</strong>
+                            <?= htmlspecialchars($user["geburtsdatum"] ?? 'Nicht angegeben') ?></p>
+                        <form method="get">
+                            <button type="submit" name="edit" value="1">Bearbeiten</button>
+                        </form>
+                    <?php else: ?>
+                        <form method="post" action="">
+                            <p><strong>Email:</strong>
+                                <input type="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required>
+                            </p>
+                            <p><strong>Vorname:</strong>
+                                <input type="text" name="vorname" value="<?= htmlspecialchars($user["vorname"]) ?>"
+                                    required>
+                            </p>
+                            <p><strong>Nachname:</strong>
+                                <input type="text" name="nachname" value="<?= htmlspecialchars($user["nachname"]) ?>"
+                                    required>
+                            </p>
+                            <p><strong>Geburtsdatum:</strong>
+                                <input type="date" name="birthdate"
+                                    value="<?= htmlspecialchars($user["geburtsdatum"] ?? '') ?>">
+                            </p>
+                            <input type="submit"></input>
+                            <a href="einstellungen.php">Abbrechen</a>
+                        </form>
+                    <?php endif; ?>
+                </div></br>
             </div>
         </main>
     </div>
+
+    <?php if (isset($_GET["status"]) && $_GET["status"] === "success"): ?>
+        <p style="color: green;">Profil wurde erfolgreich aktualisiert!</p>
+    <?php endif; ?>
+
 
     <script>
         document.getElementById('menuButton').addEventListener('click', function () {

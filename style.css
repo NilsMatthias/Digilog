@@ -172,6 +172,12 @@ hr.navigation-divider {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: rgb(37, 87, 117);
 }
+.Page-content .details{
+    padding: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: rgb(37, 87, 117);
+}
 
 .tätigkeiten-link {
     padding-top: 20px;
@@ -337,5 +343,26 @@ input[type="submit"] {
     color: rgb(37, 87, 117); 
     font-style: italic; 
 
+}
+button[type="submit"][name="edit"] {
+    margin-top: 2px; 
+    background-color: rgb(58, 123, 170); 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; 
+    font-size: 16px;
+}
+
+button {
+    margin-top: 2px; 
+    background-color: rgb(58, 123, 170); 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; 
+    font-size: 16px;
 }
 
