@@ -62,6 +62,8 @@ if (isset($_SESSION["user_id"])) {
         <div class="dropdown-menu" id="userDropdown">
             <a href="startseite.php">Zurück zur Startseite</a>
             <a href="einstellungen.php">Einstellungen</a>
+            <a class="navigation-link" href="logout.php">Log out</a>
+
         </div>
 
         <div class="layout-drawer" id="drawer">
@@ -70,7 +72,7 @@ if (isset($_SESSION["user_id"])) {
                 <a class="navigation-link" href="">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="">Profil</a>
-                <a class="navigation-link" href="">Einstellungen</a>
+                <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
                 <a class="navigation-link" href="">Hilfe</a>
                 <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>

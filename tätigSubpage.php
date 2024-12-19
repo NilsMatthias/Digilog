@@ -181,19 +181,24 @@ $stmtFetch->close();
 
                 <div class="header-right">
                     <!--span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span-->
-                    <img src="images/icon_user_white.png" alt="Logo" class="icon-user">
+                    <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
                         
                     
                 </div>
             </div>
         </header>
+        <div class="dropdown-menu" id="userDropdown">
+            <a href="startseite.php">Zurück zur Startseite</a>
+            <a href="einstellungen.php">Einstellungen</a>
+            <a class="navigation-link" href="logout.php">Log out</a>
+        </div>
       <div class="layout-drawer" id="drawer">
         <nav class="navigation">
                 <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="">Profil</a>
-                <a class="navigation-link" href="">Einstellungen</a>
+                <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
                 <a class="navigation-link" href="">Hilfe</a>
           <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>
@@ -284,16 +289,35 @@ $stmtFetch->close();
     </div>
     <script>
       document
-        .getElementById("menuButton")
-        .addEventListener("click", function () {
-          document.body.classList.toggle("drawer-open");
+      document.getElementById('menuButton').addEventListener('click', function () {
+            document.body.classList.toggle('drawer-open');
         });
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             var drawer = document.getElementById('drawer');
             var menuButton = document.getElementById('menuButton');
 
-            if(!drawer.contains(event.target) && !menuButton.contains(event.target)) {
+            if (!drawer.contains(event.target) && !menuButton.contains(event.target)) {
                 document.body.classList.remove('drawer-open');
+            }
+        });
+        document.getElementById('icon_user').addEventListener('click', function () {
+            // Debugging output funktioniert
+            const dropdown = document.getElementById('userDropdown');
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Close dropdown if click outside of it
+        document.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('userDropdown');
+            const iconUser = document.getElementById('icon_user');
+
+            // Close dropdown if click is outside the dropdown or icon
+            if (!iconUser.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
             }
         });
     </script>
