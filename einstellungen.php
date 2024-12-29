@@ -5,8 +5,9 @@ if (isset($_SESSION["user_id"])) {
 
     $mysqli = require __DIR__ . "/connection.php";
 
-    $sql = "SELECT * FROM Userdaten_Hash
-            WHERE id = {$_SESSION["user_id"]}";
+    $sql = "SELECT id, username, email, vorname, nachname, DATE_FORMAT(geburtsdatum, '%d.%m.%Y') AS geburtsdatum_formatiert 
+        FROM Userdaten_Hash 
+        WHERE id = {$_SESSION["user_id"]}";
 
 
     $result = $mysqli->query($sql);
@@ -99,7 +100,7 @@ if (isset($_SESSION["user_id"])) {
                         <p><strong>Vorname:</strong> <?= htmlspecialchars($user["vorname"]) ?></p>
                         <p><strong>Nachname:</strong> <?= htmlspecialchars($user["nachname"]) ?></p>
                         <p><strong>Geburtsdatum:</strong>
-                            <?= htmlspecialchars($user["geburtsdatum"] ?? 'Nicht angegeben') ?></p>
+                            <?= htmlspecialchars($user["geburtsdatum_formatiert"] ?? 'Nicht angegeben') ?></p>
                         <form method="get">
                             <button type="submit" name="edit" value="1">Bearbeiten</button>
                         </form>
@@ -118,7 +119,7 @@ if (isset($_SESSION["user_id"])) {
                             </p>
                             <p><strong>Geburtsdatum:</strong>
                                 <input type="date" name="birthdate"
-                                    value="<?= htmlspecialchars($user["geburtsdatum"] ?? '') ?>">
+                                    value="<?= htmlspecialchars($user["geburtsdatum_formatiert"] ?? '') ?>">
                             </p>
                             <input type="submit"></input>
                             <a href="einstellungen.php" class="button">Abbrechen</a>
