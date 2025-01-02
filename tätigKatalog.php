@@ -19,9 +19,11 @@
     $result = $stmt->get_result(); // Ergebnis für den gesamten Datensatz
     $stmt->close();
 
-    if ($result->num_rows == 0) {
+   /* if ($result->num_rows == 0) {
         die("Keine Tätigkeiten gefunden.");
     }
+        */
+    $noResults = ($result->num_rows == 0);
     
     // Die Ergebnisse in einer Variablen speichern, um sie in der HTML-Ausgabe zu verwenden
     $taetigkeitenResult = $result;
@@ -104,6 +106,7 @@
 
                         <!-- Hidden input für die Sortierung, um den Wert zu übergeben -->
                         <input type="hidden" name="sortieren" value="<?= isset($_GET['sortieren']) ? htmlspecialchars($_GET['sortieren']) : 'Name_ASC' ?>">
+                       
                     </form>
                     <div class="sort-bar">
                         <form method="get" action="">
@@ -116,7 +119,6 @@
                         </form>
                     </div>
 
-                    <br>
                     <div class="tätigkeiten-link-bold">
                         <?php
                         if ($_GET['sortieren'] == "Name_ASC" || $_GET['sortieren'] == "Name_DESC") {
@@ -124,6 +126,12 @@
                         }
                         ?>
                     </div>
+                    <?php if ($noResults): ?>
+                            <p class="error-message">...</p>
+                            <div class="error-message">
+                                <p>Keine Tätigkeiten gefunden. Bitte versuchen Sie es erneut.</p>
+                            </div>
+                        <?php endif; ?>
 
                     <?php 
                     $currentCategory = null; 

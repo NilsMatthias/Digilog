@@ -82,7 +82,7 @@ if (isset($_SESSION["user_id"])) {
             <nav class="navigation">
                 <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="">Suche</a>
-                <a class="navigation-link" href="tätigKatalog.php">Tätigkeitenkatalog</a>
+                <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="">Profil</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
                 <a class="navigation-link" href="">Hilfe</a>
