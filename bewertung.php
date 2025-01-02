@@ -179,10 +179,11 @@ $stmt->close();
                                 </div>
                                 <div class="selbstreflexion-bewertungPhp">
                                 <h4>Selbstreflexion</h4>
-                                <?php if(isset($taetigkeitenSelbstreflexion)):
-                                    $tätigDokumentation = $taetigkeitenSelbstreflexion->fetch_assoc(); ?>
-                                    <p>"<?= htmlspecialchars($tätigDokumentation['Selbstreflexion']) ?>"</p>
-
+                                <?php if (isset($taetigkeitenSelbstreflexion)): 
+                                $tätigRef = $taetigkeitenSelbstreflexion->fetch_assoc();
+                                $reflexion = isset($tätigRef['Selbstreflexion']) ? htmlspecialchars($tätigRef['Selbstreflexion']) : ""; 
+                                ?>
+                                <p>"<?= $reflexion ?>"</p>
                                 <?php endif; ?>
                                 </div>
                                 <br>
