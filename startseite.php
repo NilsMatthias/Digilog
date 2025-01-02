@@ -16,7 +16,7 @@ if (isset($_SESSION["user_id"])) {
 
     $user = $result->fetch_assoc();
     $user_id = $user["id"];
-    $taetigkeiten = "SELECT * FROM Taetigkeiten LIMIT 3";
+    $taetigkeiten = "SELECT * FROM Taetigkeiten, `Durchführung` LIMIT 3";
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
 
     //Bewertungen fetchen
@@ -36,7 +36,23 @@ if (isset($_SESSION["user_id"])) {
     if (!$uhrzeitResult) {
         die("Fehler beim Abrufen der Uhrzeit: " . $mysqli->error);
     }
-}
+
+    //letzten 3 bearbeiteten Tätigkeiten
+    $letzteTaetigkeitenSql = "
+    SELECT t.ID, t.Name, t.Kategorie, d.Datum 
+    FROM Durchführung d
+    JOIN Taetigkeiten t ON d.`Tätigkeit-ID` = t.ID
+    WHERE d.`User-ID` = ?
+    ORDER BY d.Datum DESC
+    LIMIT 3
+    ";
+
+    $stmt = $mysqli->prepare($letzteTaetigkeitenSql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $letzteTaetigkeitenResult = $stmt->get_result();
+
+    }
 
 ?>
 
@@ -93,19 +109,25 @@ if (isset($_SESSION["user_id"])) {
 
         <main class="layout-content">
             <div class="Page-content">
-                <div class="tätigkeiten">
-                    <h2>Tätigkeiten</h2>
+                <div class="tätigkeiten letzte-tätigkeiten">
+                    <h2>Zuletzt bearbeitete Tätigkeiten</h2>
                     <hr /></br>
+                    <?php if ($letzteTaetigkeitenResult->num_rows > 0): ?>
+                        <?php $counter = 1; 
+                            while ($taetigkeit = $letzteTaetigkeitenResult->fetch_assoc()): ?>
+                            <h4>Tätigkeit <?= $counter ?></h4>
+                            <p><a class="tätigkeiten-link tätigkeiten-link-bold"
+                                    href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
+                            </p>
+                            <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
+                            <p>Zuletzt bearbeitet am: <?= htmlspecialchars($taetigkeit['Datum']) ?></p>
+                        <?php $counter++;
+                    endwhile; ?>                        
+                    <?php else: ?>
+                        <p>Keine bearbeiteten Tätigkeiten gefunden.</p>
+                    <?php endif; ?>
 
-                    <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): ?>
-                        <h4>Tätigkeit <?= htmlspecialchars($taetigkeit['ID']) ?></h4>
-                        <p><a class="tätigkeiten-link tätigkeiten-link-bold"
-                                href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
-                        </p>
-                        <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
 
-
-                    <?php endwhile; ?>
 
 
 
