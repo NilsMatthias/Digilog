@@ -70,6 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
     }
+    else{
+        echo "Es gab einen Fehler bei der Registrierung. Eine Email darf nicht mehrfach verwendet werden";
+    }
 }
 ?>
 <!DOCTYPE html>
