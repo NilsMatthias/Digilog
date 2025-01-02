@@ -120,7 +120,7 @@ if (isset($_SESSION["user_id"])) {
                         }?>
                         
                         <p><a class="tätigkeiten-link tätigkeiten-link-bold"
-                                href="startseite.php?id=<?= $bewertungen['ID'] ?>"><?= htmlspecialchars($bewertungen['Name']) ?></a>
+                                href="bewertungssicht.php?id=<?= $bewertungen['ID'] ?>"><?= htmlspecialchars($bewertungen['Name']) ?></a>
                         </p>
 
 
