@@ -20,7 +20,7 @@ if (isset($_SESSION["user_id"])) {
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
 
     //Bewertungen fetchen
-    $bewertung = "SELECT * FROM `Durchführung` d JOIN Taetigkeiten t on d.`Tätigkeit-ID` = t.ID WHERE `User-ID` = ?";
+    $bewertung = "SELECT * FROM `Durchführung` d JOIN Taetigkeiten t on d.`Tätigkeit-ID` = t.ID WHERE `User-ID` = ? AND `Lehrer-ID` != ''";
     $stmt = $mysqli->prepare($bewertung);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
