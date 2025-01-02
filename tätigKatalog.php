@@ -32,21 +32,21 @@
 
     $sortierung = "Name ASC";  // Standardwert
 
-if (isset($_GET['sortieren'])) {
-    switch ($_GET['sortieren']) {
-        case "Name_ASC":
-            $sortierung = "Name ASC";
-            break;
-        case "Name_DESC":
-            $sortierung = "Name DESC";
-            break;
-        case "Kategorie_ASC":
-            $sortierung = "Kategorie ASC";
-            break;
-        default:
-            $sortierung = "Name ASC";
+    if (isset($_GET['sortieren'])) {
+        switch ($_GET['sortieren']) {
+            case "Name_ASC":
+                $sortierung = "Name ASC";
+                break;
+            case "Name_DESC":
+                $sortierung = "Name DESC";
+                break;
+            case "Kategorie_ASC":
+                $sortierung = "Kategorie ASC";
+                break;
+            default:
+                $sortierung = "Name ASC";
+        }
     }
-}
   }
 ?>
 
@@ -56,7 +56,7 @@ if (isset($_GET['sortieren'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Das digitale Logbuch</title>
+    <title>Das digitale Logbuch - <?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : 'Tätigkeiten' ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -98,10 +98,12 @@ if (isset($_GET['sortieren'])) {
                     <form action="" method="get">
                         <div class="search-bar">
                             <label for="searchInput">Tätigkeitssuche:</label>
-                            <input type="hidden" name="aktion" value="suchen">
-                            <input type="text" id="searchInput" class="styled-input" placeholder="Tätigkeiten suchen...">
-                            <input type="submit" value="suchen" class="">
+                            <input type="text" id="searchInput" class="styled-input" name="search" placeholder="Tätigkeiten suchen..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                            <input type="submit" value="suchen">
                         </div>
+
+                        <!-- Hidden input für die Sortierung, um den Wert zu übergeben -->
+                        <input type="hidden" name="sortieren" value="<?= isset($_GET['sortieren']) ? htmlspecialchars($_GET['sortieren']) : 'Name_ASC' ?>">
                     </form>
                     <div class="sort-bar">
                         <form method="get" action="">
