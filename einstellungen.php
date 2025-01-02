@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (isset($_SESSION["user_id"])) {
@@ -16,17 +20,17 @@ if (isset($_SESSION["user_id"])) {
 
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $email = $mysqli->real_escape_string($_POST["email"]);
+        $username = $mysqli->real_escape_string($_POST["username"]);
         $vorname = $mysqli->real_escape_string($_POST["vorname"]);
         $nachname = $mysqli->real_escape_string($_POST["nachname"]);
         $birthdate = $mysqli->real_escape_string($_POST["birthdate"]);
 
         $sql = "UPDATE Userdaten_Hash 
-                SET email = '$email', 
+                SET username = '$username', 
                     vorname = '$vorname', 
                     nachname = '$nachname', 
-                    geburtsdatum = '$birthdate' 
-                WHERE id = {$_SESSION["user_id"]}";
+                    geburtsdatum = " . ($birthdate ? "'$birthdate'" : "NULL") . "                
+                    WHERE id = {$_SESSION["user_id"]}";
 
         if ($mysqli->query($sql)) {
             header("Location: einstellungen.php?status=success");
@@ -97,6 +101,7 @@ if (isset($_SESSION["user_id"])) {
                     <img src="images/icon_user.png" alt="Logo" class="icon-user" id="icon_user">
                     <?php if (!isset($_GET["edit"])): ?>
                         <p><strong>Email:</strong> <?= htmlspecialchars($user["email"]) ?></p>
+                        <p><strong>Username:</strong> <?= htmlspecialchars($user["username"]) ?></p>
                         <p><strong>Vorname:</strong> <?= htmlspecialchars($user["vorname"]) ?></p>
                         <p><strong>Nachname:</strong> <?= htmlspecialchars($user["nachname"]) ?></p>
                         <p><strong>Geburtsdatum:</strong>
@@ -106,8 +111,11 @@ if (isset($_SESSION["user_id"])) {
                         </form>
                     <?php else: ?>
                         <form method="post" action="">
-                            <p><strong>Email:</strong>
-                                <input type="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required>
+                            <p><strong>Email:</strong> <?= htmlspecialchars($user["email"]) ?></p>
+
+                            <p><strong>Username:</strong>
+                                <input type="text" name="username" value="<?= htmlspecialchars($user["username"]) ?>" 
+                                    required>
                             </p>
                             <p><strong>Vorname:</strong>
                                 <input type="text" name="vorname" value="<?= htmlspecialchars($user["vorname"]) ?>"
