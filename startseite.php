@@ -1,5 +1,8 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if (isset($_SESSION["user_id"])) {
 
@@ -12,9 +15,16 @@ if (isset($_SESSION["user_id"])) {
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
-
+    $user_id = $user["id"];
     $taetigkeiten = "SELECT * FROM Taetigkeiten LIMIT 3";
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
+
+    //Bewertungen fetchen
+    $bewertung = "SELECT * FROM `Durchführung` d JOIN Taetigkeiten t on d.`Tätigkeit-ID` = t.ID WHERE `User-ID` = ?";
+    $stmt = $mysqli->prepare($bewertung);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $bewertungResult = $stmt->get_result();
 
     $uhrzeitBearbeitungTätigkeit = "SELECT Datum FROM `Durchführung`";
     $uhrzeitResult = $mysqli->query($uhrzeitBearbeitungTätigkeit);
@@ -100,6 +110,25 @@ if (isset($_SESSION["user_id"])) {
 
 
                 </div></br>
+                <div class="bewertungen">
+                    <h2>Bewertungen</h2>
+                    <hr /></br>
+
+                    <?php while ($bewertungen = $bewertungResult->fetch_assoc()): 
+                        if ($bewertungResult->num_rows === 0) {
+                            echo "<p>Keine Bewertungen gefunden.</p>";
+                        }?>
+                        
+                        <p><a class="tätigkeiten-link tätigkeiten-link-bold"
+                                href="startseite.php?id=<?= $bewertungen['ID'] ?>"><?= htmlspecialchars($bewertungen['Name']) ?></a>
+                        </p>
+
+
+                    <?php endwhile; ?>
+
+
+
+                </div>
             </div>
         </main>
     </div>
