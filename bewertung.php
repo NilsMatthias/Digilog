@@ -64,6 +64,11 @@ if($taetigkeit_id !== null) {
     $stmt->bind_param("ii", $user_id, $taetigkeit_id);
     $stmt->execute();
     $taetigkeiten_result_getDokumentation = $stmt->get_result();
+    $sql_taetigkeiten_getDokumentation = "SELECT Selbstreflexion FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
+    $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
+    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmt->execute();
+    $taetigkeitenSelbstreflexion = $stmt->get_result();
     $stmt->close();
 }
 
@@ -169,6 +174,14 @@ $stmt->close();
                                 <?php if(isset($taetigkeiten_result_getDokumentation)):
                                     $tätigDokumentation = $taetigkeiten_result_getDokumentation->fetch_assoc(); ?>
                                     <p>"<?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>"</p>
+
+                                <?php endif; ?>
+                                </div>
+                                <div class="selbstreflexion-bewertungPhp">
+                                <h4>Selbstreflexion</h4>
+                                <?php if(isset($taetigkeitenSelbstreflexion)):
+                                    $tätigDokumentation = $taetigkeitenSelbstreflexion->fetch_assoc(); ?>
+                                    <p>"<?= htmlspecialchars($tätigDokumentation['Selbstreflexion']) ?>"</p>
 
                                 <?php endif; ?>
                                 </div>
