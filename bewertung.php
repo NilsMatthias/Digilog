@@ -17,29 +17,39 @@ $feedback = ""; // Feedback-Variable initialisieren
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : null;
 $taetigkeit_id = isset($_GET['taetigkeit_id']) ? intval($_GET['taetigkeit_id']) : null;
 $bewertung = "";
+$bewertung_baek = "";
+$bewertung_epa = "";
 
 // Bewertung laden, wenn Benutzer und Tätigkeit ausgewählt sind
 if ($user_id && $taetigkeit_id) {
-    $sql_bewertung = "SELECT Bewertung FROM Durchführung WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $sql_bewertung = "SELECT Bewertung, `BÄK-Bewertung` AS baek, `EPA-Bewertung` AS epa FROM Durchführung 
+                      WHERE `user-id` = ? AND `tätigkeit-id` = ?";
     $stmt = $mysqli->prepare($sql_bewertung);
     $stmt->bind_param("ii", $user_id, $taetigkeit_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    $bewertung_row = $result->fetch_assoc();
-    $bewertung = $bewertung_row['Bewertung'] ?? '';
+    if ($row = $result->fetch_assoc()) {
+        $bewertung = $row['Bewertung'] ?? '';
+        $bewertung_baek = $row['baek'] ?? '';
+        $bewertung_epa = $row['epa'] ?? '';
+    }
     $stmt->close();
 }
 
 // Bewertung speichern (POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['taetigkeit_select'], $_POST['user_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['baek'], $_POST['epa'], $_POST['taetigkeit_select'], $_POST['user_id'])) {
     $user_id = intval($_POST['user_id']);
     $taetigkeit_id = intval($_POST['taetigkeit_select']);
     $bewertung = trim($_POST['bewertung']);
+    $baek = intval($_POST['baek']);
+    $epa = $_POST['epa'];
     $lehrer_id = $_SESSION["user_id"];
 
-    $sqlUpdate = "UPDATE Durchführung SET Bewertung = ?, `Lehrer-ID` = ? WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $sqlUpdate = "UPDATE Durchführung 
+                  SET Bewertung = ?, `BÄK-Bewertung` = ?, `EPA-Bewertung` = ?, `Lehrer-ID` = ? 
+                  WHERE `user-id` = ? AND `tätigkeit-id` = ?";
     $stmtUpdate = $mysqli->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("siii", $bewertung,$lehrer_id, $user_id, $taetigkeit_id);
+    $stmtUpdate->bind_param("sisiii", $bewertung, $baek, $epa, $lehrer_id, $user_id, $taetigkeit_id);
     $stmtUpdate->execute();
     $stmtUpdate->close();
     $feedback = "Bewertung erfolgreich gespeichert.";
@@ -51,24 +61,14 @@ $users_result = $mysqli->query($sql_users);
 
 // Tätigkeiten für Dropdown abrufen, wenn eine Benutzer-ID ausgewählt wurde
 if ($user_id !== null) {
-    $sql_taetigkeiten = "SELECT `Tätigkeit-id`, Name FROM `Durchführung` JOIN Taetigkeiten ON Durchführung.`Tätigkeit-id` = Taetigkeiten.ID WHERE `User-ID` = ?";
+    $sql_taetigkeiten = "SELECT `Tätigkeit-id`, Name 
+                         FROM `Durchführung` 
+                         JOIN Taetigkeiten ON Durchführung.`Tätigkeit-id` = Taetigkeiten.ID 
+                         WHERE `User-ID` = ?";
     $stmt = $mysqli->prepare($sql_taetigkeiten);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $taetigkeiten_result = $stmt->get_result();
-    $stmt->close();
-}
-if($taetigkeit_id !== null) {
-    $sql_taetigkeiten_getDokumentation = "SELECT Beschreibung FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
-    $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
-    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
-    $stmt->execute();
-    $taetigkeiten_result_getDokumentation = $stmt->get_result();
-    $sql_taetigkeiten_getDokumentation = "SELECT Selbstreflexion FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
-    $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
-    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
-    $stmt->execute();
-    $taetigkeitenSelbstreflexion = $stmt->get_result();
     $stmt->close();
 }
 
@@ -150,48 +150,46 @@ $stmt->close();
                             <?php if (isset($taetigkeiten_result) && $taetigkeiten_result->num_rows > 0): ?>
                                 <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select styled-select-taetigkeit" required onchange="window.location.href='?user_id=<?= $user_id ?>&taetigkeit_id=' + this.value">
                                     <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
-                                    <!--?php if (isset($taetigkeiten_result)): ?-->
-                                        <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
-                                            <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>" <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($taetigkeit['Name']) ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                       
-                                    <!--?php endif; ?-->
+                                    <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
+                                        <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>" <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($taetigkeit['Name']) ?>
+                                        </option>
+                                    <?php endwhile; ?>
                                 </select>
-                                <br>
-                                <br>
+                                
                             <?php else: ?>
                                 <p>Der ausgewählte Student hat noch keine Tätigkeiten.</p>
-                                    <?php endif; ?>
-                                <?php else: ?>
-                                    <p>Bitte wählen Sie einen Studenten aus, um die Tätigkeiten anzuzeigen.</p>
-                                <?php endif; ?>
-                        
-                            <?php if($user_id !== null && $taetigkeit_id !== null):?>
-                                <div class="dokumentation-bewertungPhp">
-                                <h4>Dokumentation des Studenten</h4>
-                                <?php if(isset($taetigkeiten_result_getDokumentation)):
-                                    $tätigDokumentation = $taetigkeiten_result_getDokumentation->fetch_assoc(); ?>
-                                    <p>"<?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>"</p>
-
-                                <?php endif; ?>
-                                </div>
-                                <div class="selbstreflexion-bewertungPhp">
-                                <h4>Selbstreflexion</h4>
-                                <?php if (isset($taetigkeitenSelbstreflexion)): 
-                                $tätigRef = $taetigkeitenSelbstreflexion->fetch_assoc();
-                                $reflexion = isset($tätigRef['Selbstreflexion']) ? htmlspecialchars($tätigRef['Selbstreflexion']) : ""; 
-                                ?>
-                                <p>"<?= $reflexion ?>"</p>
-                                <?php endif; ?>
-                                </div>
-                                <br>
-                               
                             <?php endif; ?>
+                            <?php else: ?>
+                                <p>Bitte wählen Sie einen Studenten aus, um die Tätigkeiten anzuzeigen.</p>
+                        <?php endif; ?>
 
-                        <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
-                            placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung ?? '') ?></textarea>
+                        <!-- Bewertung Felder -->
+                        <?php if ($user_id && $taetigkeit_id): ?>
+                            <label for="baek">BÄK:</label>
+                            <select name="baek" id="baek" class="styled-select styled-select-taetigkeit" required>
+                                <option value="" disabled selected>Wählen</option>
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <option value="<?= $i ?>" <?= ($bewertung_baek == $i) ? 'selected' : '' ?>><?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <label for="epa">EPA:</label>
+                            <select name="epa" id="epa" class="styled-select styled-select-taetigkeit"required>
+                                <option value="" disabled selected>Wählen</option>
+                                <?php foreach (['1', '2', '3a', '3b'] as $epa): ?>
+                                    <option value="<?= $epa ?>" <?= ($bewertung_epa == $epa) ? 'selected' : '' ?>><?= $epa ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <br>
+                            <br>
+                                <br>
+
+                            <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
+                                placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung) ?></textarea>
+                            <br>
+                        <?php endif; ?>
+                        <br>
+
                         <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
                         <input type="submit" value="Speichern">
                     </form>
@@ -235,7 +233,7 @@ $stmt->close();
                 dropdown.style.display = 'none';
             }
         });
-    </script>
+            </script>
 </body>
 
 </html>
