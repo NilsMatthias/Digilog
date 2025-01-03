@@ -85,7 +85,42 @@ if (isset($_SESSION["user_id"])) {
         <main class="layout-content">
             <div class="Page-content">
                 <div class="tätigkeiten letzte-tätigkeiten">
-                    
+                    <h2>Hier kannst du Studierende und Lehrende suchen </h2>
+                    <hr /></br>
+                    <form action="" method="get">
+                        <div class="search-bar">
+                            
+                            <input type="text" id="searchInput" class="styled-input input-search" name="search" placeholder="Name eingeben..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                            <input type="submit" value="suchen">
+                        </div>
+
+                
+                    </form>
+                    <!--?php echo "Suchbegriff: " . $search; 
+                    if (!isset($_GET['search']) || empty($_GET['search'])) {
+                        echo "Keine Suchanfrage eingegeben.";
+                    }?-->
+                    <?php if (!$noResults): ?>
+                        <div class="results">
+                            <h3>Suchergebnisse:</h3>
+                            <div class="search-rand">
+                                <?php while ($row = $result->fetch_assoc()): ?>
+                                    <div class="search-results-names">
+                                        <?= htmlspecialchars($row['vorname']) ?> <?= htmlspecialchars($row['nachname']) ?> 
+                                    </div>
+                                    <br>
+                                <?php endwhile; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+
+                    <?php if ($noResults): ?>
+                            <p class="error-message">...</p>
+                            <div class="error-message">
+                                <p>Keine Tätigkeiten gefunden. Bitte versuchen Sie es erneut.</p>
+                            </div>
+                        <?php endif; ?>
 
                 </div></br>
                 
