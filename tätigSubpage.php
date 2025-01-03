@@ -253,8 +253,6 @@ $stmtFetch->close();
                   <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
                   <label for="due-date">Abgabedatum:</label>
                   <input type="date" id="due-date" name="due-date"><br><br>
-                  <label for="file-upload">Datei hochladen:</label>
-                  <input type="file" id="file-upload" name="file-upload"><br><br>
                   <input type="submit" value="<?=htmlspecialchars(string: $buttonText) ?>">
               </form>
           </div>
