@@ -91,7 +91,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
                 <a class="navigation-link" href="startseite.php">Startseite</a>
-                <a class="navigation-link" href="">Suche</a>
+                <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="">Profil</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>

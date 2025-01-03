@@ -82,7 +82,7 @@
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
                 <a class="navigation-link" href="startseite.php">Startseite</a>
-                <a class="navigation-link" href="">Suche</a>
+                <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="">Profil</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
@@ -100,7 +100,7 @@
                     <form action="" method="get">
                         <div class="search-bar">
                             <label for="searchInput">Tätigkeitssuche:</label>
-                            <input type="text" id="searchInput" class="styled-input" name="search" placeholder="Tätigkeiten suchen..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                            <input type="text" id="searchInput" class="styled-input styled-input-tät" name="search" placeholder="Tätigkeiten suchen..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
                             <input type="submit" value="suchen">
                         </div>
 
