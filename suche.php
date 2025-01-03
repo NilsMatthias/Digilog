@@ -28,6 +28,9 @@ if (isset($_SESSION["user_id"])) {
     $noResults = ($result->num_rows == 0);
     $taetigkeitenResult = $result;
 
+    $rolle = "";
+
+
 }
 ?>
 
@@ -101,13 +104,24 @@ if (isset($_SESSION["user_id"])) {
                     if (!isset($_GET['search']) || empty($_GET['search'])) {
                         echo "Keine Suchanfrage eingegeben.";
                     }?-->
+
                     <?php if (!$noResults): ?>
                         <div class="results">
                             <h3>Suchergebnisse:</h3>
                             <div class="search-rand">
                                 <?php while ($row = $result->fetch_assoc()): ?>
+                                    
                                     <div class="search-results-names">
                                         <?= htmlspecialchars($row['vorname']) ?> <?= htmlspecialchars($row['nachname']) ?> 
+                                            <?php 
+                                                if($row['rolle'] == 2){
+                                                    $rolle = "Lehrende";
+                                                }
+                                                elseif($row['rolle'] == 3){
+                                                    $rolle = "Studierende";
+                                                }
+                                            ?>
+                                        (<?= htmlspecialchars($rolle)?>) 
                                     </div>
                                     <br>
                                 <?php endwhile; ?>
