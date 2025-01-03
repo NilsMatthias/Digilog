@@ -17,20 +17,34 @@ if (isset($_SESSION["user_id"])) {
     $user = $result->fetch_assoc();
     $user_id = $user["id"];
 
-    $search = "%" . $_GET['search'] . "%";
-    $sql_taetigkeit = "SELECT * FROM `Userdaten_Hash` WHERE nachname LIKE ? OR vorname LIKE ? ORDER BY nachname ASC, vorname ASC";
-    $stmt = $mysqli->prepare($sql_taetigkeit);
-    $stmt->bind_param("ss", $search, $search);
-    $stmt->execute();
-    $result = $stmt->get_result(); // Ergebnis für den gesamten Datensatz
-    $stmt->close();
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = $_GET['id'];
+        $sql = "SELECT rolle, id, vorname, nachname, email, DATE_FORMAT(geburtsdatum, '%d.%m.%Y') AS geburtsdatum_formatiert  FROM `Userdaten_Hash` WHERE id = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+      
+        
+        if ($result && $result->num_rows > 0) {
+          // Hole das Ergebnis als Array
+          $taetigkeit = $result->fetch_assoc();
+      } else {
+          // Keine Tätigkeit gefunden
+          die("Profil kann nicht abgerufen werden.");
+      }
+    
 
-    $noResults = ($result->num_rows == 0);
-    $taetigkeitenResult = $result;
 
+    }
     $rolle = "";
-
-
+    if($row['rolle'] == 2){
+        $rolle = "Lehrende";
+    }
+    elseif($row['rolle'] == 3){
+        $rolle = "Studierende";
+    }
 }
 ?>
 
@@ -88,51 +102,20 @@ if (isset($_SESSION["user_id"])) {
         <main class="layout-content">
             <div class="Page-content">
                 <div class="tätigkeiten letzte-tätigkeiten">
-                    <h2>Hier kannst du Studierende und Lehrende suchen </h2>
+                    <div class="heading-profil">
+                        <h2 class="profil-name">Profil von <?= htmlspecialchars($row['vorname'])?> <?= htmlspecialchars($row['nachname'])?></h2>
+                        <h2 class="profil-role"><?= htmlspecialchars($rolle) ?></h2>
+                    </div>
                     <hr /></br>
-                    <form action="" method="get">
-                        <div class="search-bar">
-                            
-                            <input type="text" id="searchInput" class="styled-input input-search" name="search" placeholder="Name eingeben..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
-                            <input type="submit" value="suchen">
-                        </div>
-
-                
-                    </form>
-                    <!--?php echo "Suchbegriff: " . $search; 
-                    if (!isset($_GET['search']) || empty($_GET['search'])) {
-                        echo "Keine Suchanfrage eingegeben.";
-                    }?-->
-
-                    <?php if (!$noResults): ?>
-                        <div class="results">
-                            <h3>Suchergebnisse:</h3>
-                            <div class="search-rand">
-                                <?php while ($row = $result->fetch_assoc()): 
-                                      if($row['rolle'] == 2){
-                                        $rolle = "Lehrende";
-                                    }
-                                    elseif($row['rolle'] == 3){
-                                        $rolle = "Studierende";
-                                    }?>
-
-                                    <div class="search-results-names">
-                                        <?php echo "<p><a class='tätigkeiten-link tätigkeitenHoover' href='profil.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['vorname']) 
-                                        . " " . htmlspecialchars($row['nachname']) . " (" .  (htmlspecialchars($rolle)) . ") " ."</a></p>";
-                                        ?>
-                                    </div>
-                                <?php endwhile; ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-
-                    <?php if ($noResults): ?>
-                            <p class="error-message">...</p>
-                            <div class="error-message">
-                                <p>Keine Personen gefunden. Bitte versuchen Sie es erneut.</p>
-                            </div>
-                        <?php endif; ?>
+                    <div class = "details">
+                        <p><strong>Vorname:</strong> <?= htmlspecialchars($row["vorname"]) ?></p>
+                        <p><strong>Nachname:</strong> <?= htmlspecialchars($row["nachname"]) ?></p>
+                        <p><strong>Email:</strong> <?= htmlspecialchars($row["email"]) ?></p>
+                        <p><strong>Geburtsdatum:</strong>
+                            <?= htmlspecialchars($row["geburtsdatum_formatiert"] ?? 'Nicht angegeben') ?></p>
+                   
+                    </div>
+                  
 
                 </div></br>
                 

@@ -146,6 +146,8 @@ hr.navigation-divider {
 .layout-content {
     margin-top: 64px; /* Below the header */
     padding: 16px;
+    box-sizing: border-box; /* Padding wird in die Gesamtbreite einbezogen */
+
 }
 
 
@@ -386,9 +388,28 @@ a.button {
 }
 
 .search-rand{
-    margin-top: 20px;
 }
+
+/* Profil Seite */
+
+.heading-profil {
+    display: flex;
+    justify-content: space-between; /* Links und rechts ausrichten */
+    align-items: center; /* Vertikale Ausrichtung */
+    margin-bottom: 10px; /* Abstand zum nächsten Element */
+}
+
+.profil-name {
+}
+
+
+.profil-role {
+    text-align: right;
+    position: relative;
+}
+
 /* Fehlermeldung*/
+
 .error-message {
     margin-top: 10px;
     color: rgb(37, 87, 117);
