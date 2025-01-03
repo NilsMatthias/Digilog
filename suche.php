@@ -51,7 +51,7 @@ if (isset($_SESSION["user_id"])) {
                     <i class="material-icons">menu</i>
 
                 </div>
-                <span class="layout-title">Startseite</span>
+                <span class="layout-title">Personen-Suche</span>
 
                 <div class="header-right">
                     <span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span>
@@ -61,6 +61,7 @@ if (isset($_SESSION["user_id"])) {
             </div>
         </header>
         <div class="dropdown-menu" id="userDropdown">
+            <a href="startseite.php">Zurück zur Startseite</a>
             <a href="einstellungen.php">Einstellungen</a>
             <a class="navigation-link" href="logout.php">Log out</a>
         </div>
@@ -118,7 +119,7 @@ if (isset($_SESSION["user_id"])) {
                     <?php if ($noResults): ?>
                             <p class="error-message">...</p>
                             <div class="error-message">
-                                <p>Keine Tätigkeiten gefunden. Bitte versuchen Sie es erneut.</p>
+                                <p>Keine Personen gefunden. Bitte versuchen Sie es erneut.</p>
                             </div>
                         <?php endif; ?>
 
