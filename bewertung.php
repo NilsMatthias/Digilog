@@ -17,12 +17,12 @@ $feedback = ""; // Feedback-Variable initialisieren
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : null;
 $taetigkeit_id = isset($_GET['taetigkeit_id']) ? intval($_GET['taetigkeit_id']) : null;
 $bewertung = "";
-$bewertung_baek = "";
 $bewertung_epa = "";
+$bewertung_baek = "";
 
 // Bewertung laden, wenn Benutzer und Tätigkeit ausgewählt sind
 if ($user_id && $taetigkeit_id) {
-    $sql_bewertung = "SELECT Bewertung, `BÄK-Bewertung` AS baek, `EPA-Bewertung` AS epa FROM Durchführung 
+    $sql_bewertung = "SELECT Bewertung, `epa-Bewertung` AS epa, `bäk-Bewertung` AS baek FROM Durchführung 
                       WHERE `user-id` = ? AND `tätigkeit-id` = ?";
     $stmt = $mysqli->prepare($sql_bewertung);
     $stmt->bind_param("ii", $user_id, $taetigkeit_id);
@@ -30,26 +30,26 @@ if ($user_id && $taetigkeit_id) {
     $result = $stmt->get_result();
     if ($row = $result->fetch_assoc()) {
         $bewertung = $row['Bewertung'] ?? '';
-        $bewertung_baek = $row['baek'] ?? '';
         $bewertung_epa = $row['epa'] ?? '';
+        $bewertung_baek = $row['baek'] ?? '';
     }
     $stmt->close();
 }
 
 // Bewertung speichern (POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['baek'], $_POST['epa'], $_POST['taetigkeit_select'], $_POST['user_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['epa'], $_POST['baek'], $_POST['taetigkeit_select'], $_POST['user_id'])) {
     $user_id = intval($_POST['user_id']);
     $taetigkeit_id = intval($_POST['taetigkeit_select']);
     $bewertung = trim($_POST['bewertung']);
-    $baek = intval($_POST['baek']);
-    $epa = $_POST['epa'];
+    $epa = intval($_POST['epa']);
+    $baek = $_POST['baek'];
     $lehrer_id = $_SESSION["user_id"];
 
     $sqlUpdate = "UPDATE Durchführung 
-                  SET Bewertung = ?, `BÄK-Bewertung` = ?, `EPA-Bewertung` = ?, `Lehrer-ID` = ? 
+                  SET Bewertung = ?, `EPA-Bewertung` = ?, `BÄK-Bewertung` = ?, `Lehrer-ID` = ? 
                   WHERE `user-id` = ? AND `tätigkeit-id` = ?";
     $stmtUpdate = $mysqli->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("sisiii", $bewertung, $baek, $epa, $lehrer_id, $user_id, $taetigkeit_id);
+    $stmtUpdate->bind_param("sisiii", $bewertung, $epa, $baek, $lehrer_id, $user_id, $taetigkeit_id);
     $stmtUpdate->execute();
     $stmtUpdate->close();
     $feedback = "Bewertung erfolgreich gespeichert.";
@@ -197,18 +197,18 @@ $stmt->close();
                             <?php endif; ?>
                         <!-- Bewertung Felder -->
                         <?php if ($user_id && $taetigkeit_id): ?>
-                            <label for="baek">BÄK:</label>
-                            <select name="baek" id="baek" class="styled-select styled-select-taetigkeit" required>
+                            <label for="epa">EPA:</label>
+                            <select name="epa" id="epa" class="styled-select styled-select-taetigkeit" required>
                                 <option value="" disabled selected>Wählen</option>
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <option value="<?= $i ?>" <?= ($bewertung_baek == $i) ? 'selected' : '' ?>><?= $i ?></option>
+                                    <option value="<?= $i ?>" <?= ($bewertung_epa == $i) ? 'selected' : '' ?>><?= $i ?></option>
                                 <?php endfor; ?>
                             </select>
-                            <label for="epa">EPA:</label>
-                            <select name="epa" id="epa" class="styled-select styled-select-taetigkeit"required>
+                            <label for="baek">BÄK:</label>
+                            <select name="baek" id="baek" class="styled-select styled-select-taetigkeit"required>
                                 <option value="" disabled selected>Wählen</option>
-                                <?php foreach (['1', '2', '3a', '3b'] as $epa): ?>
-                                    <option value="<?= $epa ?>" <?= ($bewertung_epa == $epa) ? 'selected' : '' ?>><?= $epa ?></option>
+                                <?php foreach (['1', '2', '3a', '3b'] as $baek): ?>
+                                    <option value="<?= $baek ?>" <?= ($bewertung_baek == $baek) ? 'selected' : '' ?>><?= $baek ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <br>
