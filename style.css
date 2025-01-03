@@ -315,7 +315,9 @@ input[type="submit"] {
     margin-right: 10px;
     color: rgb(37, 87, 117);
 }
-
+.input-search {
+    width: 90%;
+}
 .styled-input {
     background-color: #ffffff; 
     border: 1px solid #ccc; 
@@ -327,10 +329,11 @@ input[type="submit"] {
     cursor: text; 
     transition: all 0.3s ease; 
     box-shadow: none;
-    width: 87%; 
     margin-right: 10px;
 }
-
+.styled-input-tät {
+    width: 87%;
+}
 .styled-input:hover {
     background-color: #e6e6e6; 
     border-color: #888; 
@@ -377,6 +380,14 @@ a.button {
     text-align: center;
 }
 
+/* Suche Seite */
+
+.search-results-names{
+}
+
+.search-rand{
+    margin-top: 20px;
+}
 /* Fehlermeldung*/
 .error-message {
     margin-top: 10px;
