@@ -113,6 +113,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="beschreibung">
                     <h3>Bewertung</h3>
                     <?php if ($bewertung): ?>
+                        <p>EPA: <strong><?= htmlspecialchars($bewertung['EPA-Bewertung'])?></strong>    BÄK: <strong><?= htmlspecialchars($bewertung['BÄK-Bewertung'])?></strong></p>
+                        <br>
                         <p class="kat"><?= htmlspecialchars($bewertung['Bewertung']) ?></p>
                     <?php else: ?>
                         <p>Sie haben noch keine Bewertung erhalten.</p>
