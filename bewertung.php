@@ -71,7 +71,19 @@ if ($user_id !== null) {
     $taetigkeiten_result = $stmt->get_result();
     $stmt->close();
 }
-
+if($taetigkeit_id !== null) {
+    $sql_taetigkeiten_getDokumentation = "SELECT Beschreibung FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
+    $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
+    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmt->execute();
+    $taetigkeiten_result_getDokumentation = $stmt->get_result();
+    $sql_taetigkeiten_getDokumentation = "SELECT Selbstreflexion FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
+    $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
+    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmt->execute();
+    $taetigkeitenSelbstreflexion = $stmt->get_result();
+    $stmt->close();
+}
 // Begrüßung: Aktuellen Benutzernamen abrufen
 $sql_user = "SELECT username FROM Userdaten_Hash WHERE id = ?";
 $stmt = $mysqli->prepare($sql_user);
@@ -162,7 +174,27 @@ $stmt->close();
                             <?php else: ?>
                                 <p>Bitte wählen Sie einen Studenten aus, um die Tätigkeiten anzuzeigen.</p>
                         <?php endif; ?>
+                        <?php if($user_id !== null && $taetigkeit_id !== null):?>
+                                <div class="dokumentation-bewertungPhp">
+                                <h4>Dokumentation des Studenten</h4>
+                                <?php if(isset($taetigkeiten_result_getDokumentation)):
+                                    $tätigDokumentation = $taetigkeiten_result_getDokumentation->fetch_assoc(); ?>
+                                    <p>"<?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>"</p>
 
+                                <?php endif; ?>
+                                </div>
+                                <div class="selbstreflexion-bewertungPhp">
+                                <h4>Selbstreflexion</h4>
+                                <?php if (isset($taetigkeitenSelbstreflexion)): 
+                                $tätigRef = $taetigkeitenSelbstreflexion->fetch_assoc();
+                                $reflexion = isset($tätigRef['Selbstreflexion']) ? htmlspecialchars($tätigRef['Selbstreflexion']) : ""; 
+                                ?>
+                                <p>"<?= $reflexion ?>"</p>
+                                <?php endif; ?>
+                                </div>
+                                <br>
+                               
+                            <?php endif; ?>
                         <!-- Bewertung Felder -->
                         <?php if ($user_id && $taetigkeit_id): ?>
                             <label for="baek">BÄK:</label>
