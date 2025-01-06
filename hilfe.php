@@ -77,7 +77,60 @@ if (isset($_SESSION["user_id"])) {
         <main class="layout-content">
             <div class="Page-content">
                 <div class="tätigkeiten">
-                    <h2>FAQ</h2>
+                    <h2>Häufig gestellte Fragen (FAQ)</h2>
+                    <hr /><br />
+                    <h3>Für Studierende</h3>
+                    <ul>
+                        <li><b>Wie registriere ich mich?</b><br><br> Klicken Sie auf "Registrieren" und füllen Sie das
+                            Anmeldeformular aus.</li><br>
+                        <li><b>Wie starte ich eine Tätigkeit?</b><br><br> Navigieren Sie zum "Startseite" und
+                            wählen Sie eine Tätigkeit aus. Geben Sie Ihre Dokumentation und Reflexion direkt in die
+                            vorgesehenen Felder ein.</li><br>
+                        <li><b>Wie sehe ich meine Bewertungen?</b><br><br> Besuchen Sie den Bereich "Bewertungen" in
+                            Ihrem
+                            Profil.</li><br>
+                        <li><b>Wie kann ich mein Profil ändern?</b><br><br> Gehen Sie zu "Einstellungen" und bearbeiten
+                            Sie
+                            Ihre Daten.</li><br>
+                        <li><b>Wie finde ich einen Dozenten oder Kommilitonen?</b><br><br> Nutzen Sie die Suchfunktion
+                            auf
+                            der Plattform.</li><br>
+                        <li><b>Wie kann ich einen Dozenten kontaktieren?</b><br><br> Sie können Ihren Dozenten über die
+                            in
+                            seinem Profil angegebene E-Mail-Adresse.</li><br>
+                    </ul>
+
+                    <h3>Für Lehrende</h3>
+                    <ul>
+                        <li><b>Wie korrigiere ich Tätigkeiten?</b><br><br> Öffnen Sie den Bereich "Startseite", um die
+                            eingereichten Dokumentationen und Reflexionen der Studierenden zu
+                            bewerten.</li><br>
+                        <li><b>Wie kontaktiere ich Studierende?</b><br><br> Nutzen Sie die
+                            Kontaktinformationen, die in den Profilen der Studierenden angegeben sind.</li><br>
+                    </ul>
+
+                    <h3>Technische Probleme</h3>
+                    <ul>
+                        <li><b>Ich habe mein Passwort vergessen. Was soll ich tun?</b><br><br> Nutzen Sie die Funktion
+                            "Passwort vergessen" auf der Login-Seite.</li><br>
+                        <li><b>Die Plattform lädt nicht. Was kann ich tun?</b><br><br> Überprüfen Sie Ihre
+                            Internetverbindung und versuchen Sie, die Seite neu zu laden.</li><br>
+                        <li><b>Wie kontaktiere ich den Support?</b><br><br> Schreiben Sie uns eine E-Mail an
+                            <b>digilog.support@plattform.de</b> oder nutzen Sie das Kontaktformular "Ungewöhnliche
+                            Probleme".
+                        </li><br>
+                    </ul>
+
+                    <h3>Ungewöhnliche Probleme</h3><br>
+                    <span class="taetigkeiten"><b>Profil:</b> <?= htmlspecialchars($user["username"]) ?>
+                    </span><br><br>
+                    <span class="taetigkeiten"><b>Email:</b> <?= htmlspecialchars($user["email"]) ?> </span><br><br>
+                    <form method="post" action="submit_problem.php">
+                        <label for="problem"><b>Problembeschreibung:</b></label><br><br>
+                        <textarea id="problem" name="problem" class="full-width" rows="4" cols="100"
+                            placeholder="Beschreiben Sie Ihr Problem..." required></textarea><br><br>
+                        <button type="submit">Absenden</button>
+                    </form>
 
                 </div>
         </main>

@@ -110,11 +110,11 @@ if (isset($_SESSION["user_id"])) {
             <div class="Page-content">
                 <div class="tätigkeiten letzte-tätigkeiten">
                     <h2>Zuletzt bearbeitete Tätigkeiten</h2>
-                    <hr /></br>
+                    <hr /><br>
                     <?php if ($letzteTaetigkeitenResult->num_rows > 0): ?>
                         <?php $counter = 1;
                         while ($taetigkeit = $letzteTaetigkeitenResult->fetch_assoc()): ?>
-                            <h4>Tätigkeit <?= $counter ?></h4>
+                            <h3>Tätigkeit <?= $counter ?></h3>
                             <p><a class="tätigkeiten-link tätigkeiten-link-bold"
                                     href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
                             </p>
