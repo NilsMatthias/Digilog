@@ -218,11 +218,10 @@ $stmt->close();
                             <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
                                 placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung) ?></textarea>
                             <br>
+                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
+                            <input type="submit" value="Speichern">
                         <?php endif; ?>
-                        <br>
-
-                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
-                        <input type="submit" value="Speichern">
+                        
                     </form>
                 </div>
                 <?php if (!empty($feedback)): ?>
