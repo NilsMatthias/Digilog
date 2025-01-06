@@ -1,10 +1,10 @@
 <?php
-  session_start();
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
+session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-  if (isset($_SESSION["user_id"])) {
+if (isset($_SESSION["user_id"])) {
     $mysqli = require __DIR__ . "/connection.php";
 
     $sql = "SELECT * FROM Userdaten_Hash WHERE id = {$_SESSION['user_id']}";
@@ -19,16 +19,16 @@
     $result = $stmt->get_result(); // Ergebnis für den gesamten Datensatz
     $stmt->close();
 
-   /* if ($result->num_rows == 0) {
-        die("Keine Tätigkeiten gefunden.");
-    }
-        */
+    /* if ($result->num_rows == 0) {
+         die("Keine Tätigkeiten gefunden.");
+     }
+         */
     $noResults = ($result->num_rows == 0);
-    
+
     // Die Ergebnisse in einer Variablen speichern, um sie in der HTML-Ausgabe zu verwenden
     $taetigkeitenResult = $result;
-    
-    $sortierung = "Kategorie ASC"; 
+
+    $sortierung = "Kategorie ASC";
     $suchbegriff = "";
     $suchklausel = "";
 
@@ -49,7 +49,7 @@
                 $sortierung = "Name ASC";
         }
     }
-  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +58,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Das digitale Logbuch - <?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : 'Tätigkeiten' ?></title>
+    <title>Das digitale Logbuch - <?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : 'Tätigkeiten' ?>
+    </title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -85,7 +86,7 @@
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
-                <a class="navigation-link" href="">Hilfe</a>
+                <a class="navigation-link" href="hilfe.php">Hilfe</a>
                 <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>
             </nav>
@@ -95,17 +96,20 @@
             <div class="Page-content">
                 <div class="tätigkeiten">
                     <h2>Tätigkeiten</h2>
-                    <hr/><br>
+                    <hr /><br>
                     <form action="" method="get">
                         <div class="search-bar">
                             <label for="searchInput">Tätigkeitssuche:</label>
-                            <input type="text" id="searchInput" class="styled-input styled-input-tät" name="search" placeholder="Tätigkeiten suchen..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                            <input type="text" id="searchInput" class="styled-input styled-input-tät" name="search"
+                                placeholder="Tätigkeiten suchen..."
+                                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
                             <input type="submit" value="suchen">
                         </div>
 
                         <!-- Hidden input für die Sortierung, um den Wert zu übergeben -->
-                        <input type="hidden" name="sortieren" value="<?= isset($_GET['sortieren']) ? htmlspecialchars($_GET['sortieren']) : 'Name_ASC' ?>">
-                       
+                        <input type="hidden" name="sortieren"
+                            value="<?= isset($_GET['sortieren']) ? htmlspecialchars($_GET['sortieren']) : 'Name_ASC' ?>">
+
                     </form>
                     <div class="sort-bar">
                         <form method="get" action="">
@@ -126,14 +130,14 @@
                         ?>
                     </div>
                     <?php if ($noResults): ?>
-                            <p class="error-message">...</p>
-                            <div class="error-message">
-                                <p>Keine Tätigkeiten gefunden. Bitte versuchen Sie es erneut.</p>
-                            </div>
-                        <?php endif; ?>
+                        <p class="error-message">...</p>
+                        <div class="error-message">
+                            <p>Keine Tätigkeiten gefunden. Bitte versuchen Sie es erneut.</p>
+                        </div>
+                    <?php endif; ?>
 
-                    <?php 
-                    $currentCategory = null; 
+                    <?php
+                    $currentCategory = null;
 
                     // Die Tätigkeiten durchgehen und ausgeben
                     while ($taetigkeit = $taetigkeitenResult->fetch_assoc()):

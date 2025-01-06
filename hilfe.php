@@ -1,5 +1,8 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if (isset($_SESSION["user_id"])) {
 
@@ -12,20 +15,9 @@ if (isset($_SESSION["user_id"])) {
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
-
-    $taetigkeiten = "SELECT * FROM Taetigkeiten LIMIT 3";
+    $user_id = $user["id"];
+    $taetigkeiten = "SELECT * FROM Taetigkeiten, `Durchführung` LIMIT 3";
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
-
-    $uhrzeitBearbeitungTätigkeit = "SELECT Datum FROM `Durchführung`";
-    $uhrzeitResult = $mysqli->query($uhrzeitBearbeitungTätigkeit);
-    $uhrzeit = $uhrzeitResult->fetch_assoc();
-
-    if (!$taetigkeitenResult) {
-        die("Fehler beim Abrufen der Tätigkeiten: " . $mysqli->error);
-    }
-    if (!$uhrzeitResult) {
-        die("Fehler beim Abrufen der Uhrzeit: " . $mysqli->error);
-    }
 }
 
 ?>
@@ -50,10 +42,10 @@ if (isset($_SESSION["user_id"])) {
                     <i class="material-icons">menu</i>
 
                 </div>
-                <span class="layout-title">Startseite</span>
+                <span class="layout-title">Hilfe</span>
 
                 <div class="header-right">
-                    <span class="username-text">Hallo, Prof. <?= htmlspecialchars($user["username"]) ?> </span>
+                    <span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span>
                     <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
 
                 </div>
@@ -85,29 +77,9 @@ if (isset($_SESSION["user_id"])) {
         <main class="layout-content">
             <div class="Page-content">
                 <div class="tätigkeiten">
-                    <h2>Tätigkeiten</h2>
-                    <hr />
+                    <h2>FAQ</h2>
 
-                    <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): ?>
-                        <h4>Tätigkeit <?= htmlspecialchars($taetigkeit['ID']) ?></h4>
-                        <p><a class="tätigkeiten-link tätigkeiten-link-bold"
-                                href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
-                        </p>
-                        <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
-
-
-                    <?php endwhile; ?>
-
-
-
-                </div></br>
-                <div class="tätigkeiten">
-                    <h2>Bewertungen</h2>
-                    <hr />
-                    <p><a class="bewertungen-link bewertungen-link-bold" href="bewertung.php">Vergabe einer Note an den
-                            Studenten</a></p>
                 </div>
-            </div>
         </main>
     </div>
 

@@ -52,7 +52,7 @@ if (isset($_SESSION["user_id"])) {
     $stmt->execute();
     $letzteTaetigkeitenResult = $stmt->get_result();
 
-    }
+}
 
 ?>
 
@@ -92,11 +92,11 @@ if (isset($_SESSION["user_id"])) {
 
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
-            <a class="navigation-link" href="startseite.php">Startseite</a>
+                <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
-                <a class="navigation-link" href="">Hilfe</a>
+                <a class="navigation-link" href="hilfe.php">Hilfe</a>
                 <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>
 
@@ -112,16 +112,16 @@ if (isset($_SESSION["user_id"])) {
                     <h2>Zuletzt bearbeitete Tätigkeiten</h2>
                     <hr /></br>
                     <?php if ($letzteTaetigkeitenResult->num_rows > 0): ?>
-                        <?php $counter = 1; 
-                            while ($taetigkeit = $letzteTaetigkeitenResult->fetch_assoc()): ?>
+                        <?php $counter = 1;
+                        while ($taetigkeit = $letzteTaetigkeitenResult->fetch_assoc()): ?>
                             <h4>Tätigkeit <?= $counter ?></h4>
                             <p><a class="tätigkeiten-link tätigkeiten-link-bold"
                                     href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
                             </p>
                             <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
                             <p>Zuletzt bearbeitet am: <?= htmlspecialchars($taetigkeit['Datum']) ?></p>
-                        <?php $counter++;
-                    endwhile; ?>                        
+                            <?php $counter++;
+                        endwhile; ?>
                     <?php else: ?>
                         <p>Keine bearbeiteten Tätigkeiten gefunden.</p>
                     <?php endif; ?>
@@ -135,11 +135,11 @@ if (isset($_SESSION["user_id"])) {
                     <h2>Bewertungen</h2>
                     <hr /></br>
 
-                    <?php while ($bewertungen = $bewertungResult->fetch_assoc()): 
+                    <?php while ($bewertungen = $bewertungResult->fetch_assoc()):
                         if ($bewertungResult->num_rows === 0) {
                             echo "<p>Keine Bewertungen gefunden.</p>";
-                        }?>
-                        
+                        } ?>
+
                         <p><a class="tätigkeiten-link tätigkeiten-link-bold"
                                 href="bewertungssicht.php?id=<?= $bewertungen['ID'] ?>"><?= htmlspecialchars($bewertungen['Name']) ?></a>
                         </p>

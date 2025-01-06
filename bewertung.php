@@ -71,7 +71,7 @@ if ($user_id !== null) {
     $taetigkeiten_result = $stmt->get_result();
     $stmt->close();
 }
-if($taetigkeit_id !== null) {
+if ($taetigkeit_id !== null) {
     $sql_taetigkeiten_getDokumentation = "SELECT Beschreibung FROM `Durchführung` WHERE  `User-ID` = ? AND `Tätigkeit-ID` =?";
     $stmt = $mysqli->prepare($sql_taetigkeiten_getDokumentation);
     $stmt->bind_param("ii", $user_id, $taetigkeit_id);
@@ -126,7 +126,7 @@ $stmt->close();
                     <a class="navigation-link" href="suche.php">Suche</a>
                     <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                     <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
-                    <a class="navigation-link" href="">Hilfe</a>
+                    <a class="navigation-link" href="hilfe.php">Hilfe</a>
                     <hr class="navigation-divider">
                     <a class="navigation-link" href="logout.php">Log out</a>
                 </nav>
@@ -147,7 +147,8 @@ $stmt->close();
                     <h3>Bewertung der Tätigkeit</h3></br>
                     <form method="POST" action="">
                         <!-- Auswahl Benutzer -->
-                        <select name="user_id" id="user_id" class="styled-select" required onchange="window.location.href='?user_id=' + this.value">
+                        <select name="user_id" id="user_id" class="styled-select" required
+                            onchange="window.location.href='?user_id=' + this.value">
                             <option value="" disabled selected>Student:in wählen</option>
                             <?php while ($user = $users_result->fetch_assoc()): ?>
                                 <option value="<?= $user['id'] ?>" <?= ($user['id'] == $user_id) ? 'selected' : '' ?>>
@@ -157,44 +158,47 @@ $stmt->close();
                         </select>
 
                         <!-- Auswahl Tätigkeit -->
-                        <?php if($user_id!== null): ?>
+                        <?php if ($user_id !== null): ?>
                             <?php if (isset($taetigkeiten_result) && $taetigkeiten_result->num_rows > 0): ?>
-                                <select name="taetigkeit_select" id="taetigkeit_select" class="styled-select styled-select-taetigkeit" required onchange="window.location.href='?user_id=<?= $user_id ?>&taetigkeit_id=' + this.value">
+                                <select name="taetigkeit_select" id="taetigkeit_select"
+                                    class="styled-select styled-select-taetigkeit" required
+                                    onchange="window.location.href='?user_id=<?= $user_id ?>&taetigkeit_id=' + this.value">
                                     <option value="" disabled selected>Wählen Sie eine Tätigkeit</option>
                                     <?php while ($taetigkeit = $taetigkeiten_result->fetch_assoc()): ?>
-                                        <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>" <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
+                                        <option value="<?= htmlspecialchars($taetigkeit['Tätigkeit-id']) ?>"
+                                            <?= ($taetigkeit['Tätigkeit-id'] == $taetigkeit_id) ? 'selected' : '' ?>>
                                             <?= htmlspecialchars($taetigkeit['Name']) ?>
                                         </option>
                                     <?php endwhile; ?>
                                 </select>
-                                
+
                             <?php else: ?>
                                 <p>Der ausgewählte Student hat noch keine Tätigkeiten.</p>
                             <?php endif; ?>
-                            <?php else: ?>
-                                <p>Bitte wählen Sie einen Studenten aus, um die Tätigkeiten anzuzeigen.</p>
+                        <?php else: ?>
+                            <p>Bitte wählen Sie einen Studenten aus, um die Tätigkeiten anzuzeigen.</p>
                         <?php endif; ?>
-                        <?php if($user_id !== null && $taetigkeit_id !== null):?>
-                                <div class="dokumentation-bewertungPhp">
+                        <?php if ($user_id !== null && $taetigkeit_id !== null): ?>
+                            <div class="dokumentation-bewertungPhp">
                                 <h4>Dokumentation des Studenten</h4>
-                                <?php if(isset($taetigkeiten_result_getDokumentation)):
+                                <?php if (isset($taetigkeiten_result_getDokumentation)):
                                     $tätigDokumentation = $taetigkeiten_result_getDokumentation->fetch_assoc(); ?>
                                     <p>"<?= htmlspecialchars($tätigDokumentation['Beschreibung']) ?>"</p>
 
                                 <?php endif; ?>
-                                </div>
-                                <div class="selbstreflexion-bewertungPhp">
+                            </div>
+                            <div class="selbstreflexion-bewertungPhp">
                                 <h4>Selbstreflexion</h4>
-                                <?php if (isset($taetigkeitenSelbstreflexion)): 
-                                $tätigRef = $taetigkeitenSelbstreflexion->fetch_assoc();
-                                $reflexion = isset($tätigRef['Selbstreflexion']) ? htmlspecialchars($tätigRef['Selbstreflexion']) : ""; 
-                                ?>
-                                <p>"<?= $reflexion ?>"</p>
+                                <?php if (isset($taetigkeitenSelbstreflexion)):
+                                    $tätigRef = $taetigkeitenSelbstreflexion->fetch_assoc();
+                                    $reflexion = isset($tätigRef['Selbstreflexion']) ? htmlspecialchars($tätigRef['Selbstreflexion']) : "";
+                                    ?>
+                                    <p>"<?= $reflexion ?>"</p>
                                 <?php endif; ?>
-                                </div>
-                                <br>
-                               
-                            <?php endif; ?>
+                            </div>
+                            <br>
+
+                        <?php endif; ?>
                         <!-- Bewertung Felder -->
                         <?php if ($user_id && $taetigkeit_id): ?>
                             <label for="epa">EPA:</label>
@@ -205,15 +209,16 @@ $stmt->close();
                                 <?php endfor; ?>
                             </select>
                             <label for="baek">BÄK:</label>
-                            <select name="baek" id="baek" class="styled-select styled-select-taetigkeit"required>
+                            <select name="baek" id="baek" class="styled-select styled-select-taetigkeit" required>
                                 <option value="" disabled selected>Wählen</option>
                                 <?php foreach (['1', '2', '3a', '3b'] as $baek): ?>
-                                    <option value="<?= $baek ?>" <?= ($bewertung_baek == $baek) ? 'selected' : '' ?>><?= $baek ?></option>
+                                    <option value="<?= $baek ?>" <?= ($bewertung_baek == $baek) ? 'selected' : '' ?>><?= $baek ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                             <br>
                             <br>
-                                <br>
+                            <br>
 
                             <textarea id="bewertung" name="bewertung" style="width: 100%; height: 200px;"
                                 placeholder="Schreiben Sie hier den Text der Bewertung"><?= htmlspecialchars($bewertung) ?></textarea>
@@ -221,7 +226,7 @@ $stmt->close();
                             <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
                             <input type="submit" value="Speichern">
                         <?php endif; ?>
-                        
+
                     </form>
                 </div>
                 <?php if (!empty($feedback)): ?>
@@ -263,7 +268,7 @@ $stmt->close();
                 dropdown.style.display = 'none';
             }
         });
-            </script>
+    </script>
 </body>
 
 </html>
