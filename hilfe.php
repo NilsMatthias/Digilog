@@ -83,7 +83,7 @@ if (isset($_SESSION["user_id"])) {
                     <ul>
                         <li><b>Wie registriere ich mich?</b><br><br> Klicken Sie auf "Registrieren" und füllen Sie das
                             Anmeldeformular aus.</li><br>
-                        <li><b>Wie starte ich eine Tätigkeit?</b><br><br> Navigieren Sie zum "Startseite" und
+                        <li><b>Wie starte ich eine Tätigkeit?</b><br><br> Navigieren Sie zur "Startseite" und
                             wählen Sie eine Tätigkeit aus. Geben Sie Ihre Dokumentation und Reflexion direkt in die
                             vorgesehenen Felder ein.</li><br>
                         <li><b>Wie sehe ich meine Bewertungen?</b><br><br> Besuchen Sie den Bereich "Bewertungen" in
@@ -97,7 +97,7 @@ if (isset($_SESSION["user_id"])) {
                             der Plattform.</li><br>
                         <li><b>Wie kann ich einen Dozenten kontaktieren?</b><br><br> Sie können Ihren Dozenten über die
                             in
-                            seinem Profil angegebene E-Mail-Adresse.</li><br>
+                            seinem Profil angegebene E-Mail-Adresse finden.</li><br>
                     </ul>
 
                     <h3>Für Lehrende</h3>
