@@ -269,10 +269,20 @@ input[type="submit"] {
 #dokumentation-textarea{
     width: 100%;
     resize: vertical;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.full-width {
+    width: 100%;
+    box-sizing: border-box; /* Учитывать padding и border в ширину */
+    resize: vertical; /* Позволяет изменять высоту */
+    padding: 10px;
+    font-size: 16px;
 }
 
 .styled-select {
-    background-color: #ffffff; 
+    background-color: white; 
     border: 1px solid #ccc; 
     border-radius: 5px; 
     padding: 5px 10px; 

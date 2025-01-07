@@ -72,7 +72,7 @@ if (isset($_SESSION["user_id"])) {
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
-                <a class="navigation-link" href="">Hilfe</a>
+                <a class="navigation-link" href="hilfe.php">Hilfe</a>
                 <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>
 

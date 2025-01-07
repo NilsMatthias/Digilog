@@ -71,11 +71,11 @@ if (isset($_SESSION["user_id"])) {
 
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
-            <a class="navigation-link" href="startseite.php">Startseite</a>
+                <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
-                <a class="navigation-link" href="">Hilfe</a>
+                <a class="navigation-link" href="hilfe.php">Hilfe</a>
                 <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>
 
@@ -92,12 +92,14 @@ if (isset($_SESSION["user_id"])) {
                     <hr /></br>
                     <form action="" method="get">
                         <div class="search-bar">
-                            
-                            <input type="text" id="searchInput" class="styled-input input-search" name="search" placeholder="Name eingeben..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+
+                            <input type="text" id="searchInput" class="styled-input input-search" name="search"
+                                placeholder="Name eingeben..."
+                                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
                             <input type="submit" value="suchen">
                         </div>
 
-                
+
                     </form>
                     <!--?php echo "Suchbegriff: " . $search; 
                     if (!isset($_GET['search']) || empty($_GET['search'])) {
@@ -108,17 +110,16 @@ if (isset($_SESSION["user_id"])) {
                         <div class="results">
                             <h3>Suchergebnisse:</h3>
                             <div class="search-rand">
-                                <?php while ($row = $result->fetch_assoc()): 
-                                      if($row['rolle'] == 2){
+                                <?php while ($row = $result->fetch_assoc()):
+                                    if ($row['rolle'] == 2) {
                                         $rolle = "Lehrende";
-                                    }
-                                    elseif($row['rolle'] == 3){
+                                    } elseif ($row['rolle'] == 3) {
                                         $rolle = "Studierende";
-                                    }?>
+                                    } ?>
 
                                     <div class="search-results-names">
-                                        <?php echo "<p><a class='tätigkeiten-link tätigkeitenHoover' href='profil.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['vorname']) 
-                                        . " " . htmlspecialchars($row['nachname']) . " (" .  (htmlspecialchars($rolle)) . ") " ."</a></p>";
+                                        <?php echo "<p><a class='tätigkeiten-link tätigkeitenHoover' href='profil.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['vorname'])
+                                            . " " . htmlspecialchars($row['nachname']) . " (" . (htmlspecialchars($rolle)) . ") " . "</a></p>";
                                         ?>
                                     </div>
                                 <?php endwhile; ?>
@@ -128,14 +129,14 @@ if (isset($_SESSION["user_id"])) {
 
 
                     <?php if ($noResults): ?>
-                            <p class="error-message">...</p>
-                            <div class="error-message">
-                                <p>Keine Personen gefunden. Bitte versuchen Sie es erneut.</p>
-                            </div>
-                        <?php endif; ?>
+                        <p class="error-message">...</p>
+                        <div class="error-message">
+                            <p>Keine Personen gefunden. Bitte versuchen Sie es erneut.</p>
+                        </div>
+                    <?php endif; ?>
 
                 </div></br>
-                
+
             </div>
         </main>
     </div>

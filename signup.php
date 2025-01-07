@@ -45,34 +45,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Nur wenn keine Fehler vorliegen, Daten speichern
     if (empty($errors)) {
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $mysqli = require __DIR__ . "/connection.php";
-
-        $sql = "INSERT INTO Userdaten_Hash (rolle, username, nachname, vorname, email, password_hash) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $mysqli->stmt_init();
-
-
-        if (!$stmt->prepare($sql)) {
-            die("SQL error: " . $mysqli->error);
-        }
-
-        $stmt->bind_param("isssss", $rolle, $name, $nachname, $vorname, $email, $password_hash);
-
-        if ($stmt->execute()) {
-            header("Location: signup-success.html");
-            exit;
-
-        } else {
-            if ($mysqli->errno === 1062) {
-                $errors['email'] = "Email already taken";
-            } else {
-                die($mysqli->error . " " . $mysqli->errno);
+        try {
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $mysqli = require __DIR__ . "/connection.php";
+    
+            $sql = "INSERT INTO Userdaten_Hash (rolle, username, nachname, vorname, email, password_hash) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $mysqli->stmt_init();
+    
+    
+            if (!$stmt->prepare($sql)) {
+                die("SQL error: " . $mysqli->error);
             }
-        }
+    
+            $stmt->bind_param("isssss", $rolle, $name, $nachname, $vorname, $email, $password_hash);
+    
+            if ($stmt->execute()) {
+                header("Location: signup-success.html");
+                exit;
+             } 
+        } catch (mysqli_sql_exception $e) {
+                if ($mysqli->errno === 1062) {
+                    $errors['email'] = "Es gab einen Fehler bei der Registrierung. Eine Email darf nicht mehrfach verwendet werden.";
+                } else {
+                    $errors['general'] = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.";
+                }
+        } catch (Exception $e) {
+                $errors['general'] = $e->getMessage();
+        } 
     }
-    else{
-        echo "Es gab einen Fehler bei der Registrierung. Eine Email darf nicht mehrfach verwendet werden";
+  
+    if (!empty($errors['general'])) {
+        echo '<p class="error-message">' . $errors['general'] . '</p>';
     }
+    
 }
 ?>
 <!DOCTYPE html>

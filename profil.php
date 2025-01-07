@@ -25,24 +25,23 @@ if (isset($_SESSION["user_id"])) {
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-      
-        
+
+
         if ($result && $result->num_rows > 0) {
-          // Hole das Ergebnis als Array
-          $taetigkeit = $result->fetch_assoc();
-      } else {
-          // Keine Tätigkeit gefunden
-          die("Profil kann nicht abgerufen werden.");
-      }
-    
+            // Hole das Ergebnis als Array
+            $taetigkeit = $result->fetch_assoc();
+        } else {
+            // Keine Tätigkeit gefunden
+            die("Profil kann nicht abgerufen werden.");
+        }
+
 
 
     }
     $rolle = "";
-    if($row['rolle'] == 2){
+    if ($row['rolle'] == 2) {
         $rolle = "Lehrende";
-    }
-    elseif($row['rolle'] == 3){
+    } elseif ($row['rolle'] == 3) {
         $rolle = "Studierende";
     }
 }
@@ -85,11 +84,11 @@ if (isset($_SESSION["user_id"])) {
 
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
-            <a class="navigation-link" href="startseite.php">Startseite</a>
+                <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
-                <a class="navigation-link" href="">Hilfe</a>
+                <a class="navigation-link" href="hilfe.php">Hilfe</a>
                 <hr class="navigation-divider">
                 <a class="navigation-link" href="logout.php">Log out</a>
 
@@ -103,22 +102,23 @@ if (isset($_SESSION["user_id"])) {
             <div class="Page-content">
                 <div class="tätigkeiten letzte-tätigkeiten">
                     <div class="heading-profil">
-                        <h2 class="profil-name">Profil von <?= htmlspecialchars($row['vorname'])?> <?= htmlspecialchars($row['nachname'])?></h2>
+                        <h2 class="profil-name">Profil von <?= htmlspecialchars($row['vorname']) ?>
+                            <?= htmlspecialchars($row['nachname']) ?></h2>
                         <h2 class="profil-role"><?= htmlspecialchars($rolle) ?></h2>
                     </div>
                     <hr /></br>
-                    <div class = "details">
+                    <div class="details">
                         <p><strong>Vorname:</strong> <?= htmlspecialchars($row["vorname"]) ?></p>
                         <p><strong>Nachname:</strong> <?= htmlspecialchars($row["nachname"]) ?></p>
                         <p><strong>Email:</strong> <?= htmlspecialchars($row["email"]) ?></p>
                         <p><strong>Geburtsdatum:</strong>
                             <?= htmlspecialchars($row["geburtsdatum_formatiert"] ?? 'Nicht angegeben') ?></p>
-                   
+
                     </div>
-                  
+
 
                 </div></br>
-                
+
             </div>
         </main>
     </div>
