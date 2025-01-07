@@ -269,6 +269,8 @@ input[type="submit"] {
 #dokumentation-textarea{
     width: 100%;
     resize: vertical;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .full-width {
@@ -280,7 +282,7 @@ input[type="submit"] {
 }
 
 .styled-select {
-    background-color: #ffffff; 
+    background-color: white; 
     border: 1px solid #ccc; 
     border-radius: 5px; 
     padding: 5px 10px; 
