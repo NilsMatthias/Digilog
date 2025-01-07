@@ -124,30 +124,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
         </main>
     </div>
-    <script>
-        document.getElementById('menuButton').addEventListener('click', function () {
-            document.body.classList.toggle('drawer-open');
-        });
-        document.addEventListener('click', function (event) {
-            var drawer = document.getElementById('drawer');
-            var menuButton = document.getElementById('menuButton');
-
-            if (!drawer.contains(event.target) && !menuButton.contains(event.target)) {
-                document.body.classList.remove('drawer-open');
-            }
-        });
-        document.getElementById('icon_user').addEventListener('click', function () {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
-        });
-        document.addEventListener('click', function (event) {
-            const dropdown = document.getElementById('userDropdown');
-            const iconUser = document.getElementById('icon_user');
-
-            if (!iconUser.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
+    <script src="script.js">
     </script>
 </body>
 </html>

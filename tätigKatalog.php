@@ -156,35 +156,7 @@ if (isset($_SESSION["user_id"])) {
         </main>
     </div>
 
-    <script>
-        document.getElementById('menuButton').addEventListener('click', function () {
-            document.body.classList.toggle('drawer-open');
-        });
-
-        document.addEventListener('click', function (event) {
-            var drawer = document.getElementById('drawer');
-            var menuButton = document.getElementById('menuButton');
-            if (!drawer.contains(event.target) && !menuButton.contains(event.target)) {
-                document.body.classList.remove('drawer-open');
-            }
-        });
-
-        document.getElementById('icon_user').addEventListener('click', function () {
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
-                dropdown.style.display = 'block';
-            } else {
-                dropdown.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('click', function (event) {
-            const dropdown = document.getElementById('userDropdown');
-            const iconUser = document.getElementById('icon_user');
-            if (!iconUser.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
+    <script src="script.js">
     </script>
 </body>
 
