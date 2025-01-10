@@ -9,7 +9,7 @@ if (isset($_SESSION["user_id"])) {
 
     $mysqli = require __DIR__ . "/connection.php";
 
-    $sql = "SELECT id, username, email, vorname, nachname, DATE_FORMAT(geburtsdatum, '%d.%m.%Y') AS geburtsdatum_formatiert 
+    $sql = "SELECT id, username, email, vorname, nachname, geburtsdatum, DATE_FORMAT(geburtsdatum, '%d.%m.%Y') AS geburtsdatum_formatiert 
         FROM Userdaten_Hash 
         WHERE id = {$_SESSION["user_id"]}";
 
@@ -126,7 +126,7 @@ if (isset($_SESSION["user_id"])) {
                             </p>
                             <p><strong>Geburtsdatum:</strong>
                                 <input type="date" name="birthdate"
-                                    value="<?= htmlspecialchars($user["geburtsdatum_formatiert"] ?? '') ?>">
+                                    value="<?= htmlspecialchars($user["geburtsdatum"] ?? '') ?>">
                             </p>
                             <input type="submit"></input>
                             <a href="einstellungen.php" class="button">Abbrechen</a>
