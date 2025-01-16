@@ -83,11 +83,9 @@ if (isset($_SESSION["user_id"])) {
 
         </div>
 
-
-
         <main class="layout-content">
             <div class="Page-content">
-                <div class="tätigkeiten letzte-tätigkeiten">
+                <div class="tätigkeiten">
                     <h2>Hier kannst du Studierende und Lehrende suchen </h2>
                     <hr /></br>
                     <form action="" method="get">

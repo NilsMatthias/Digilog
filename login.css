@@ -148,8 +148,17 @@ form {
         border-radius: .5rem;
         padding-left: 30px;
         
+        
     }
-    
-   
 }
 
+/* Центрирование только в мобильной версии */
+@media screen and (max-width: 768px) {
+    .login-form-forgotpassword {
+        text-align: center; /* Центрирует текст */
+    }
+    .navigation-link {
+        display: block; /* Разместить ссылки друг под другом */
+        margin-bottom: 8px; /* Добавить отступ между ссылками */
+    }
+}

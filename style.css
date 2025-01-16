@@ -213,6 +213,7 @@ hr.navigation-divider {
     font-weight: bold;
 }
 .textarea {
+    width: 100%;
     font-weight:bold;
     padding: 16px;
     background: #FFF;
@@ -258,7 +259,7 @@ input[type="submit"] {
   }
   
   input[type="submit"]:hover {
-    background-color: rgb(58, 123, 170); /* Более темный зеленый при наведении */
+    background-color: rgb(58, 123, 170); 
   }
   
   
@@ -275,10 +276,11 @@ input[type="submit"] {
 
 .full-width {
     width: 100%;
-    box-sizing: border-box; /* Учитывать padding и border в ширину */
-    resize: vertical; /* Позволяет изменять высоту */
+    box-sizing: border-box;
+    resize: vertical; 
     padding: 10px;
     font-size: 16px;
+    max-width: 100%;
 }
 
 .styled-select {

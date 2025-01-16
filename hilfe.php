@@ -127,7 +127,7 @@ if (isset($_SESSION["user_id"])) {
                     <span class="taetigkeiten"><b>Email:</b> <?= htmlspecialchars($user["email"]) ?> </span><br><br>
                     <form method="post" action="submit_problem.php">
                         <label for="problem"><b>Problembeschreibung:</b></label><br><br>
-                        <textarea id="problem" name="problem" class="full-width" rows="4" cols="100"
+                        <textarea id="problem" name="problem" class="full-width" rows="4"
                             placeholder="Beschreiben Sie Ihr Problem..." required></textarea><br><br>
                         <button type="submit">Absenden</button>
                     </form>
