@@ -1,10 +1,10 @@
-
+/* Body und HTML-Styles */
 body, html {
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
 
-
+/* Kopfbereich der Seite: Festgelegt, bleibt oben beim Scrollen sichtbar */
 .layout-header {
     background-color: rgb(103, 182, 231); 
     color: white;
@@ -20,6 +20,7 @@ body, html {
   
 }
 
+/* Header-Zeile*/
 .header-row {
     display: flex;
     align-items: center;
@@ -27,12 +28,14 @@ body, html {
     
 }
 
-
+/* Seitentitel im Kopfbereich */
 .layout-title {
     font-size: 24px;
     padding: 15px;
     color: white;
 }
+
+/* Rechte Seite im Header*/
 .header-right {
     display: flex;
     align-items: center;
@@ -40,6 +43,7 @@ body, html {
     margin-left: auto;
 }
 
+/* Dropdown-Menü*/
 .dropdown-menu {
     display: none; /* Standardmäßig verstecken */
     position: fixed;
@@ -54,6 +58,7 @@ body, html {
 
 }
 
+/* Links im Dropdown-Menü */
 .dropdown-menu a {
     display: block;
     padding: 8px 12px;
@@ -61,31 +66,36 @@ body, html {
     color: rgb(37, 87, 117);
 }
 
+/* Hover-Effekt für Links im Dropdown-Menü */
 .dropdown-menu a:hover {
     background: #E0E0E0;
     color: #000;
 }
 
-
+/* Textstil für Benutzernamen */
 .username-text {
     font-size: 24px;
    
 }
 
+/* Stil für Benutzersymbol */
 .icon-user {
     height: 35px;
 
 }
 
+/* Eingabefeld mit schwebendem Label */
 .textfield-expandable-floating-label {
     display: flex;
     align-items: center;
 }
 
+/* Eingabefeld-Container */
 .textfield-expandable-holder {
     display: none; 
 }
 
+/* Eingabefeld-Stil */
 .textfield-input {
     background: transparent;
     border: none;
@@ -95,12 +105,13 @@ body, html {
     outline: none;
 }
 
+/* Menü-Button-Stil */
 .button-icon-menu {
     color: white;
     cursor: pointer;
 }
 
-
+/* Seitenleiste: Versteckt, schiebt sich beim Öffnen herein */
 .layout-drawer {
     position: fixed;
     top: 80px; 
@@ -114,13 +125,13 @@ body, html {
     z-index: 1;
 }
 
-
-
+/* Navigationselemente in der Seitenleiste */
 .navigation {
     display: flex;
     flex-direction: column;
 }
 
+/* Links in der Navigation */
 .navigation-link {
     padding: 16px;
     color: #666;
@@ -129,28 +140,28 @@ body, html {
     transition: background 0.3s, color 0.3s;
 }
 
+/* Hover-Effekt für Navigationslinks */
 .navigation-link:hover {
     background: #E0E0E0;
     color: #000;
 }
 
+/* Trennlinie in der Navigation */
 hr.navigation-divider {
     border: 0;
     border-top: 1px solid #b4b2b2; 
     margin: 10px 0; 
 }
 
-
-
-
+/* Inhaltsbereich */
 .layout-content {
-    margin-top: 64px; /* Below the header */
+    margin-top: 64px;  /* Unterhalb der Header */
     padding: 16px;
     box-sizing: border-box; /* Padding wird in die Gesamtbreite einbezogen */
 
 }
 
-
+/* Hauptinhalt der Seite */
 .Page-content {
     padding: 16px;
     background: #FFF;
@@ -158,60 +169,47 @@ hr.navigation-divider {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Offen-Status für die Seitenleiste */
 .drawer-open .layout-drawer {
-    transform: translateX(0);
+    transform: translateX(0); /* Sichtbar */
 }
 
-
-
-.Page-content .tätigkeiten{
+/* Stil für Abschnitte in der Seite */
+.Page-content .tätigkeiten,
+.Page-content .bewertungen,
+.Page-content .details {
     padding: 16px;
     background: #FFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(37, 87, 117);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+    color: rgb(37, 87, 117); /* Textfarbe */
 }
 
-.Page-content .bewertungen{
-    padding: 16px;
-    background: #FFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(37, 87, 117);
-}
-.Page-content .details{
-    padding: 16px;
-    background: #FFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: rgb(37, 87, 117);
-}
-
-.tätigkeiten-link {
+/* Links mit Hover-Effekt */
+.tätigkeiten-link, .bewertungen-link {
     padding-top: 20px;
     color: rgb(37, 87, 117);
-    text-decoration: none;
-
-}
-.tätigkeiten-link-bold {
+    text-decoration: none; /* Keine Unterstreichung */
     font-weight: bold;
 }
 
-.bewertungen-link {
-    padding-top: 20px;
-    color: rgb(37, 87, 117);
-    text-decoration: none;
-    font-weight: bold;
-}
-
+/* Hover-Effekt für Tätigkeiten-Links */
 .tätigkeitenHoover:hover {
     text-decoration: underline;
 }
+
+/* Name der Lehrkraft */
 .lehrer {
     color: rgb(37, 87, 117);
     font-weight: bold;
 }
+
+/* Deadline-Text */
 .deadline {
     color: rgb(117, 37, 37);
     font-weight: bold;
 }
+
+/* Textbereich für den Text der Dokumentation usw. */
 .textarea {
     width: 100%;
     font-weight:bold;
@@ -220,12 +218,16 @@ hr.navigation-divider {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: rgb(37, 87, 117);
 } 
+
+/* Dokumentationsabschnitt */
 .dokumentation {
     padding: 16px;
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: rgb(37, 87, 117);
 }
+
+/* Beschreibungstext */
 .beschreibung {
     padding: 16px;
     background: #FFF;
@@ -234,19 +236,25 @@ hr.navigation-divider {
     text-align: justify;
 }
 
+/* Flexbox für Elemente */
 .flex {
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
+/* H3-Titel ohne Margin */
 h3 {
     margin: 0;
 }
+
+/* Check-Mark-Symbol */
 .check-mark img {
     width: 24px; 
     height: 24px;
 }
 
+/* Eingabefeld-Button */
 input[type="submit"] {
     margin-top: 2px; 
     background-color: rgb(58, 123, 170); 
@@ -258,15 +266,17 @@ input[type="submit"] {
     font-size: 16px;
   }
   
+  /* Hover-Effekt für Eingabefeld-Button */
   input[type="submit"]:hover {
     background-color: rgb(58, 123, 170); 
   }
-  
-  
-.drawer-open .layout-drawer {
+
+/* Seitenleiste beim Öffnen */
+  .drawer-open .layout-drawer {
     transform: translateX(0);
 }
 
+/* Textbereich für Dokumentation */
 #dokumentation-textarea{
     width: 100%;
     resize: vertical;
@@ -274,6 +284,7 @@ input[type="submit"] {
     font-size: 16px;
 }
 
+/* Eingabefeld für die gesamte Breite */
 .full-width {
     width: 100%;
     box-sizing: border-box;
@@ -283,6 +294,7 @@ input[type="submit"] {
     max-width: 100%;
 }
 
+/* Gestylte Dropdown-Auswahl */
 .styled-select {
     background-color: white; 
     border: 1px solid #ccc; 
@@ -296,42 +308,52 @@ input[type="submit"] {
     box-shadow: none;
 }
 
+/* Hover-Effekt für Dropdown */
 .styled-select:hover {
     background-color: #e6e6e6; 
     border-color: #888; 
     color: rgb(37, 87, 117);
 }
 
+/* Fokus-Effekt für Dropdown */
 .styled-select:focus {
     border-color: rgb(37, 87, 117); 
     box-shadow: 0 0 5px  rgb(37, 87, 117) 
 }
 
+/* Dropdown-Optionen */
 .styled-select option {
     background-color: #fff; 
     color: rgb(37, 87, 117); 
     padding: 10px; 
 }
 
+/* Hover-Effekt für Dropdown-Optionen */
 .styled-select option:hover {
     background-color:  rgb(37, 87, 117); 
     color: #fff;
 }
 
+/* Suchleiste und Sortierleiste */
 .search-bar, .sort-bar {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
 }
 
+/* Label für Such- und Sortierfelder */
 .search-bar label, .sort-bar label {
     font-size: 16px;
     margin-right: 10px;
     color: rgb(37, 87, 117);
 }
+
+/* Eingabefeld für Suche */
 .input-search {
     width: 90%;
 }
+
+/* Gestyltes Eingabefeld */
 .styled-input {
     background-color: #ffffff; 
     border: 1px solid #ccc; 
@@ -345,25 +367,34 @@ input[type="submit"] {
     box-shadow: none;
     margin-right: 10px;
 }
+
+/* Eingabefeld für Tätigkeiten */
 .styled-input-tät {
     width: 87%;
 }
+
+
+/* Hover-Effekt für gestyltes Eingabefeld */
 .styled-input:hover {
     background-color: #e6e6e6; 
     border-color: #888; 
     color: rgb(37, 87, 117); 
 }
 
+/* Fokus-Effekt für gestyltes Eingabefeld */
 .styled-input:focus {
     border-color: rgb(37, 87, 117); 
     box-shadow: 0 0 5px rgb(37, 87, 117); 
 }
 
+/* Platzhalter im Eingabefeld */
 .styled-input::placeholder {
     color: rgb(37, 87, 117); 
     font-style: italic; 
 
 }
+
+/* Spezielle Buttons mit Edit-Funktion */
 button[type="submit"][name="edit"] {
     margin-top: 2px; 
     background-color: rgb(58, 123, 170); 
@@ -375,6 +406,7 @@ button[type="submit"][name="edit"] {
     font-size: 16px;
 }
 
+/* Allgemeine Buttons */
 button {
     margin-top: 2px; 
     background-color: rgb(58, 123, 170); 
@@ -386,6 +418,7 @@ button {
     font-size: 16px;
 }
 
+/* Link im Button-Stil */
 a.button {
     display: inline-block;
     padding: 2px 10px;
@@ -394,16 +427,7 @@ a.button {
     text-align: center;
 }
 
-/* Suche Seite */
-
-.search-results-names{
-}
-
-.search-rand{
-}
-
 /* Profil Seite */
-
 .heading-profil {
     display: flex;
     justify-content: space-between; /* Links und rechts ausrichten */
@@ -411,17 +435,13 @@ a.button {
     margin-bottom: 10px; /* Abstand zum nächsten Element */
 }
 
-.profil-name {
-}
-
-
+/* Profilrolle */
 .profil-role {
     text-align: right;
     position: relative;
 }
 
 /* Fehlermeldung*/
-
 .error-message {
     margin-top: 10px;
     color: rgb(37, 87, 117);
