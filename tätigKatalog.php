@@ -122,10 +122,10 @@ if (isset($_SESSION["user_id"])) {
                         </form>
                     </div>
 
-                    <div class="tätigkeiten-link-bold">
+                    <div class="information-link">
                         <?php
                         if ($_GET['sortieren'] == "Name_ASC" || $_GET['sortieren'] == "Name_DESC") {
-                            echo "<p>Bezeichnung der Tätigkeiten</p>";
+                            echo "<h3>Bezeichnung der Tätigkeiten</h3><br>";
                         }
                         ?>
                     </div>
@@ -147,7 +147,7 @@ if (isset($_SESSION["user_id"])) {
                             echo "<h3>" . htmlspecialchars($currentCategory) . "</h3>";
                         }
                         // Tätigkeit mit Link zur Detailseite ausgeben
-                        echo "<p><a class='tätigkeiten-link tätigkeitenHoover' href='tätigSubpage.php?id=" . $taetigkeit['ID'] . "'>" . htmlspecialchars($taetigkeit['Name']) . "</a></p>";
+                        echo "<p><a class='information-link informationHoover' href='tätigSubpage.php?id=" . $taetigkeit['ID'] . "'>" . htmlspecialchars($taetigkeit['Name']) . "</a></p>";
                     endwhile;
                     ?>
 

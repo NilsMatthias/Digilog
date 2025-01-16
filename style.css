@@ -184,6 +184,33 @@ hr.navigation-divider {
     color: rgb(37, 87, 117); /* Textfarbe */
 }
 
+/* Stil für Info-Abschnitte in der Seite */
+.Page-content .information{
+    padding: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+    color: rgb(37, 87, 117); /* Textfarbe */
+}
+
+/* Stil für Info-Links */
+.information-link{
+    adding-top: 20px;
+    color: rgb(37, 87, 117);
+    text-decoration: none; /* Keine Unterstreichung */
+}
+
+.information-link-bold{
+    adding-top: 20px;
+    color: rgb(37, 87, 117);
+    text-decoration: none; /* Keine Unterstreichung */
+    font-weight: bold;
+}
+
+/* Hover-Effekt für Info-Links */
+.informationHoover:hover {
+    text-decoration: underline;
+}
+
 /* Links mit Hover-Effekt */
 .tätigkeiten-link, .bewertungen-link {
     padding-top: 20px;

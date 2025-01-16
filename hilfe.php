@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"])) {
 
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
-                <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
+                <a class="navigation-link" href="startseite.php">Startseite</a>
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
@@ -76,23 +76,28 @@ if (isset($_SESSION["user_id"])) {
 
         <main class="layout-content">
             <div class="Page-content">
-                <div class="tätigkeiten">
+                <div class="information">
                     <h2>Häufig gestellte Fragen (FAQ)</h2>
                     <hr /><br />
                     <h3>Für Studierende</h3>
                     <ul>
                         <li><b>Wie registriere ich mich?</b><br><br> Klicken Sie auf "Registrieren" und füllen Sie das
                             Anmeldeformular aus.</li><br>
-                        <li><b>Wie starte ich eine Tätigkeit?</b><br><br> Navigieren Sie zur "Startseite" und
+                        <li><b>Wie starte ich eine Tätigkeit?</b><br><br> Navigieren Sie zur <a
+                                class="information-link-bold" href="startseite.php">Startseite</a> und
                             wählen Sie eine Tätigkeit aus. Geben Sie Ihre Dokumentation und Reflexion direkt in die
                             vorgesehenen Felder ein.</li><br>
-                        <li><b>Wie sehe ich meine Bewertungen?</b><br><br> Besuchen Sie den Bereich "Bewertungen" in
-                            Ihrem
-                            Profil.</li><br>
-                        <li><b>Wie kann ich mein Profil ändern?</b><br><br> Gehen Sie zu "Einstellungen" und bearbeiten
+                        <li><b>Wie sehe ich meine Bewertungen?</b><br><br> Besuchen Sie den Bereich <a
+                                class="information-link-bold" href="startseite.php">Startseite</a> in
+                            Ihrem Profil. Klicken Sie dann im Feld „Bewertungen“ auf die Tätigkeit, die Sie
+                            interessiert.
+                        </li><br>
+                        <li><b>Wie kann ich mein Profil ändern?</b><br><br> Gehen Sie zu <a
+                                class="information-link-bold" href="einstellungen.php">Einstellungen</a> und bearbeiten
                             Sie
                             Ihre Daten.</li><br>
-                        <li><b>Wie finde ich einen Dozenten oder Kommilitonen?</b><br><br> Nutzen Sie die Suchfunktion
+                        <li><b>Wie finde ich einen Dozenten oder Kommilitonen?</b><br><br> Nutzen Sie <a
+                                class="information-link-bold" href="suche.php"> die Suchfunktion</a>
                             auf
                             der Plattform.</li><br>
                         <li><b>Wie kann ich einen Dozenten kontaktieren?</b><br><br> Sie können Ihren Dozenten über die
@@ -102,7 +107,8 @@ if (isset($_SESSION["user_id"])) {
 
                     <h3>Für Lehrende</h3>
                     <ul>
-                        <li><b>Wie korrigiere ich Tätigkeiten?</b><br><br> Öffnen Sie den Bereich "Startseite", um die
+                        <li><b>Wie korrigiere ich Tätigkeiten?</b><br><br> Öffnen Sie den Bereich <a
+                                class="information-link-bold" href="startseite.php">Startseite</a>, um die
                             eingereichten Dokumentationen und Reflexionen der Studierenden zu
                             bewerten.</li><br>
                         <li><b>Wie kontaktiere ich Studierende?</b><br><br> Nutzen Sie die

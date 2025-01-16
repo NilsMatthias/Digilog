@@ -85,7 +85,7 @@ if (isset($_SESSION["user_id"])) {
 
         <main class="layout-content">
             <div class="Page-content">
-                <div class="tätigkeiten">
+                <div class="information">
                     <h2>Hier kannst du Studierende und Lehrende suchen </h2>
                     <hr /></br>
                     <form action="" method="get">
@@ -116,7 +116,7 @@ if (isset($_SESSION["user_id"])) {
                                     } ?>
 
                                     <div class="search-results-names">
-                                        <?php echo "<p><a class='tätigkeiten-link tätigkeitenHoover' href='profil.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['vorname'])
+                                        <?php echo "<p><a class='information-link informationHoover' href='profil.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['vorname'])
                                             . " " . htmlspecialchars($row['nachname']) . " (" . (htmlspecialchars($rolle)) . ") " . "</a></p>";
                                         ?>
                                     </div>

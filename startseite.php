@@ -133,7 +133,7 @@ if (isset($_SESSION["user_id"])) {
                 </div></br>
                 <div class="bewertungen">
                     <h2>Bewertungen</h2>
-                    <hr /></br>
+                    <hr />
 
                     <?php while ($bewertungen = $bewertungResult->fetch_assoc()):
                         if ($bewertungResult->num_rows === 0) {
