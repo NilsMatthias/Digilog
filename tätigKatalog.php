@@ -11,7 +11,7 @@ if (isset($_SESSION["user_id"])) {
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
 
-    $search = "%" . $_GET['search'] . "%";
+    $search = isset($_GET['search']) ? "%" . $_GET['search'] . "%" : "%";
     $sql_taetigkeit = "SELECT * FROM Taetigkeiten WHERE `name` LIKE ? ORDER BY Kategorie ASC, Name ASC";
     $stmt = $mysqli->prepare($sql_taetigkeit);
     $stmt->bind_param("s", $search);

@@ -17,7 +17,7 @@ if (isset($_SESSION["user_id"])) {
     $user = $result->fetch_assoc();
     $user_id = $user["id"];
 
-    $search = "%" . $_GET['search'] . "%";
+    $search = isset($_GET['search']) ? "%" . $_GET['search'] . "%" :"%";
     $sql_taetigkeit = "SELECT * FROM `Userdaten_Hash` WHERE nachname LIKE ? OR vorname LIKE ? ORDER BY nachname ASC, vorname ASC";
     $stmt = $mysqli->prepare($sql_taetigkeit);
     $stmt->bind_param("ss", $search, $search);
