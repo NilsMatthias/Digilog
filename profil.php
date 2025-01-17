@@ -84,9 +84,9 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
             </div>
         </header>
         <div class="dropdown-menu" id="userDropdown">
-            <a href="startseite.php">Zurück zur Startseite</a>
-            <a href="einstellungen.php">Einstellungen</a>
-            <a class="navigation-link" href="logout.php">Log out</a>
+        <a href="lehrer_startseite.php">Zurück zur Startseite</a>
+        <a href="einstellungen.php">Einstellungen</a>
+        <a class="navigation-link" href="logout.php">Log out</a>
         </div>
 
         <div class="layout-drawer" id="drawer">

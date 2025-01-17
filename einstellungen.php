@@ -87,7 +87,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
 
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
-                <a class="navigation-link" href="startseite.php">Startseite</a>
+                <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
                 <a class="navigation-link" href="suche.php">Suche</a>
                 <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
                 <a class="navigation-link" href="einstellungen.php">Einstellungen</a>

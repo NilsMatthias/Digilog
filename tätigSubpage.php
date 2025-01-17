@@ -190,13 +190,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
       </div>
     </header>
     <div class="dropdown-menu" id="userDropdown">
-      <a href="startseite.php">Zurück zur Startseite</a>
+      <a href="lehrer_startseite.php">Zurück zur Startseite</a>
       <a href="einstellungen.php">Einstellungen</a>
       <a class="navigation-link" href="logout.php">Log out</a>
     </div>
     <div class="layout-drawer" id="drawer">
       <nav class="navigation">
-        <a class="navigation-link" href="startseite.php">Startseite</a>
+        <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
         <a class="navigation-link" href="suche.php">Suche</a>
         <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
         <a class="navigation-link" href="einstellungen.php">Einstellungen</a>

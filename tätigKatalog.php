@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
     $sql = "SELECT * FROM Userdaten_Hash WHERE id = {$_SESSION['user_id']}";
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
-    
+
     if (isset($_GET['sortieren'])) {
         switch ($_GET['sortieren']) {
             case "Name_ASC":
@@ -93,7 +93,11 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                 </div>
             </div>
         </header>
-
+        <div class="dropdown-menu" id="userDropdown">
+        <a href="lehrer_startseite.php">Zurück zur Startseite</a>
+        <a href="einstellungen.php">Einstellungen</a>
+        <a class="navigation-link" href="logout.php">Log out</a>
+        </div>
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
                 <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
