@@ -10,9 +10,24 @@ if (isset($_SESSION["user_id"])) {
     $sql = "SELECT * FROM Userdaten_Hash WHERE id = {$_SESSION['user_id']}";
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
-
+    
+    if (isset($_GET['sortieren'])) {
+        switch ($_GET['sortieren']) {
+            case "Name_ASC":
+                $sortierung = "Name ASC";
+                break;
+            case "Name_DESC":
+                $sortierung = "Name DESC";
+                break;
+            case "Kategorie_ASC":
+                $sortierung = "Kategorie ASC";
+                break;
+            default:
+                $sortierung = "Name ASC";
+        }
+    }
     $search = isset($_GET['search']) ? "%" . $_GET['search'] . "%" : "%";
-    $sql_taetigkeit = "SELECT * FROM Taetigkeiten WHERE `name` LIKE ? ORDER BY Kategorie ASC, Name ASC";
+    $sql_taetigkeit = "SELECT * FROM Taetigkeiten WHERE `name` LIKE ? ORDER BY $sortierung";
     $stmt = $mysqli->prepare($sql_taetigkeit);
     $stmt->bind_param("s", $search);
     $stmt->execute();
@@ -34,21 +49,13 @@ if (isset($_SESSION["user_id"])) {
 
     $sortierung = "Name ASC";  // Standardwert
 
-    if (isset($_GET['sortieren'])) {
-        switch ($_GET['sortieren']) {
-            case "Name_ASC":
-                $sortierung = "Name ASC";
-                break;
-            case "Name_DESC":
-                $sortierung = "Name DESC";
-                break;
-            case "Kategorie_ASC":
-                $sortierung = "Kategorie ASC";
-                break;
-            default:
-                $sortierung = "Name ASC";
-        }
-    }
+
+    $sql_taetigkeit = "SELECT * FROM Taetigkeiten WHERE `name` LIKE ? ORDER BY $sortierung";
+    $stmt = $mysqli->prepare($sql_taetigkeit);
+    $stmt->bind_param("s", $search);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
 }
 //Automatisches Log
 if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7200) {
