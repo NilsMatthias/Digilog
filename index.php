@@ -37,8 +37,8 @@
                         <span id="maincontent"></span>
                         <div class="loginform">
                             <div id="loginlogo" class="home-page flex">
-                                <img id="images/logoimage" src="PlatzhalterLogin.png">
-                                <span class="login-heading sr-only home-title">Home </span>
+                            <img id="logoimage" src="images/PlatzhalterLogin.png">
+                            <span class="login-heading sr-only home-title">Home </span>
                             </div>
 
                             <?php if(isset($user)): ?>
