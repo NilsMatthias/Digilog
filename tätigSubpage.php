@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
     </div>
     <div class="layout-drawer" id="drawer">
       <nav class="navigation">
-        <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
+        <a class="navigation-link" href="startseite.php">Startseite</a>
         <a class="navigation-link" href="suche.php">Suche</a>
         <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
         <a class="navigation-link" href="einstellungen.php">Einstellungen</a>
@@ -216,8 +216,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
             <!-- Falls keine Tätigkeit gefunden wird -->
             <p>Keine Tätigkeit gefunden oder ungültige ID übergeben.</p>
           <?php endif; ?>
-          <p class="deadline">Deadline: 10.12.2024, 23:59</p>
-          <p class="lehrer">Prof. Dr. Lorem</p>
+          <!--p class="deadline">Deadline: 10.12.2024, 23:59</p-->
+          <!--p class="lehrer">Prof. Dr. Lorem</p-->
         </div>
         <br>
         <div class="beschreibung">
@@ -280,10 +280,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
             <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
             <label for="due-date">Abgabedatum:</label>
             <input type="date" id="due-date" name="due-date"><br><br>
-            <label for="file-upload">Datei hochladen:</label>
-            <input type="file" id="file-upload" name="file-upload"><br><br>
+            <!--label for="file-upload">Datei hochladen:</label>
+            <input type="file" id="file-upload" name="file-upload"><br><br-->
             <input type="submit" value="<?= htmlspecialchars(string: $buttonSelfRefText) ?>">
           </form>
+        </div>
+        <?php ?>
+        <div class="dokumentation">
+            <h3>Bewertung</h3>
         </div>
       </div>
     </main>
