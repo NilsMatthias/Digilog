@@ -53,6 +53,13 @@ if (isset($_SESSION["user_id"])) {
     $letzteTaetigkeitenResult = $stmt->get_result();
 
 }
+//Automatisches Log
+if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7200) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+   }
+   $_SESSION['last_activity'] = time();
 
 ?>
 

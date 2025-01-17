@@ -57,6 +57,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 } else {
     die("Ungültige ID.");
 }
+//Automatisches Log
+if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7200) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+   }
+   $_SESSION['last_activity'] = time();
 ?>
 
 

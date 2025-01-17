@@ -19,7 +19,13 @@ if (isset($_SESSION["user_id"])) {
     $taetigkeiten = "SELECT * FROM Taetigkeiten, `Durchführung` LIMIT 3";
     $taetigkeitenResult = $mysqli->query($taetigkeiten);
 }
-
+//Automatisches Log
+if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7200) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+   }
+   $_SESSION['last_activity'] = time();
 ?>
 
 <!DOCTYPE html>
