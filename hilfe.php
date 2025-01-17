@@ -108,7 +108,8 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             der Plattform.</li><br>
                         <li><b>Wie kann ich einen Dozenten kontaktieren?</b><br><br> Sie können Ihren Dozenten über die
                             in
-                            seinem Profil angegebene E-Mail-Adresse finden.</li><br>
+                            seinem Profil angegebene E-Mail-Adresse finden. Sie finden alle Studenten und Dozenten inkl. ihrer Kontaktdaten in der <a
+                            class="information-link-bold" href="suche.php">Suchfunktion</a></li><br>
                     </ul>
 
                     <h3>Für Lehrende</h3>
@@ -118,7 +119,9 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             eingereichten Dokumentationen und Reflexionen der Studierenden zu
                             bewerten.</li><br>
                         <li><b>Wie kontaktiere ich Studierende?</b><br><br> Nutzen Sie die
-                            Kontaktinformationen, die in den Profilen der Studierenden angegeben sind.</li><br>
+                            Kontaktinformationen, die in den Profilen der Studierenden angegeben sind. Sie können Studierende über die  <a
+                            class="information-link-bold" href="suche.php">Suche</a> aufrufen</li><br>
+                    </ul></li><br>
                     </ul>
 
                     <h3>Technische Probleme</h3>
@@ -128,12 +131,11 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                         <li><b>Die Plattform lädt nicht. Was kann ich tun?</b><br><br> Überprüfen Sie Ihre
                             Internetverbindung und versuchen Sie, die Seite neu zu laden.</li><br>
                         <li><b>Wie kontaktiere ich den Support?</b><br><br> Schreiben Sie uns eine E-Mail an
-                            <b>digilog.support@plattform.de</b> oder nutzen Sie das Kontaktformular "Ungewöhnliche
-                            Probleme".
+                            <b>support@digilog.de
                         </li><br>
                     </ul>
 
-                    <h3>Ungewöhnliche Probleme</h3><br>
+                    <!--h3>Ungewöhnliche Probleme</h3><br>
                     <span class="taetigkeiten"><b>Profil:</b> <?= htmlspecialchars($user["username"]) ?>
                     </span><br><br>
                     <span class="taetigkeiten"><b>Email:</b> <?= htmlspecialchars($user["email"]) ?> </span><br><br>
@@ -142,7 +144,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                         <textarea id="problem" name="problem" class="full-width" rows="4"
                             placeholder="Beschreiben Sie Ihr Problem..." required></textarea><br><br>
                         <button type="submit">Absenden</button>
-                    </form>
+                    </form-->
 
                 </div>
         </main>
