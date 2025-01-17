@@ -105,7 +105,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                         </div>
 
 
-                    </form>
+                    </form><br>
                     <!--?php echo "Suchbegriff: " . $search; 
                     if (!isset($_GET['search']) || empty($_GET['search'])) {
                         echo "Keine Suchanfrage eingegeben.";

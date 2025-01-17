@@ -86,7 +86,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                 <div class="button-icon-menu" id="menuButton">
                     <i class="material-icons">menu</i>
                 </div>
-                <span class="layout-title">Tätigkeitenkatalog</span>
+                <span class="layout-title">Tätigkeitskatalog</span>
 
                 <div class="header-right">
                     <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
@@ -139,11 +139,11 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             </select>
                         </form>
                     </div>
-
+                    <br>
                     <div class="information-link">
                         <?php
                         if ($_GET['sortieren'] == "Name_ASC" || $_GET['sortieren'] == "Name_DESC") {
-                            echo "<h3>Bezeichnung der Tätigkeiten</h3><br>";
+                            echo "<h3>Bezeichnung der Tätigkeiten</h3>";
                         }
                         ?>
                     </div>
