@@ -2,7 +2,11 @@
 session_start();
 
 if (isset($_SESSION["user_id"])) {
-
+    if ($_SESSION["rolle"] == 3) {
+        header("Location: startseite.php");
+        exit;
+    }
+    
     $mysqli = require __DIR__ . "/connection.php";
 
     $sql = "SELECT * FROM Userdaten_Hash

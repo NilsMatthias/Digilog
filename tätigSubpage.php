@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
     </div>
     <div class="layout-drawer" id="drawer">
       <nav class="navigation">
-        <a class="navigation-link" href="startseite.php">Startseite</a>
+        <a class="navigation-link" href="lehrer_startseite.php">Startseite</a>
         <a class="navigation-link" href="suche.php">Suche</a>
         <a class="navigation-link" href="tätigKatalog.php?sortieren=Name_ASC">Tätigkeitenkatalog</a>
         <a class="navigation-link" href="einstellungen.php">Einstellungen</a>

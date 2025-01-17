@@ -9,6 +9,12 @@ if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit;
 }
+if ($_SESSION["rolle"] == 3) {
+    header("Location: startseite.php");
+    exit;
+}
+
+
 
 $mysqli = require __DIR__ . "/connection.php";
 $feedback = ""; // Feedback-Variable initialisieren
@@ -116,7 +122,7 @@ $stmt->close();
                 <span class="layout-title">Bewertung</span>
 
                 <div class="header-right">
-                    <span class="username-text">Hallo, Prof. <?= htmlspecialchars($current_user["username"]) ?> </span>
+                    <span class="username-text">Hallo, Prof. <?= htmlspecialchars($current_user["username"])?> </span>
                     <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
                 </div>
             </div>

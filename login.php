@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         session_regenerate_id();
 
         $_SESSION["user_id"] = $user["id"];
-        $_SESSION["rolle"] = $role["rolle"];
+        $_SESSION["rolle"] = $user["rolle"];
 
         if($user['rolle'] == 1) {
             header(header: "Location: startseite.php");
