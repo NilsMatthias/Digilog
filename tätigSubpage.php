@@ -40,7 +40,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     die("Tätigkeit nicht gefunden.");
   }
   // Bereits gespeicherte Dokumentation und Selbstreflexion abrufen
-  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung` FROM Durchführung WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
+  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung`, `Lehrer-ID`, u.vorname, u.nachname FROM Durchführung d JOIN `Userdaten_Hash` u ON u.id = d.`Lehrer-ID` WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
   $stmt = $mysqli->prepare($sqlGetValues);
   $stmt->bind_param("ii", $user_id, $id);
   $stmt->execute();
@@ -299,7 +299,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
           <h3>Bewertung</h3>
           <p><?= htmlspecialchars($generelle_bewertung) ?></p>
           <p><strong>EPA-Bewertung:</strong> <?= htmlspecialchars($epa_bewertung) ?></p>
-          <p><strong>BÄK-Bewertung:</strong> <?= htmlspecialchars($baek_bewertung) ?></p>
+          <p><strong>BÄK-Bewertung:</strong> <?= htmlspecialchars($baek_bewertung) ?></p><br>
+          <p>Erhalten von Prof. <?= htmlspecialchars($row['vorname']) ?> <?=htmlspecialchars($row['nachname'])?></p>
+
         </div>
         <?php else: ?>
           <p><?= htmlspecialchars($generelle_bewertung) ?></p>
