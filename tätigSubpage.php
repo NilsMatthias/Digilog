@@ -40,7 +40,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     die("Tätigkeit nicht gefunden.");
   }
   // Bereits gespeicherte Dokumentation und Selbstreflexion abrufen
-  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion FROM Durchführung WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
+  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung` FROM Durchführung WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
   $stmt = $mysqli->prepare($sqlGetValues);
   $stmt->bind_param("ii", $user_id, $id);
   $stmt->execute();
@@ -48,6 +48,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
   $row = $result->fetch_assoc();
 
   if ($row) {
+    $epa_bewertung = $row['EPA-Bewertung'] ?? "Noch keine Bewertung";
+    $baek_bewertung = $row['BÄK-Bewertung'] ?? "Noch keine Bewertung";
+    $generelle_bewertung = $row['Bewertung'] ?? "Noch keine Bewertung";
     if (!empty($row['Beschreibung'])) {
       $dokumentation_text = $row['Beschreibung'];
       $buttonText = "Aktualisieren";
@@ -56,6 +59,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
       $self_reflection_text = $row['Selbstreflexion'];
       $buttonSelfRefText = "Aktualisieren";
     }
+  } else {
+    $epa_bewertung = "Noch keine Bewertung";
+    $baek_bewertung = "Noch keine Bewertung";
+    $generelle_bewertung = "Noch keine Bewertung";
+
   }
   $stmt->close();
 } else {
@@ -284,11 +292,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
             <input type="file" id="file-upload" name="file-upload"><br><br-->
             <input type="submit" value="<?= htmlspecialchars(string: $buttonSelfRefText) ?>">
           </form>
+          <br>
         </div>
-        <?php ?>
+        <?php if($generelle_bewertung != "Noch keine Bewertung"): ?>
         <div class="dokumentation">
-            <h3>Bewertung</h3>
+          <h3>Bewertung</h3>
+          <p><?= htmlspecialchars($generelle_bewertung) ?></p>
+          <p><strong>EPA-Bewertung:</strong> <?= htmlspecialchars($epa_bewertung) ?></p>
+          <p><strong>BÄK-Bewertung:</strong> <?= htmlspecialchars($baek_bewertung) ?></p>
         </div>
+        <?php else: ?>
+          <p><?= htmlspecialchars($generelle_bewertung) ?></p>
+        <?php endif; ?>
       </div>
     </main>
   </div>
