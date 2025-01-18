@@ -208,14 +208,14 @@ $stmt->close();
                         <!-- Bewertung Felder -->
                         <?php if ($user_id && $taetigkeit_id): ?>
                             <label for="epa">EPA:</label>
-                            <select name="epa" id="epa" class="styled-select styled-select-taetigkeit" required>
+                            <select name="epa" id="epa" class="styled-select-epa styled-select-taetigkeit" required>
                                 <option value="" disabled selected>Wählen</option>
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
                                     <option value="<?= $i ?>" <?= ($bewertung_epa == $i) ? 'selected' : '' ?>><?= $i ?></option>
                                 <?php endfor; ?>
                             </select>
                             <label for="baek">BÄK:</label>
-                            <select name="baek" id="baek" class="styled-select styled-select-taetigkeit" required>
+                            <select name="baek" id="baek" class="styled-select-epa styled-select-taetigkeit" required>
                                 <option value="" disabled selected>Wählen</option>
                                 <?php foreach (['1', '2', '3a', '3b'] as $baek): ?>
                                     <option value="<?= $baek ?>" <?= ($bewertung_baek == $baek) ? 'selected' : '' ?>><?= $baek ?>

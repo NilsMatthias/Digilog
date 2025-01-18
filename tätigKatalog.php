@@ -132,7 +132,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                     <div class="sort-bar">
                         <form method="get" action="">
                             <label for="sortSelect">Sortieren nach:</label>
-                            <select name="sortieren" id="sortieren" class="styled-select" onchange="this.form.submit()">
+                            <select name="sortieren" id="sortieren" class="styled-select-search" onchange="this.form.submit()">
                                 <option value="Name_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Name_ASC' ? 'selected' : '' ?>>Name (aufsteigend)</option>
                                 <option value="Name_DESC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Name_DESC' ? 'selected' : '' ?>>Name (absteigend)</option>
                                 <option value="Kategorie_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Kategorie_ASC' ? 'selected' : '' ?>>Kategorie</option>

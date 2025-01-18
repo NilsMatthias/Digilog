@@ -326,7 +326,20 @@ input[type="submit"] {
     background-color: white; 
     border: 1px solid #ccc; 
     border-radius: 5px; 
-    padding: 5px 10px; 
+    padding: 10px 10px; 
+    font-size: 14px; 
+    color: rgb(37, 87, 117); 
+    outline: none; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    box-shadow: none;
+    width: 100%;
+}
+.styled-select-search {
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 10px 10px; 
     font-size: 14px; 
     color: rgb(37, 87, 117); 
     outline: none; 
@@ -334,7 +347,22 @@ input[type="submit"] {
     transition: all 0.3s ease; 
     box-shadow: none;
 }
+.styled-select-epa {
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 10px 10px; 
+    font-size: 14px; 
+    color: rgb(37, 87, 117); 
+    outline: none; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    box-shadow: none; 
+}
 
+.styled-select-taetigkeit {
+    margin-top: 20px ;
+}
 /* Hover-Effekt für Dropdown */
 .styled-select:hover {
     background-color: #e6e6e6; 
@@ -362,7 +390,12 @@ input[type="submit"] {
 }
 
 /* Suchleiste und Sortierleiste */
-.search-bar, .sort-bar {
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.sort-bar {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
