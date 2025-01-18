@@ -122,7 +122,7 @@ $stmt->close();
                 <span class="layout-title">Bewertung</span>
 
                 <div class="header-right">
-                    <span class="username-text">Hallo, Prof. <?= htmlspecialchars($current_user["username"])?> </span>
+                    <span class="username-text userTextMobil">Hallo, Prof. <?= htmlspecialchars($current_user["username"])?> </span>
                     <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
                 </div>
             </div>

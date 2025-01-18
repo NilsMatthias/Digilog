@@ -190,7 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
         <span class="layout-title">Hier können Tätigkeiten bearbeitet werden</span>
 
         <div class="header-right">
-          <!--span class="username-text">Hallo, <?= htmlspecialchars($user["username"]) ?> </span-->
           <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
 
 

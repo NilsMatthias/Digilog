@@ -286,7 +286,7 @@ input[type="submit"] {
     margin-top: 2px; 
     background-color: rgb(58, 123, 170); 
     color: white; 
-    padding: 10px 20px; 
+    padding: 8px 15px; 
     border: none; 
     border-radius: 5px;
     cursor: pointer; 
@@ -474,3 +474,24 @@ a.button {
     color: rgb(37, 87, 117);
     font-weight: bold;
 }
+/* TätigKatalog Suche bei kleineren Bildschirmen anpassen*/
+@media (max-width: 625px) {
+    label[for="searchInput"]{
+        display: none;
+    }
+  }
+@media (max-width: 386px) {
+    label[for="sortSelect"]{
+        display: none;
+    }
+}
+
+@media (max-width: 625px) {
+    .userTextMobil {
+        display: none;
+    }
+}
+
+
+
+  
