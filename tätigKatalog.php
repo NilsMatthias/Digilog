@@ -62,8 +62,8 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
     session_unset();
     session_destroy();
     header("Location: login.php");
-   }
-   $_SESSION['last_activity'] = time();
+}
+$_SESSION['last_activity'] = time();
 ?>
 
 <!DOCTYPE html>
@@ -94,9 +94,9 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
             </div>
         </header>
         <div class="dropdown-menu" id="userDropdown">
-        <a href="lehrer_startseite.php">Zurück zur Startseite</a>
-        <a href="einstellungen.php">Einstellungen</a>
-        <a class="navigation-link" href="logout.php">Log out</a>
+            <a href="lehrer_startseite.php">Zurück zur Startseite</a>
+            <a href="einstellungen.php">Einstellungen</a>
+            <a class="navigation-link" href="logout.php">Log out</a>
         </div>
         <div class="layout-drawer" id="drawer">
             <nav class="navigation">
@@ -117,7 +117,6 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                     <hr /><br>
                     <form action="" method="get">
                         <div class="search-bar">
-                            <label for="searchInput">Tätigkeitssuche:</label>
                             <input type="text" id="searchInput" class="styled-input styled-input-tät" name="search"
                                 placeholder="Tätigkeiten suchen..."
                                 value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
@@ -132,7 +131,8 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                     <div class="sort-bar">
                         <form method="get" action="">
                             <label for="sortSelect">Sortieren nach:</label>
-                            <select name="sortieren" id="sortieren" class="styled-select-search" onchange="this.form.submit()">
+                            <select name="sortieren" id="sortieren" class="styled-select-search"
+                                onchange="this.form.submit()">
                                 <option value="Name_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Name_ASC' ? 'selected' : '' ?>>Name (aufsteigend)</option>
                                 <option value="Name_DESC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Name_DESC' ? 'selected' : '' ?>>Name (absteigend)</option>
                                 <option value="Kategorie_ASC" <?= isset($_GET['sortieren']) && $_GET['sortieren'] == 'Kategorie_ASC' ? 'selected' : '' ?>>Kategorie</option>
