@@ -24,8 +24,8 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
     session_unset();
     session_destroy();
     header("Location: login.php");
-   }
-   $_SESSION['last_activity'] = time();
+}
+$_SESSION['last_activity'] = time();
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +58,9 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
             </div>
         </header>
         <div class="dropdown-menu" id="userDropdown">
-        <a href="lehrer_startseite.php">Zurück zur Startseite</a>
-        <a href="einstellungen.php">Einstellungen</a>
-        <a class="navigation-link" href="logout.php">Log out</a>
+            <a href="lehrer_startseite.php">Zurück zur Startseite</a>
+            <a href="einstellungen.php">Einstellungen</a>
+            <a class="navigation-link" href="logout.php">Log out</a>
         </div>
 
         <div class="layout-drawer" id="drawer">
@@ -107,8 +107,10 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             der Plattform.</li><br>
                         <li><b>Wie kann ich einen Dozenten kontaktieren?</b><br><br> Sie können Ihren Dozenten über die
                             in
-                            seinem Profil angegebene E-Mail-Adresse finden. Sie finden alle Studenten und Dozenten inkl. ihrer Kontaktdaten in der <a
-                            class="information-link-bold" href="suche.php">Suchfunktion</a></li><br>
+                            seinem Profil angegebene E-Mail-Adresse finden. Sie finden alle Studenten und Dozenten inkl.
+                            ihrer Kontaktdaten in der <a class="information-link-bold"
+                                href="suche.php">Suchfunktion</a>.
+                        </li><br>
                     </ul>
 
                     <h3>Für Lehrende</h3>
@@ -118,9 +120,11 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             eingereichten Dokumentationen und Reflexionen der Studierenden zu
                             bewerten.</li><br>
                         <li><b>Wie kontaktiere ich Studierende?</b><br><br> Nutzen Sie die
-                            Kontaktinformationen, die in den Profilen der Studierenden angegeben sind. Sie können Studierende über die  <a
-                            class="information-link-bold" href="suche.php">Suche</a> aufrufen</li><br>
-                    </ul></li><br>
+                            Kontaktinformationen, die in den Profilen der Studierenden angegeben sind. Sie können
+                            Studierende über die <a class="information-link-bold" href="suche.php">Suche</a> aufrufen.
+                        </li><br>
+                    </ul>
+                    </li><br>
                     </ul>
 
                     <h3>Technische Probleme</h3>
@@ -130,7 +134,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                         <li><b>Die Plattform lädt nicht. Was kann ich tun?</b><br><br> Überprüfen Sie Ihre
                             Internetverbindung und versuchen Sie, die Seite neu zu laden.</li><br>
                         <li><b>Wie kontaktiere ich den Support?</b><br><br> Schreiben Sie uns eine E-Mail an
-                            <b>support@digilog.de
+                            <b>support@digilog.de</b>.
                         </li><br>
                     </ul>
 

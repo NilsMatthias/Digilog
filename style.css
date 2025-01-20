@@ -194,13 +194,13 @@ hr.navigation-divider {
 
 /* Stil für Info-Links */
 .information-link{
-    adding-top: 20px;
+    padding-top: 20px;
     color: rgb(37, 87, 117);
     text-decoration: none; /* Keine Unterstreichung */
 }
 
 .information-link-bold{
-    adding-top: 20px;
+    padding-top: 20px;
     color: rgb(37, 87, 117);
     text-decoration: none; /* Keine Unterstreichung */
     font-weight: bold;
