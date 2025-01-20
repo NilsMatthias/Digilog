@@ -136,6 +136,9 @@ form {
     flex: 1 0 1em;
 }
 
+#reset-text {
+    align-items: center;
+}
 
 @media (min-width: 576px) {
     #page-wrapper #page #page-content {
@@ -150,15 +153,6 @@ form {
         
         
     }
+
 }
 
-/* Центрирование только в мобильной версии */
-@media screen and (max-width: 768px) {
-    .login-form-forgotpassword {
-        text-align: center; /* Центрирует текст */
-    }
-    .navigation-link {
-        display: block; /* Разместить ссылки друг под другом */
-        margin-bottom: 8px; /* Добавить отступ между ссылками */
-    }
-}
