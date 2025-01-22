@@ -37,7 +37,7 @@
                                 </div><br>
 
                                 <div class="login-form-back form-group">
-                                    <a class="navigation-link" href="index.php">Zurück zur Anmeldung</a>
+                                    <a class="navigation-link" href="login.php">Zurück zur Anmeldung</a>
                                 </div>
                             </form>
 
