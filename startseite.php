@@ -39,7 +39,7 @@ if (isset($_SESSION["user_id"])) {
 
     //letzten 3 bearbeiteten Tätigkeiten
     $letzteTaetigkeitenSql = "
-    SELECT t.ID, t.Name, t.Kategorie, d.Datum 
+    SELECT t.ID, t.Name, t.Kategorie, d.Datum, DATE_FORMAT(d.Datum, '%d.%m.%Y') AS geburtsdatum_formatiert 
     FROM Durchführung d
     JOIN Taetigkeiten t ON d.`Tätigkeit-ID` = t.ID
     WHERE d.`User-ID` = ?
@@ -126,7 +126,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                                     href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
                             </p>
                             <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
-                            <p>Zuletzt bearbeitet am: <?= htmlspecialchars($taetigkeit['Datum']) ?></p>
+                            <p>Zuletzt bearbeitet am: <?= htmlspecialchars($taetigkeit["geburtsdatum_formatiert"]) ?></p>
                             <?php $counter++;
                         endwhile; ?>
                     <?php else: ?>
