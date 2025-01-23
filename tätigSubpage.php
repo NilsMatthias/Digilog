@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
         </div>
         <br>
         <div class="beschreibung">
-          <h3>Aufgabenbeschreibung</h3>
+          <h3>Kategorie</h3>
           <?php if (isset($taetigkeit)): ?>
             <p class="kat">
               <?= htmlspecialchars(string: $taetigkeit['Kategorie']) ?>
