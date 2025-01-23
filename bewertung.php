@@ -59,6 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bewertung'], $_POST['
     $stmtUpdate->execute();
     $stmtUpdate->close();
     $feedback = "Bewertung erfolgreich gespeichert.";
+    $sql_bewertung = "SELECT Bewertung, `epa-Bewertung` AS epa, `bäk-Bewertung` AS baek FROM Durchführung 
+                      WHERE `user-id` = ? AND `tätigkeit-id` = ?";
+    $stmt = $mysqli->prepare($sql_bewertung);
+    $stmt->bind_param("ii", $user_id, $taetigkeit_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $bewertung = $row['Bewertung'] ?? '';
+        $bewertung_epa = $row['epa'] ?? '';
+        $bewertung_baek = $row['baek'] ?? '';
+    }
+    $stmt->close();
 }
 
 // Liste aller Benutzer abrufen
