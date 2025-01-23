@@ -34,7 +34,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     die("Tätigkeit nicht gefunden.");
   }
 
-  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung`, `Lehrer-ID`, u.vorname, u.nachname, Datum 
+  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung`, `Lehrer-ID`, u.vorname, u.nachname, Datum, DATE_FORMAT(Datum, '%d.%m.%Y') AS datum_formatiert
 FROM Durchführung d 
 LEFT JOIN `Userdaten_Hash` u ON u.id = d.`Lehrer-ID` 
 WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
@@ -45,7 +45,7 @@ WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
   $row = $result->fetch_assoc();
 
   if ($row) {
-    $datum = $row['Datum'];
+    $datum = $row['datum_formatiert'];
     $epa_bewertung = $row['EPA-Bewertung'] ?? "Noch keine Bewertung";
     $baek_bewertung = $row['BÄK-Bewertung'] ?? "Noch keine Bewertung";
     $generelle_bewertung = $row['Bewertung'] ?? "Noch keine Bewertung";
@@ -249,8 +249,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
             <textarea id="dokumentation-textarea" name="dokumentation" rows="5" cols="44"
               placeholder="<?= htmlspecialchars(string: $placeHolderText) ?>"><?= htmlspecialchars(string: $dokumentation_text) ?></textarea><br>
             <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
-            <label for="due-date">Abgabedatum:</label>
-            <input type="date" id="due-date" name="due-date"><br><br>
             <input type="submit" value="<?= htmlspecialchars(string: $buttonText) ?>">
           </form>
         </div>
@@ -273,8 +271,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
             <textarea id="dokumentation-textarea" name="selbstreflexion" rows="5" cols="44"
               placeholder="<?= htmlspecialchars($placeHolderTextRef) ?>"><?= htmlspecialchars(string: $self_reflection_text) ?></textarea>
             <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
-            <label for="due-date">Abgabedatum:</label>
-            <input type="date" id="due-date" name="due-date"><br><br>
             <!--label for="file-upload">Datei hochladen:</label>
             <input type="file" id="file-upload" name="file-upload"><br><br-->
             <input type="submit" value="<?= htmlspecialchars(string: $buttonSelfRefText) ?>">
