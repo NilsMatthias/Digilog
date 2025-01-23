@@ -45,7 +45,7 @@ if (isset($_SESSION["user_id"])) {
     JOIN Taetigkeiten t ON d.`Tätigkeit-ID` = t.ID
     WHERE d.`User-ID` = ?
     ORDER BY d.Datum DESC
-    LIMIT 3
+    LIMIT 6
     ";
 
     $stmt = $mysqli->prepare($letzteTaetigkeitenSql);

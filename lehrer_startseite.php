@@ -17,19 +17,22 @@ if (isset($_SESSION["user_id"])) {
 
     $user = $result->fetch_assoc();
 
-    $taetigkeiten = "SELECT * FROM Taetigkeiten LIMIT 3";
-    $taetigkeitenResult = $mysqli->query($taetigkeiten);
+    $letzteBewertungSql = "
+    SELECT u.vorname, u.nachname, t.ID, t.Name, t.Kategorie, d.Datum, DATE_FORMAT(d.Datum, '%d.%m.%Y') AS datum_formatiert 
+    FROM Durchführung d
+    JOIN Taetigkeiten t ON d.`Tätigkeit-ID` = t.ID
+    JOIN `Userdaten_Hash`u ON d.`User-ID` = u.id
+    WHERE d.`Lehrer-ID` = ?
+    ORDER BY d.Datum DESC
+    LIMIT 6";
 
-    $uhrzeitBearbeitungTätigkeit = "SELECT Datum FROM `Durchführung`";
-    $uhrzeitResult = $mysqli->query($uhrzeitBearbeitungTätigkeit);
-    $uhrzeit = $uhrzeitResult->fetch_assoc();
+    $stmt = $mysqli->prepare($letzteBewertungSql);
+    $stmt->bind_param("i", $user['id']);
+    $stmt->execute();
+    $letzteBewertungSql = $stmt->get_result();
 
-    if (!$taetigkeitenResult) {
-        die("Fehler beim Abrufen der Tätigkeiten: " . $mysqli->error);
-    }
-    if (!$uhrzeitResult) {
-        die("Fehler beim Abrufen der Uhrzeit: " . $mysqli->error);
-    }
+
+    
 }
 
 //Automatisches Log
@@ -96,29 +99,31 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
 
         <main class="layout-content">
             <div class="Page-content">
-                <div class="tätigkeiten">
-                    <h2>Tätigkeiten</h2>
-                    <hr />
-
-                    <?php while ($taetigkeit = $taetigkeitenResult->fetch_assoc()): ?>
-                        <h4>Tätigkeit <?= htmlspecialchars($taetigkeit['ID']) ?></h4>
-                        <p><a class="tätigkeiten-link tätigkeiten-link-bold"
-                                href="tätigSubpage.php?id=<?= $taetigkeit['ID'] ?>"><?= htmlspecialchars($taetigkeit['Name']) ?></a>
-                        </p>
-                        <p><?= htmlspecialchars($taetigkeit['Kategorie']) ?></p>
-
-
-                    <?php endwhile; ?>
-
-
-
-                </div></br>
-                <div class="tätigkeiten">
-                    <h2>Bewertungen</h2>
+              <div class="tätigkeiten letzte-tätigkeiten">
+                    <h2>Bewertungstool</h2>
                     <hr />
                     <p><a class="bewertungen-link bewertungen-link-bold" href="bewertung.php">Vergabe einer Note an den
                             Studenten</a></p>
-                </div>
+                </div></br>
+                <div class="tätigkeiten letzte-tätigkeiten">
+                        <h2>Bereits bewertete Studierende</h2>
+                        <hr /><br>
+                        <?php if ($letzteBewertungSql->num_rows > 0): ?>
+                            <?php $counter = 1;
+                            while ($bewertung = $letzteBewertungSql->fetch_assoc()): ?>
+                                <h3>Tätigkeit <?= $counter ?></h3>
+                                <p><a class="tätigkeiten-link tätigkeiten-link-bold"
+                                        href="tätigSubpage.php?id=<?= $bewertung['ID'] ?>"><?= htmlspecialchars($bewertung['Name']) ?></a>
+                                </p>
+                                <p><?= htmlspecialchars($bewertung['Kategorie']) ?></p>
+                                <p><?= htmlspecialchars($bewertung['vorname']) ?> <?= htmlspecialchars($bewertung['nachname']) ?></p>
+                                <?php $counter++;
+                            endwhile; ?>
+                        <?php else: ?>
+                            <p>Keine bearbeiteten Tätigkeiten gefunden</p>
+                        <?php endif; ?>
+
+                    </div>
             </div>
         </main>
     </div>
