@@ -51,7 +51,7 @@ $_SESSION['last_activity'] = time();
                 <span class="layout-title">Hilfe</span>
 
                 <div class="header-right">
-                    <span class="username-text userTextMobil">Hallo, <?= htmlspecialchars($user["username"]) ?> </span>
+                    <!--span class="username-text userTextMobil">Hallo, <?= htmlspecialchars($user["username"]) ?> </span-->
                     <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
 
                 </div>
