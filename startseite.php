@@ -142,20 +142,16 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                 <div class="bewertungen">
                     <h2>Bewertungen</h2>
                     <hr />
-                    <?php while ($bewertungen = $bewertungResult->fetch_assoc()):
-                        if ($bewertungResult->num_rows === 0) {
-                            echo "<p>Keine Bewertungen gefunden.</p>";
-                        } ?>
-
+                    <?php if ($bewertungResult->num_rows > 0): ?>
+                    <?php while ($bewertungen = $bewertungResult->fetch_assoc()): ?>
                         <p><a class="tätigkeiten-link tätigkeiten-link-bold"
                                 href="bewertungssicht.php?id=<?= $bewertungen['ID'] ?>"><?= htmlspecialchars($bewertungen['Name']) ?></a>
                         </p>
-
-
                     <?php endwhile; ?>
-                    <?php if($bewertungen ==0 ): ?>
-                        <p>Sie haben noch keine Bewertungen erhalten</p>
-                    <?php endif;?>
+                <?php else: ?>
+                    <br><p>Sie haben noch keine Bewertungen erhalten</p>
+                <?php endif; ?>
+
                 </div>
             </div>
         </main>
