@@ -131,7 +131,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             <?php $counter++;
                         endwhile; ?>
                     <?php else: ?>
-                        <p>Keine bearbeiteten Tätigkeiten gefunden.</p>
+                        <p>Keine bearbeiteten Tätigkeiten gefunden</p>
                     <?php endif; ?>
 
 

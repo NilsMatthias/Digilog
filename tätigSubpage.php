@@ -4,9 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//Nutzer eingeloggt prüfung 
 if (!isset($_SESSION["user_id"])) {
-  header("Location: login.php"); // Redirect if not logged in
+  header("Location: login.php");
   exit;
 }
 
@@ -22,25 +21,23 @@ $self_reflection_text = "";
 $buttonText = "Speichern";
 $buttonSelfRefText = "Speichern";
 $lehrer_id = 0;
-// Get ID from URL (GET verarbeitung)
+
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
   $id = $_GET['id'];
-  //Abfrage
   $sql = "SELECT * FROM Taetigkeiten WHERE ID = $id";
-  //Ausführen
   $result = $mysqli->query($sql);
 
-
   if ($result && $result->num_rows > 0) {
-    // Hole das Ergebnis als Array
     $taetigkeit = $result->fetch_assoc();
   } else {
-    // Keine Tätigkeit gefunden
     die("Tätigkeit nicht gefunden.");
   }
-  // Bereits gespeicherte Dokumentation und Selbstreflexion abrufen
-  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung`, `Lehrer-ID`, u.vorname, u.nachname FROM Durchführung d JOIN `Userdaten_Hash` u ON u.id = d.`Lehrer-ID` WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
+
+  $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Bewertung, `EPA-Bewertung`, `BÄK-Bewertung`, `Lehrer-ID`, u.vorname, u.nachname, Datum 
+FROM Durchführung d 
+LEFT JOIN `Userdaten_Hash` u ON u.id = d.`Lehrer-ID` 
+WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
   $stmt = $mysqli->prepare($sqlGetValues);
   $stmt->bind_param("ii", $user_id, $id);
   $stmt->execute();
@@ -48,6 +45,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
   $row = $result->fetch_assoc();
 
   if ($row) {
+    $datum = $row['Datum'];
     $epa_bewertung = $row['EPA-Bewertung'] ?? "Noch keine Bewertung";
     $baek_bewertung = $row['BÄK-Bewertung'] ?? "Noch keine Bewertung";
     $generelle_bewertung = $row['Bewertung'] ?? "Noch keine Bewertung";
@@ -63,15 +61,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $epa_bewertung = "Noch keine Bewertung";
     $baek_bewertung = "Noch keine Bewertung";
     $generelle_bewertung = "Noch keine Bewertung";
-
   }
   $stmt->close();
 } else {
-  // Ungültige ID
   die("Ungültige ID.");
 }
-
-// POST verarbeitung
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
   $taetigkeit_id = $_POST['taetigkeit_id'];
@@ -79,15 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
   $selbstreflexion = isset($_POST['selbstreflexion']) ? trim($_POST['selbstreflexion']) : null;
   $date = date("Y-m-d H:i:s");
 
-
   if (!is_numeric($taetigkeit_id)) {
     $feedback = "Ungültige Tätikgeits-ID";
   }
   if (empty($beschreibung) && empty($selbstreflexion)) {
     $feedback = "Die Dokumentation und/oder Selbstreflexion darf nicht leer sein.";
   } else {
-
-    // Prüfen, ob Eintrag existiert
     $sqlCheck = "SELECT * FROM Durchführung WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
     $stmtCheck = $mysqli->prepare($sqlCheck);
     $stmtCheck->bind_param("ii", $user_id, $taetigkeit_id);
@@ -95,8 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
     $result = $stmtCheck->get_result();
 
     if ($result->num_rows > 0) {
-
-      // Update vorhandener Eintrag
       $sqlUpdate = "UPDATE Durchführung SET 
         Beschreibung = IF(? IS NOT NULL, ?, Beschreibung), 
         Selbstreflexion = IF(? IS NOT NULL, ?, Selbstreflexion), 
@@ -118,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
 
       $feedback = "Eintrag erfolgreich aktualisiert.";
     } else {
-      // Neuer Eintrag
       $sqlInsert = "INSERT INTO Durchführung (`Lehrer-ID`, `User-ID`, `Tätigkeit-ID`, Beschreibung, Selbstreflexion, Datum) 
                   VALUES (?, ?, ?, ?, ?, ?)";
       $stmtInsert = $mysqli->prepare($sqlInsert);
@@ -138,8 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
     }
     $stmtCheck->close();
 
-    // Nach dem Speichern die aktualisierten Werte erneut abrufen
-    $sqlGetValues = "SELECT Beschreibung, Selbstreflexion FROM Durchführung WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
+    $sqlGetValues = "SELECT Beschreibung, Selbstreflexion, Datum FROM Durchführung WHERE `User-ID` = ? AND `Tätigkeit-ID` = ?";
     $stmtFetch = $mysqli->prepare($sqlGetValues);
     $stmtFetch->bind_param("ii", $user_id, $taetigkeit_id);
     $stmtFetch->execute();
@@ -149,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
     if ($rowFetch) {
       $dokumentation_text = $rowFetch['Beschreibung'] ?? $dokumentation_text;
       $self_reflection_text = $rowFetch['Selbstreflexion'] ?? $self_reflection_text;
-
+      $datum = $rowFetch['Datum'] ?? $datum;
 
       if (!empty($beschreibung)) {
         $buttonText = "Aktualisieren";
@@ -158,12 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
       if (!empty($selbstreflexion)) {
         $buttonSelfRefText = "Aktualisieren";
       }
-
     }
     $stmtFetch->close();
   }
 }
-
 ?>
 
 
@@ -215,13 +200,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
     <main class="layout-content">
       <div class="Page-content">
         <div class="tätigkeiten">
-
+          
           <?php if (isset($taetigkeit)): ?>
             <!-- Wenn $taetigkeit definiert ist, zeige die Daten an -->
             <h2><?= htmlspecialchars($taetigkeit['Name']) ?> <!--- Dokumentation--></h2>
           <?php else: ?>
             <!-- Falls keine Tätigkeit gefunden wird -->
             <p>Keine Tätigkeit gefunden oder ungültige ID übergeben.</p>
+            <?php endif; ?>
+          <?php if(isset($datum)):?>
+            Zuletzt bearbeitet: <?= htmlspecialchars($datum) ?>
           <?php endif; ?>
           <!--p class="deadline">Deadline: 10.12.2024, 23:59</p-->
           <!--p class="lehrer">Prof. Dr. Lorem</p-->
