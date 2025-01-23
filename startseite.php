@@ -25,6 +25,7 @@ if (isset($_SESSION["user_id"])) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $bewertungResult = $stmt->get_result();
+    $bewertungen = "";
 
     $uhrzeitBearbeitungTätigkeit = "SELECT Datum FROM `Durchführung`";
     $uhrzeitResult = $mysqli->query($uhrzeitBearbeitungTätigkeit);
@@ -141,7 +142,6 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                 <div class="bewertungen">
                     <h2>Bewertungen</h2>
                     <hr />
-
                     <?php while ($bewertungen = $bewertungResult->fetch_assoc()):
                         if ($bewertungResult->num_rows === 0) {
                             echo "<p>Keine Bewertungen gefunden.</p>";
@@ -153,9 +153,9 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
 
 
                     <?php endwhile; ?>
-
-
-
+                    <?php if($bewertungen ==0 ): ?>
+                        <p>Sie haben noch keine Bewertungen erhalten</p>
+                    <?php endif;?>
                 </div>
             </div>
         </main>
