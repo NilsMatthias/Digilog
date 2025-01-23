@@ -18,7 +18,7 @@ if (isset($_SESSION["user_id"])) {
     $user = $result->fetch_assoc();
 
     $letzteBewertungSql = "
-    SELECT u.vorname, u.nachname, t.ID, t.Name, t.Kategorie, d.Datum, DATE_FORMAT(d.Datum, '%d.%m.%Y') AS datum_formatiert 
+    SELECT u.vorname, u.nachname, t.ID as TID, t.Name, t.Kategorie, d.Datum, u.id as UID, DATE_FORMAT(d.Datum, '%d.%m.%Y') AS datum_formatiert 
     FROM Durchführung d
     JOIN Taetigkeiten t ON d.`Tätigkeit-ID` = t.ID
     JOIN `Userdaten_Hash`u ON d.`User-ID` = u.id
@@ -113,7 +113,7 @@ if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 7
                             while ($bewertung = $letzteBewertungSql->fetch_assoc()): ?>
                                 <h3>Tätigkeit <?= $counter ?></h3>
                                 <p><a class="tätigkeiten-link tätigkeiten-link-bold"
-                                        href="tätigSubpage.php?id=<?= $bewertung['ID'] ?>"><?= htmlspecialchars($bewertung['Name']) ?></a>
+                                        href="bewertung.php?user_id=<?= $bewertung['UID'] ?>&taetigkeit_id=<?= $bewertung['TID'] ?>"><?= htmlspecialchars($bewertung['Name']) ?></a>
                                 </p>
                                 <p><?= htmlspecialchars($bewertung['Kategorie']) ?></p>
                                 <p><?= htmlspecialchars($bewertung['vorname']) ?> <?= htmlspecialchars($bewertung['nachname']) ?></p>
