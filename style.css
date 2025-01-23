@@ -306,9 +306,9 @@ input[type="submit"] {
 /* Textbereich für Dokumentation */
 #dokumentation-textarea{
     width: 99%;
-    resize: vertical;
     padding: 10px;
     font-size: 16px;
+    height: 200px;
 }
 
 /* Eingabefeld für die gesamte Breite */

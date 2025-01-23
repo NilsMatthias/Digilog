@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
           <i class="material-icons">menu</i>
 
         </div>
-        <span class="layout-title">Hier können Tätigkeiten bearbeitet werden</span>
+        <span class="layout-title">Tätigkeitsbearbeitung</span>
 
         <div class="header-right">
           <img src="images/icon_user_white.png" alt="Logo" class="icon-user" id="icon_user">
@@ -247,11 +247,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
 
           <form id="textarea" action="" method="POST">
             <textarea id="dokumentation-textarea" name="dokumentation" rows="5" cols="44"
-              placeholder="<?= htmlspecialchars(string: $placeHolderText) ?>"><?= htmlspecialchars(string: $dokumentation_text) ?></textarea><br>
+              placeholder="<?= htmlspecialchars(string: $placeHolderText) ?>"><?= htmlspecialchars(string: $dokumentation_text) ?></textarea><br><br>
             <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
             <input type="submit" value="<?= htmlspecialchars(string: $buttonText) ?>">
           </form>
-        </div>
+        </div><br>
 
         <div class="dokumentation">
           <div class="flex">
@@ -269,14 +269,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['taetigkeit_id'])) {
 
           <form action="" method="POST">
             <textarea id="dokumentation-textarea" name="selbstreflexion" rows="5" cols="44"
-              placeholder="<?= htmlspecialchars($placeHolderTextRef) ?>"><?= htmlspecialchars(string: $self_reflection_text) ?></textarea>
+              placeholder="<?= htmlspecialchars($placeHolderTextRef) ?>"><?= htmlspecialchars(string: $self_reflection_text) ?></textarea><br><br>
             <input type="hidden" name="taetigkeit_id" value="<?= $taetigkeit['ID'] ?>">
             <!--label for="file-upload">Datei hochladen:</label>
             <input type="file" id="file-upload" name="file-upload"><br><br-->
             <input type="submit" value="<?= htmlspecialchars(string: $buttonSelfRefText) ?>">
           </form>
-          <br>
-        </div>
+        </div><br>
         <?php if($generelle_bewertung != "Noch keine Bewertung"): ?>
         <div class="dokumentation">
           <h3>Bewertung</h3>
